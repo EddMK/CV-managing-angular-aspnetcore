@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace backend.Models
 {
+    public enum UserRole {
+        MANAGER = 0, CONSULTANT = 1
+    }
     public class User : IValidatableObject
     {
         [Key]
@@ -31,6 +34,21 @@ namespace backend.Models
         public string LastName { get; set; }
 
         public DateTime? BirthDate { get; set; }
+
+        public UserRole Role { get; set;}
+
+        
+        public User(string pseudo, string password, string email, string firtsname, string lastname, DateTime birthday, UserRole role){
+            this.Pseudo = pseudo;
+            this.Password = password;
+            this.Email = email;
+            this.FirstName = firtsname;
+            this.LastName = lastname;
+            this.BirthDate = birthday;
+            this.Role = role;
+        }
+
+        public User(){}
 
         public int? Age {
             get {

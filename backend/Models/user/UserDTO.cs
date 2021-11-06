@@ -15,6 +15,8 @@ namespace backend.Models
         public string Email { get; set; }
 
         public DateTime BirthDate { get; set; }
+
+        public UserRole Role { get; set; }
         
         
     }

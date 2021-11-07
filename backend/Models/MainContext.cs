@@ -17,8 +17,8 @@ namespace backend.Models
             //modelBuilder.Entity<User>().Property(u => u.userId).ValueGeneratedOnAdd();
 
             modelBuilder.Entity<User>().HasData(
-                new Manager {userId = 1, Pseudo = "benoit", Password = "benoit", Email="bpenelle@gmail.com", FirstName="Benoit", LastName="Pennelle", BirthDate=new DateTime(1970, 1, 2), Role = UserRole.MANAGER},
-                new Manager {userId = 2, Pseudo = "bruno", Password = "bruno", Email="blacroix@gmail.com", FirstName="Bruno", LastName="Lacroix" , BirthDate=new DateTime(1970, 1, 2), Role = UserRole.MANAGER }
+                new User {userId = 1, Pseudo = "benoit", Password = "benoit", Email="bpenelle@gmail.com", FirstName="Benoit", LastName="Pennelle", BirthDate=new DateTime(1970, 1, 2), Role = UserRole.MANAGER},
+                new User {userId = 2, Pseudo = "bruno", Password = "bruno", Email="blacroix@gmail.com", FirstName="Bruno", LastName="Lacroix" , BirthDate=new DateTime(1970, 1, 2), Role = UserRole.MANAGER }
                 
             );
         }

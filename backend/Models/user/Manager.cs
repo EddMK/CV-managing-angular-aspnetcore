@@ -12,6 +12,10 @@ namespace backend.Models {
       this.team =new List<Consultant>();
     }
 
+    public Manager(){
+      
+    }
+    
 
   }
 

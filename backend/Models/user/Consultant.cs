@@ -5,11 +5,13 @@ namespace backend.Models {
       
     private Manager manager { get; set; }
 
-     public Consultant(string pseudo, string password, string email, string firtsname, string lastname, DateTime birthday, Manager manager, UserRole role)
+     public Consultant(string pseudo, string password, string email, string firtsname, string lastname, DateTime birthday, UserRole role, int userId)
 
-    : base(pseudo, password, email, firtsname, lastname, birthday, role){
-      this.manager = manager;
+    : base(pseudo, password, email, firtsname, lastname, birthday, role, userId){
+      
     }
+
+    public Consultant(){ }
 
 
   }

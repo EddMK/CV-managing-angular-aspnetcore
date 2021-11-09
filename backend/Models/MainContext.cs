@@ -6,6 +6,13 @@ namespace backend.Models
 {
     public class MainContext : DbContext
     {
+
+         public DbSet<User> Users { get; set; }
+         public DbSet<User> Manager { get; set; }
+
+        public DbSet<User> Consultant { get; set; }
+
+
         public MainContext(DbContextOptions<MainContext> options)
             : base(options) {
         }
@@ -16,13 +23,22 @@ namespace backend.Models
             modelBuilder.Entity<User>().HasIndex(u => u.userId).IsUnique(); 
             //modelBuilder.Entity<User>().Property(u => u.userId).ValueGeneratedOnAdd();
 
-            modelBuilder.Entity<User>().HasData(
-                new User {userId = 1, Pseudo = "benoit", Password = "benoit", Email="bpenelle@gmail.com", FirstName="Benoit", LastName="Pennelle", BirthDate=new DateTime(1970, 1, 2), Role = UserRole.MANAGER},
-                new User {userId = 2, Pseudo = "bruno", Password = "bruno", Email="blacroix@gmail.com", FirstName="Bruno", LastName="Lacroix" , BirthDate=new DateTime(1970, 1, 2), Role = UserRole.MANAGER }
-                
+
+            modelBuilder.Entity<Manager>().HasData(
+                new Manager {Pseudo = "dan", Password = "dan", Email="danielsoria@gmail.com", FirstName="Daniel", LastName="Soria", BirthDate=new DateTime(1989, 11, 26), Role = UserRole.MANAGER, userId = 1},
+                new Manager {Pseudo = "ed", Password = "ed", Email="edouardkourieh@gmail.com", FirstName="Edouard", LastName="Kourieh" , BirthDate=new DateTime(1995, 1, 2), Role = UserRole.MANAGER, userId = 2}
             );
+
+             modelBuilder.Entity<Consultant>().HasData(
+                new Consultant {Pseudo = "Jo", Password = "jo", Email="joaquim@gmail.com", FirstName="Joaquim", LastName="Munoz", BirthDate=new DateTime(1989, 11, 26), Role = UserRole.CONSULTANT, userId = 3},
+                new Consultant {Pseudo = "leo", Password = "leo", Email="leonnie@gmail.com", FirstName="Leonnie", LastName="Bouchat" , BirthDate=new DateTime(1995, 1, 2), Role = UserRole.CONSULTANT, userId = 4}
+            );
+
+           
+
+            
         }
 
-        public DbSet<User> Users { get; set; }
+      
     }
 }

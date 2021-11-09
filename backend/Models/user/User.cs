@@ -38,7 +38,7 @@ namespace backend.Models
         public UserRole Role { get; set;}
 
         
-        public User(string pseudo, string password, string email, string firtsname, string lastname, DateTime birthday, UserRole role){
+        public User(string pseudo, string password, string email, string firtsname, string lastname, DateTime birthday, UserRole role, int userId = 0){
             this.Pseudo = pseudo;
             this.Password = password;
             this.Email = email;
@@ -46,7 +46,9 @@ namespace backend.Models
             this.LastName = lastname;
             this.BirthDate = birthday;
             this.Role = role;
+            this.userId = userId;
         }
+        
 
         public User(){}
 

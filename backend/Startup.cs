@@ -30,7 +30,7 @@ namespace backend
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
-            services.AddDbContext<MainContext>(opt => opt.UseSqlite("data source=prid-2122-g04"));
+            services.AddDbContext<MainContext>(opt => opt.UseSqlite("data source=prid-2122-g04.db"));
             services.AddControllers();
             
           // In production, the Angular files will be served from this directory

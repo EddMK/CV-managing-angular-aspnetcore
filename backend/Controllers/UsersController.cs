@@ -47,7 +47,7 @@ public class UsersController : ControllerBase
       // Ajoute ce nouveau membre au contexte EF
        _context.Users.Add(newuser);
        // Sauve les changements
-       var res = await _context.SaveChangesAsyncWithValidation();
+       var res = await _context.SaveChangesAsyncWithValidation();//SaveChangesAsyncWithValidation()
        if (!res.IsEmpty)
           return BadRequest(res);
 

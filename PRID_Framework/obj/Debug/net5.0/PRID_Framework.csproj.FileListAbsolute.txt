@@ -10,3 +10,15 @@ C:\PRID\prid2122-g04\PRID_Framework\obj\Debug\net5.0\PRID_Framework.csproj.CoreC
 C:\PRID\prid2122-g04\PRID_Framework\obj\Debug\net5.0\PRID_Framework.dll
 C:\PRID\prid2122-g04\PRID_Framework\obj\Debug\net5.0\ref\PRID_Framework.dll
 C:\PRID\prid2122-g04\PRID_Framework\obj\Debug\net5.0\PRID_Framework.pdb
+C:\prid2122-g04\PRID_Framework\bin\Debug\net5.0\PRID_Framework.deps.json
+C:\prid2122-g04\PRID_Framework\bin\Debug\net5.0\PRID_Framework.dll
+C:\prid2122-g04\PRID_Framework\bin\Debug\net5.0\ref\PRID_Framework.dll
+C:\prid2122-g04\PRID_Framework\bin\Debug\net5.0\PRID_Framework.pdb
+C:\prid2122-g04\PRID_Framework\obj\Debug\net5.0\PRID_Framework.csproj.AssemblyReference.cache
+C:\prid2122-g04\PRID_Framework\obj\Debug\net5.0\PRID_Framework.GeneratedMSBuildEditorConfig.editorconfig
+C:\prid2122-g04\PRID_Framework\obj\Debug\net5.0\PRID_Framework.AssemblyInfoInputs.cache
+C:\prid2122-g04\PRID_Framework\obj\Debug\net5.0\PRID_Framework.AssemblyInfo.cs
+C:\prid2122-g04\PRID_Framework\obj\Debug\net5.0\PRID_Framework.csproj.CoreCompileInputs.cache
+C:\prid2122-g04\PRID_Framework\obj\Debug\net5.0\PRID_Framework.dll
+C:\prid2122-g04\PRID_Framework\obj\Debug\net5.0\ref\PRID_Framework.dll
+C:\prid2122-g04\PRID_Framework\obj\Debug\net5.0\PRID_Framework.pdb

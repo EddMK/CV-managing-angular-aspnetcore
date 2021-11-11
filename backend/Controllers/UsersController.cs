@@ -54,7 +54,7 @@ public class UsersController : ControllerBase
     // Renvoie une réponse ayant dans son body les données du nouveau membre (3ème paramètre)
     // et ayant dans ses headers une entrée 'Location' qui contient l'url associé à GetOne avec la bonne valeur 
     // pour le paramètre 'pseudo' de cet url.
-    return CreatedAtAction(nameof(GetOne), new { pseudo = user.Pseudo }, _mapper.Map<UserDTO>(newuser));
+    return CreatedAtAction(nameof(GetOne), new { pseudo = user.pseudo }, _mapper.Map<UserDTO>(newuser));
     }
 
     [HttpPut]

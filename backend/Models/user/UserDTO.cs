@@ -4,8 +4,8 @@ namespace backend.Models
 {
     public class UserDTO
     {
-        //public int userId { get; set; }
-
+        public int userId { get; set; }
+       
         public string pseudo { get; set; }
 
         public string firstName { get; set; }

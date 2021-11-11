@@ -11,10 +11,10 @@
                         <a class="nav-link text-white" [routerLink]="['/']">Home</a>
                     </li>
                     <li class="nav-item" >
-                        <a class="nav-link text-white" [routerLink]="['/counter']">Profile</a>
+                        <a class="nav-link text-white">Profile</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" >Team</a>
+                    <li class="nav-item" [routerLinkActive]='["link-active"]'>
+                        <a class="nav-link text-white" [routerLink]="['/users']">Team</a>
                     </li>
                 </ul>
             </div>

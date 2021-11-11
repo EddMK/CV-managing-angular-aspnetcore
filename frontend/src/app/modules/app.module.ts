@@ -4,10 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
-import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './home/home.component';
+import { AppComponent } from '../components/app/app.component';
+import { NavMenuComponent } from '../components/nav-menu/nav-menu.component';
+import { HomeComponent } from '../components/home/home.component';
+import { UserListComponent } from '../components/userlist/userlist.component';
 
+ 
 
 export function getBaseUrl() {
     return document.getElementsByTagName('base')[0].href;
@@ -18,6 +20,7 @@ export function getBaseUrl() {
         AppComponent,
         NavMenuComponent,
         HomeComponent,
+        UserListComponent,
         
     ],
     imports: [

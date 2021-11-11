@@ -11,7 +11,7 @@ namespace backend.Models
     public enum UserRole {
         MANAGER = 0, CONSULTANT = 1
     }
-    public class User : IValidatableObject
+    public abstract class User : IValidatableObject
     {
         [Key]
         public int userId { get; set;}

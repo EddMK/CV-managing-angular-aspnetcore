@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { User } from '../../models/User';
-import { MemberService } from '../../services/user.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
     selector: 'app-userlist',
@@ -9,8 +9,8 @@ import { MemberService } from '../../services/user.service';
 export class UserListComponent {
     users: User[] = [];
 
-    constructor(private memberService: MemberService) {
-        memberService.getAll().subscribe(users => {
+    constructor(private userservice: UserService) {
+        userservice.getAll().subscribe(users => {
             this.users = users;
         })
     }

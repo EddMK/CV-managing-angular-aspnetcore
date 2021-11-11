@@ -4,19 +4,19 @@ namespace backend.Models
 {
     public class UserDTO
     {
-        public int userId { get; set; }
+        //public int userId { get; set; }
 
-        public string Pseudo { get; set; }
+        public string pseudo { get; set; }
 
-        public string FirstName { get; set; }
+        public string firstName { get; set; }
         
-        public string LastName { get; set; }
+        public string lastName { get; set; }
         
-        public string Email { get; set; }
+        public string email { get; set; }
 
-        public DateTime BirthDate { get; set; }
+        public DateTime birthDate { get; set; }
 
-        public UserRole Role { get; set; }
+        public UserRole role { get; set; }
         
         
     }

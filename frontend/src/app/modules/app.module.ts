@@ -29,6 +29,7 @@ export function getBaseUrl() {
         FormsModule,
         RouterModule.forRoot([
             { path: '', component: HomeComponent, pathMatch: 'full' },
+            { path: 'team', component: UserListComponent },
             
         ])
     ],

@@ -32,14 +32,14 @@ namespace backend.Models
                 new Manager {Pseudo = "ed", Password = "ed", Email="edouardkourieh@gmail.com", FirstName="Edouard", LastName="Kourieh" , BirthDate=new DateTime(1995, 1, 2), Role = UserRole.MANAGER, userId = 2}
             );
 
-             modelBuilder.Entity<Consultant>().HasData(
+            modelBuilder.Entity<Consultant>().HasData(
                 new Consultant {Pseudo = "Jo", Password = "jo", Email="joaquim@gmail.com", FirstName="Joaquim", LastName="Munoz", BirthDate=new DateTime(1989, 11, 26), Role = UserRole.CONSULTANT, userId = 3},
                 new Consultant {Pseudo = "leo", Password = "leo", Email="leonnie@gmail.com", FirstName="Leonnie", LastName="Bouchat" , BirthDate=new DateTime(1995, 1, 2), Role = UserRole.CONSULTANT, userId = 4}
             );
 
-           modelBuilder.Entity<Training>().HasData(
-                new Training(new DateTime(1989, 11, 26),new DateTime(1989, 11, 26),"Java Developer","",ExperienceRole.TRAINING,1),
-                new Training(new DateTime(1989, 11, 26),new DateTime(1989, 11, 26),".NET Developer","",ExperienceRole.TRAINING,2)
+            modelBuilder.Entity<Training>().HasData(
+                new Training {Start = new DateTime(1989, 11, 26), Finish = new DateTime(1989, 11, 26), Title = "Java Developer",Description ="", Role = ExperienceRole.TRAINING, IdExperience = 1},
+                new Training {Start = new DateTime(1989, 11, 26), Finish = new DateTime(1989, 11, 26), Title = ".NET Developer",Description ="", Role = ExperienceRole.TRAINING, IdExperience = 2}
             );
 
             

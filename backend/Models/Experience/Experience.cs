@@ -26,17 +26,6 @@ namespace backend.Models {
 
         public ExperienceRole Role { get; set;}
 
-
-        public Experience( DateTime start, DateTime finish, String title, String description, 
-                            ExperienceRole role, int idexperience = 0){
-                this.IdExperience = idexperience;
-                this.Start = start;
-                this.Finish = finish;
-                this.Title = title;
-                this.Description = description;
-                this.Role = role;
-        }
-
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext) {
             var currContext = validationContext.GetService(typeof(MainContext)) as MainContext;
             Debug.Assert(currContext != null);

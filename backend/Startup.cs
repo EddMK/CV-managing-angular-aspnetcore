@@ -92,9 +92,9 @@ namespace backend
             app.UseSpa(spa => {
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,
                 // see https://go.microsoft.com/fwlink/?linkid=864501
-                spa.Options.SourcePath = "frontend";
+                spa.Options.SourcePath = "prid2122-g04\frontend";
                 if (env.IsDevelopment()) {
-                    //spa.UseAngularCliServer(npmScript: "start");
+                    spa.UseAngularCliServer(npmScript: "start");
                     spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
                 }
             });

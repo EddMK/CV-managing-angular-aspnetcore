@@ -40,6 +40,7 @@ public class UsersController : ControllerBase
       // Transforme le membre en son DTO et retourne ce dernier
     return _mapper.Map<UserDTO>(user);
     }
+/*
     [HttpPost]
     public async Task<ActionResult<UserDTO>> PostUser(UserWithPasswordDTO user) {
     // Utilise le mapper pour convertir le DTO qu'on a reçu en une instance de Member
@@ -51,12 +52,15 @@ public class UsersController : ControllerBase
        if (!res.IsEmpty)
           return BadRequest(res);
 
+
     // Renvoie une réponse ayant dans son body les données du nouveau membre (3ème paramètre)
     // et ayant dans ses headers une entrée 'Location' qui contient l'url associé à GetOne avec la bonne valeur 
     // pour le paramètre 'pseudo' de cet url.
     return CreatedAtAction(nameof(GetOne), new { pseudo = user.Pseudo }, _mapper.Map<UserDTO>(newuser));
     }
+*/
 
+/*
     [HttpPut]
     public async Task<IActionResult> PutUser(UserDTO dto) {
        // Récupère en BD le membre à mettre à jour
@@ -73,6 +77,8 @@ public class UsersController : ControllerBase
        // Retourne un statut 204 avec une réponse vide
       return NoContent();
     }
+
+*/
     [HttpDelete("{pseudo}")]
     public async Task<IActionResult> DeleteUser(int id) {
        // Récupère en BD le membre à supprimer

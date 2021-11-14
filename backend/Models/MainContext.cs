@@ -12,6 +12,8 @@ namespace backend.Models
 
         public DbSet<User> Consultant { get; set; }
 
+        public DbSet<Experience> Training { get; set; }
+
 
         public MainContext(DbContextOptions<MainContext> options)
             : base(options) {
@@ -20,7 +22,8 @@ namespace backend.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<User>().HasIndex(u => u.userId).IsUnique(); 
+            modelBuilder.Entity<User>().HasIndex(u => u.userId).IsUnique();
+
             //modelBuilder.Entity<User>().Property(u => u.userId).ValueGeneratedOnAdd();
 
 
@@ -34,7 +37,10 @@ namespace backend.Models
                 new Consultant {Pseudo = "leo", Password = "leo", Email="leonnie@gmail.com", FirstName="Leonnie", LastName="Bouchat" , BirthDate=new DateTime(1995, 1, 2), Role = UserRole.CONSULTANT, userId = 4}
             );
 
-           
+           modelBuilder.Entity<Training>().HasData(
+                new Training(new DateTime(1989, 11, 26),new DateTime(1989, 11, 26),"Java Developer","",ExperienceRole.TRAINING,1),
+                new Training(new DateTime(1989, 11, 26),new DateTime(1989, 11, 26),".NET Developer","",ExperienceRole.TRAINING,2)
+            );
 
             
         }

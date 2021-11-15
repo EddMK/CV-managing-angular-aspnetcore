@@ -26,7 +26,6 @@ namespace backend.Models
 
             //modelBuilder.Entity<User>().Property(u => u.userId).ValueGeneratedOnAdd();
 
-
             modelBuilder.Entity<Manager>().HasData(
                 new Manager {Pseudo = "dan", Password = "dan", Email="danielsoria@gmail.com", FirstName="Daniel", LastName="Soria", BirthDate=new DateTime(1989, 11, 26), Role = UserRole.MANAGER, userId = 1},
                 new Manager {Pseudo = "ed", Password = "ed", Email="edouardkourieh@gmail.com", FirstName="Edouard", LastName="Kourieh" , BirthDate=new DateTime(1995, 1, 2), Role = UserRole.MANAGER, userId = 2}
@@ -38,8 +37,8 @@ namespace backend.Models
             );
 
             modelBuilder.Entity<Training>().HasData(
-                new Training {Start = new DateTime(2022, 02, 1), Finish = new DateTime(2022, 06, 30), Title = "Java Developer",Description ="", Role = ExperienceRole.TRAINING, IdExperience = 1},
-                new Training {Start = new DateTime(2021, 02, 1), Finish = new DateTime(2021, 06, 30), Title = ".NET Developer",Description ="", Role = ExperienceRole.TRAINING, IdExperience = 2}
+                new Training {Start = new DateTime(2022, 02, 1), Finish = new DateTime(2022, 06, 30), Title = "Java Developer",Description ="", Role = ExperienceRole.TRAINING, IdExperience = 1, Grade = Grade.BEGINNER},
+                new Training {Start = new DateTime(2021, 02, 1), Finish = new DateTime(2021, 06, 30), Title = ".NET Developer",Description ="", Role = ExperienceRole.TRAINING, IdExperience = 2, Grade = Grade.BEGINNER}
             );
 
             

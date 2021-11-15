@@ -1,5 +1,5 @@
 using AutoMapper;
-//using PRID_Framework;
+using PRID_Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +40,7 @@ public class UsersController : ControllerBase
       // Transforme le membre en son DTO et retourne ce dernier
     return _mapper.Map<UserDTO>(user);
     }
-/*
+
     [HttpPost]
     public async Task<ActionResult<UserDTO>> PostUser(UserWithPasswordDTO user) {
     // Utilise le mapper pour convertir le DTO qu'on a reçu en une instance de Member
@@ -58,9 +58,9 @@ public class UsersController : ControllerBase
     // pour le paramètre 'pseudo' de cet url.
     return CreatedAtAction(nameof(GetOne), new { pseudo = user.Pseudo }, _mapper.Map<UserDTO>(newuser));
     }
-*/
 
-/*
+
+
     [HttpPut]
     public async Task<IActionResult> PutUser(UserDTO dto) {
        // Récupère en BD le membre à mettre à jour
@@ -78,7 +78,7 @@ public class UsersController : ControllerBase
       return NoContent();
     }
 
-*/
+
     [HttpDelete("{pseudo}")]
     public async Task<IActionResult> DeleteUser(int id) {
        // Récupère en BD le membre à supprimer

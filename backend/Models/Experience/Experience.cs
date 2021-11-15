@@ -15,11 +15,11 @@ namespace backend.Models {
         
         [Key]
         public int IdExperience { get;set;}
-        [Required]
+        [Required (ErrorMessage = "Required")]
         public DateTime Start { get;set;}
-        [Required]
+        [Required (ErrorMessage = "Required")]
         public DateTime Finish { get;set;}
-        [Required]
+        [Required (ErrorMessage = "Required")]
         public String Title { get;set;}
 
         public String Description { get;set;}

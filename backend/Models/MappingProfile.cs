@@ -22,6 +22,9 @@ namespace backend.Models
 
             CreateMap<User, UserWithPasswordDTO>();
             CreateMap<UserWithPasswordDTO, User>();
+
+            CreateMap<Experience,ExperienceDTO>();
+            CreateMap<ExperienceDTO,Experience>();
         }
     }
 }

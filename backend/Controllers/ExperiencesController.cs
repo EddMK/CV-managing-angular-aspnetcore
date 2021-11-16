@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using backend.Models;
 using System.Collections.Generic;
@@ -23,21 +24,21 @@ namespace prid_2122_g04.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ExperienceDTO>>> GetAllTraining() {
+        public async Task<ActionResult<IEnumerable<ExperienceDTO>>> GetAllTraining() {//OK
             // Récupère une liste de tous les membres
             return _mapper.Map<List<ExperienceDTO>>(await _context.Training.ToListAsync());
         }
 
         [HttpGet("{titre}")]
-        public async Task<ActionResult<ExperienceDTO>> GetOne(string training) {
-            var train = await _context.Training.FindAsync(training);
+        public async Task<ActionResult<ExperienceDTO>> GetOne(int  id) {//OK
+            var train = await _context.Training.FindAsync(id);
             if (train == null)
                 return NotFound();
             return _mapper.Map<ExperienceDTO>(train);
         }
 
         [HttpPost]
-        public async Task<ActionResult<ExperienceDTO>> PostTraining(ExperienceDTO training) {
+        public async Task<ActionResult<ExperienceDTO>> PostTraining(ExperienceDTO training) {// X
             var newTraining = _mapper.Map<Experience>(training);
             _context.Training.Add(newTraining);
             var res = await _context.SaveChangesAsyncWithValidation();
@@ -48,8 +49,9 @@ namespace prid_2122_g04.Controllers
 
         [HttpPut]
         public async Task<IActionResult> PutTraining(ExperienceDTO trainingDTO) {
-            var training = _mapper.Map<Experience>(trainingDTO);
-            var exists = _context.Training.Where( t => t.Title == training.Title).SingleOrDefault();
+            //var training = _mapper.Map<Experience>(trainingDTO);
+            var exists = _context.Training.Where( t => t.Title == trainingDTO.Title).SingleOrDefault();
+            Trace.Write(exists);
             if (exists == null)
                 return NotFound();
             _mapper.Map<ExperienceDTO, Experience>(trainingDTO, exists);
@@ -58,9 +60,9 @@ namespace prid_2122_g04.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{titre}")]
-        public async Task<IActionResult> DeleteTraining(string titre) {
-            var training = await _context.Training.FindAsync(titre);
+        [HttpDelete("{id}")]//ok
+        public async Task<IActionResult> DeleteTraining(int  id) {
+            var training = await _context.Training.FindAsync(id);
             if (training == null)
                 return NotFound();
             _context.Training.Remove(training);

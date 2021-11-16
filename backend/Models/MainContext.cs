@@ -37,8 +37,8 @@ namespace backend.Models
             );
 
             modelBuilder.Entity<Training>().HasData(
-                new Training {Start = new DateTime(2022, 02, 1), Finish = new DateTime(2022, 06, 30), Title = "Java Developer",Description ="", Role = ExperienceRole.TRAINING, IdExperience = 1, Grade = Grade.BEGINNER},
-                new Training {Start = new DateTime(2021, 02, 1), Finish = new DateTime(2021, 06, 30), Title = ".NET Developer",Description ="", Role = ExperienceRole.TRAINING, IdExperience = 2, Grade = Grade.BEGINNER}
+                new Training {IdExperience = 1, Start = new DateTime(2022, 02, 1), Finish = new DateTime(2022, 06, 30), Title = "Java Developer",Description ="", Role = ExperienceRole.TRAINING, Grade = Grade.BEGINNER},
+                new Training {IdExperience = 2, Start = new DateTime(2021, 02, 1), Finish = new DateTime(2021, 06, 30), Title = ".NET Developer",Description ="", Role = ExperienceRole.TRAINING, Grade = Grade.BEGINNER}
             );
 
             

@@ -40,18 +40,17 @@ namespace prid_2122_g04.Controllers
         [HttpPost]
         public async Task<ActionResult<ExperienceDTO>> PostTraining(ExperienceDTO training) {// X
             var newTraining = _mapper.Map<Experience>(training);
+            Console.WriteLine(newTraining.GetType());
             _context.Training.Add(newTraining);
             var res = await _context.SaveChangesAsyncWithValidation();
             if (!res.IsEmpty) return BadRequest(res);
-            return CreatedAtAction(nameof(GetOne), new { training = training.Title }, _mapper.Map<ExperienceDTO>(newTraining));
+            return CreatedAtAction(nameof(GetOne), new { training = training.IdExperience }, _mapper.Map<ExperienceDTO>(newTraining));
             //return CreatedAtAction(nameof(GetOne), new { training = training.Title }, training);
         }
 
         [HttpPut]
         public async Task<IActionResult> PutTraining(ExperienceDTO trainingDTO) {
-            //var training = _mapper.Map<Experience>(trainingDTO);
-            var exists = _context.Training.Where( t => t.Title == trainingDTO.Title).SingleOrDefault();
-            Trace.Write(exists);
+            var exists = await _context.Training.FindAsync(trainingDTO.IdExperience);
             if (exists == null)
                 return NotFound();
             _mapper.Map<ExperienceDTO, Experience>(trainingDTO, exists);

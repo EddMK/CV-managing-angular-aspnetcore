@@ -25,6 +25,9 @@ namespace backend.Models
 
             CreateMap<Experience,ExperienceDTO>();
             CreateMap<ExperienceDTO,Experience>();
+
+            CreateMap<Training,ExperienceDTO>();
+            CreateMap<ExperienceDTO,Training>();
         }
     }
 }

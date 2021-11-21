@@ -26,6 +26,8 @@ namespace backend.Models {
 
         public ExperienceRole Role { get; set;}
 
+        public Enterprise enterprise;
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext) {
             var currContext = validationContext.GetService(typeof(MainContext)) as MainContext;
             Debug.Assert(currContext != null);

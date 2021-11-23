@@ -2,17 +2,16 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
+
 namespace backend.Models
 {
     public class MainContext : DbContext
     {
 
          public DbSet<User> Users { get; set; }
-         public DbSet<User> Manager { get; set; }
+    
 
-        public DbSet<User> Consultant { get; set; }
-
-        public DbSet<Experience> Training { get; set; }
+        public DbSet<Experience> Experience { get; set; }
 
 
         public MainContext(DbContextOptions<MainContext> options)
@@ -23,6 +22,7 @@ namespace backend.Models
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<User>().HasIndex(u => u.userId).IsUnique();
+            modelBuilder.Entity<Experience>().HasIndex(e => e.IdExperience).IsUnique();
 
             //modelBuilder.Entity<User>().Property(u => u.userId).ValueGeneratedOnAdd();
 

@@ -94,7 +94,7 @@ namespace backend
                 // see https://go.microsoft.com/fwlink/?linkid=864501
                 spa.Options.SourcePath = "prid2122-g04\frontend";
                 if (env.IsDevelopment()) {
-                    spa.UseAngularCliServer(npmScript: "start");
+                    //spa.UseAngularCliServer(npmScript: "start");
                     spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
                 }
             });

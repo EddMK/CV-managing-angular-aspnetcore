@@ -11,6 +11,7 @@ export class User {
     email?: string;
     birthDate?: string;
     role?: string;
+    token?:String;
 
     constructor(data: any) {
         if (data) {
@@ -22,7 +23,8 @@ export class User {
             this.email = data.email;
             this.birthDate = data.birthDate &&
                 data.birthDate.length > 10 ? data.birthDate.substring(0, 10) : data.birthDate;
-            this.role = data.role;    
+            this.role = data.role;   
+            this.token = data.token; 
         }
     }
 }

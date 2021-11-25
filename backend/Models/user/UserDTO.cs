@@ -17,6 +17,8 @@ namespace backend.Models
         public DateTime BirthDate { get; set; }
 
         public UserRole Role { get; set; }
+
+        public string Token { get; set; }
         
         
     }

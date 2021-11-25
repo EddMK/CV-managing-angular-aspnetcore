@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
 
 
 
@@ -37,6 +38,10 @@ namespace backend.Models
         public DateTime? BirthDate { get; set; }
 
         public UserRole Role { get; set;}
+
+        [NotMapped]
+        public string Token { get; set; }
+
 
         
         public User(string pseudo, string password, string email, string firtsname, string lastname, DateTime birthday, UserRole role, int userId = 0){

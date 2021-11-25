@@ -3,12 +3,19 @@ using PRID_Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using backend.Models;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authorization;
+using backend.Helpers;
 
 
+[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class UsersController : ControllerBase
@@ -25,6 +32,7 @@ public class UsersController : ControllerBase
         _context = context;
         _mapper = mapper;
     }
+    [Authorized(UserRole.MANAGER)]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<UserDTO>>> GetAll() {
     
@@ -40,6 +48,7 @@ public class UsersController : ControllerBase
       // Transforme le membre en son DTO et retourne ce dernier
     return _mapper.Map<UserDTO>(user);
     }
+    
 
     [HttpPost]
     public async Task<ActionResult<UserDTO>> PostUser(UserWithPasswordDTO user) {
@@ -93,6 +102,47 @@ public class UsersController : ControllerBase
        // Retourne un statut 204 avec une réponse vide
     return NoContent();
 }
+
+[AllowAnonymous]
+[HttpPost("authenticate")]
+public async Task<ActionResult<UserDTO>> Authenticate(UserWithPasswordDTO dto) {
+    var user = await Authenticate(dto.userId, dto.Password);
+
+    if (user == null)
+        return BadRequest(new ValidationErrors().Add("User not found", "wrong id"));
+    if (user.Token == null)
+        return BadRequest(new ValidationErrors().Add("Incorrect password", "Password"));
+
+    return Ok(_mapper.Map<UserDTO>(user));
+}
+
+private async Task<User> Authenticate(int id, string password) {
+    var user = await _context.Users.FindAsync(id);
+
+    // return null if user not found
+    if (user == null)
+        return null;
+
+    if (user.Password == password) {
+        // authentication successful so generate jwt token
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var key = Encoding.ASCII.GetBytes("my-super-secret-key");
+        var tokenDescriptor = new SecurityTokenDescriptor {
+            Subject = new ClaimsIdentity(new Claim[] {
+                    new Claim(ClaimTypes.Name, user.Pseudo),
+                    new Claim(ClaimTypes.Role, user.Role.ToString())
+                }),
+            IssuedAt = DateTime.UtcNow,
+            Expires = DateTime.UtcNow.AddMinutes(10),
+            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+        };
+        var token = tokenHandler.CreateToken(tokenDescriptor);
+        user.Token = tokenHandler.WriteToken(token);
+    }
+
+    return user;
+}
+
 
 
 

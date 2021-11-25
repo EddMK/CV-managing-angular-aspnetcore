@@ -27,4 +27,8 @@ export class User {
             this.token = data.token; 
         }
     }
+
+    /*public get roleAsString(): string {
+        return Role[this.role];
+    }*/
 }

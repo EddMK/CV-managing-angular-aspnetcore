@@ -18,7 +18,7 @@ namespace backend.Models
 
         public UserRole Role { get; set; }
 
-        public string Token { get; set; }
+       public string Token { get; set; }
         
         
     }

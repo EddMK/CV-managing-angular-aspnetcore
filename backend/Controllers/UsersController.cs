@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Authorization;
 using backend.Helpers;
 
 
-[Authorize]
+//[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class UsersController : ControllerBase
@@ -32,7 +32,7 @@ public class UsersController : ControllerBase
         _context = context;
         _mapper = mapper;
     }
-    [Authorized(UserRole.MANAGER)]
+    
     [HttpGet]
     public async Task<ActionResult<IEnumerable<UserDTO>>> GetAll() {
     

@@ -19,8 +19,10 @@
         "@angular/router": "12.1.0",
         "@popperjs/core": "2.9.2",
         "bootstrap": "4.0.0",
+        "class-transformer": "^0.5.1",
         "jquery": "3.6.0",
         "popper.js": "1.16.1",
+        "reflect-metadata": "^0.1.13",
         "rxjs": "6.6.0",
         "tslib": "2.2.0",
         "zone.js": "0.11.4"

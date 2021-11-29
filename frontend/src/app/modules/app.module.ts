@@ -8,6 +8,7 @@ import { AppComponent } from '../components/app/app.component';
 import { NavMenuComponent } from '../components/nav-menu/nav-menu.component';
 import { HomeComponent } from '../components/home/home.component';
 import { UserListComponent } from '../components/userlist/userlist.component';
+import { CVComponent } from '../components/CV/CV.component';
 
  
 
@@ -21,6 +22,7 @@ export function getBaseUrl() {
         NavMenuComponent,
         HomeComponent,
         UserListComponent,
+        CVComponent
         
     ],
     imports: [
@@ -30,6 +32,7 @@ export function getBaseUrl() {
         RouterModule.forRoot([
             { path: '', component: HomeComponent, pathMatch: 'full' },
             { path: 'team', component: UserListComponent },
+            { path: 'CV', component: CVComponent },
             
         ])
     ],

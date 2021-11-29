@@ -28,7 +28,8 @@ export class User {
         }
     }
 
-    /*public get roleAsString(): string {
+    
+   /* public get roleAsString(): string {
         return Role[this.role];
     }*/
 }

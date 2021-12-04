@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Authorization;
 using backend.Helpers;
 
 
-//[Authorize]
+[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class UsersController : ControllerBase
@@ -33,6 +33,7 @@ public class UsersController : ControllerBase
         _mapper = mapper;
     }
     
+    [AllowAnonymous]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<UserDTO>>> GetAll() {
     
@@ -49,7 +50,7 @@ public class UsersController : ControllerBase
     return _mapper.Map<UserDTO>(user);
     }
     
-
+    [Authorized(Role.MANAGER)]
     [HttpPost]
     public async Task<ActionResult<UserDTO>> PostUser(UserWithPasswordDTO user) {
     // Utilise le mapper pour convertir le DTO qu'on a reçu en une instance de Member

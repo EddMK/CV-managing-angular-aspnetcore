@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
      * Dans ce cas précis-ci, on a besoin d'accéder au DOM de ce champ car on veut mettre le focus
      * sur ce champ quand la page s'affiche. Pour cela, il faut passer par le DOM.
      */
-    @ViewChild('pseudo') pseudo!: ElementRef;
+    @ViewChild('email') email!: ElementRef;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
          * 'errors' du FormControl. Ces erreurs sont accessibles par le template grâce au binding.
          */
         this.loginForm = this.formBuilder.group({
-            pseudo: ['', Validators.required],
+            email: ['', Validators.required],
             password: ['', Validators.required]
         });
 
@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
          * le focus est un peu tricky : pour que ça marche, il faut absolument faire l'appel
          * à la méthode focus() de l'élément de manière asynchrone. Voilà la raison du setTimeout().
          */
-        setTimeout(() => this.pseudo && this.pseudo.nativeElement.focus());
+        setTimeout(() => this.email && this.email.nativeElement.focus());
     }
 
     // On définit ici un getter qui permet de simplifier les accès aux champs du formulaire dans le HTML
@@ -82,7 +82,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
         if (this.loginForm?.invalid) return;
 
         this.loading = true;
-        this.authenticationService.login(this.f?.pseudo.value, this.f?.password.value)
+        this.authenticationService.login(this.f?.mail.value, this.f?.password.value)
             .subscribe(
                 // si login est ok, on navigue vers la page demandée
                 data => {
@@ -91,7 +91,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
                 // en cas d'erreurs, on reste sur la page et on les affiche
                 error => {
                     console.log(error);
-                    this.error = error.error.errors.Pseudo || error.error.errors.Password;
+                    this.error = error.error.errors.email || error.error.errors.Password;
                     this.loading = false;
                 });
     }

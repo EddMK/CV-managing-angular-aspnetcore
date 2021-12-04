@@ -7,7 +7,7 @@ import { LoginComponent } from '../components/login/login.component';
 import { UnknownComponent } from '../components/unknown/unknown.component';
 import { AuthGuard } from '../services/auth.guard';
 import { CVComponent } from '../components/CV/CV.component';
- //import { Role } from '../models/User';
+import { Role } from '../models/User';
 
 
 const appRoutes: Routes = [
@@ -18,7 +18,7 @@ const appRoutes: Routes = [
     path: 'team',
     component: UserListComponent,
     canActivate: [AuthGuard],
-    //data: { roles: [Role.] }
+    data: { roles: [Role.Manager] }
 },
 {
   path: 'CV',

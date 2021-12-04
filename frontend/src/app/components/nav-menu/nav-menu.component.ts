@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { User, Role } from '../../models/User';
+import { AuthenticationService } from '../../services/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-nav-menu',
@@ -8,11 +11,36 @@ import { Component } from '@angular/core';
 export class NavMenuComponent {
     isExpanded = false;
 
+    constructor(
+        private router: Router,
+        private authenticationService: AuthenticationService
+    ) { }
+
+
     collapse() {
         this.isExpanded = false;
     }
 
     toggle() {
         this.isExpanded = !this.isExpanded;
+    }
+
+    /*get isAdmin() {
+        return this.currentUser && this.currentUser.role === Role.Manager;
+    }*/
+
+
+    get currentUser() {
+        return this.authenticationService.currentUser;
+    }
+
+    /*
+    get isManager() {
+        return this.currentUser && this.currentUser.role === Role.Manager;
+    }*/
+
+    logout() {
+        this.authenticationService.logout();
+        this.router.navigate(['/login']);
     }
 }

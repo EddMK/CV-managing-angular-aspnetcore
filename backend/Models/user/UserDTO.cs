@@ -2,8 +2,10 @@ using System;
 
 namespace backend.Models
 {
+
     public class UserDTO
     {
+
         public int userId { get; set; }
        
         public string Pseudo { get; set; }
@@ -18,7 +20,7 @@ namespace backend.Models
 
         public DateTime BirthDate { get; set; }
 
-        public Role Role { get; set; }
+        public string Role { get; set; }
 
        public string Token { get; set; }
         

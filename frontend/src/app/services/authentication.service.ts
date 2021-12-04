@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { User } from '../models/User';
 import { plainToClass } from 'class-transformer';
 
+
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
 
@@ -24,6 +25,7 @@ export class AuthenticationService {
                 user = plainToClass(User, user);
                 // login successful if there's a jwt token in the response
                 if (user && user.token) {
+                  
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     sessionStorage.setItem('currentUser', JSON.stringify(user));
                     this.currentUser = user;

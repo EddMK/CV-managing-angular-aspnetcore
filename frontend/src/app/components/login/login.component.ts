@@ -82,7 +82,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
         if (this.loginForm?.invalid) return;
 
         this.loading = true;
-        this.authenticationService.login(this.f?.mail.value, this.f?.password.value)
+        this.authenticationService.login(this.f?.email.value, this.f?.password.value)
             .subscribe(
                 // si login est ok, on navigue vers la page demandée
                 data => {

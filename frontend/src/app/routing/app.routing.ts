@@ -18,7 +18,7 @@ const appRoutes: Routes = [
     path: 'team',
     component: UserListComponent,
     canActivate: [AuthGuard],
-    data: { roles: [Role.Manager] }
+    //data: { roles: [Role.Manager] }
 },
 {
   path: 'CV',

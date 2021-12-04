@@ -50,7 +50,7 @@ public class UsersController : ControllerBase
     return _mapper.Map<UserDTO>(user);
     }
     
-    [Authorized(Role.MANAGER)]
+    //[Authorized(Role.MANAGER)]
     [HttpPost]
     public async Task<ActionResult<UserDTO>> PostUser(UserWithPasswordDTO user) {
     // Utilise le mapper pour convertir le DTO qu'on a reçu en une instance de Member
@@ -132,7 +132,7 @@ private async Task<User> Authenticate(string email, string password) {
         var key = Encoding.ASCII.GetBytes("my-super-secret-key");
         var tokenDescriptor = new SecurityTokenDescriptor {
             Subject = new ClaimsIdentity(new Claim[] {
-                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim(ClaimTypes.Name, user.userId.ToString()),
                     new Claim(ClaimTypes.Role, user.Role.ToString())
                 }),
             IssuedAt = DateTime.UtcNow,

@@ -13,7 +13,7 @@ export class User {
     firstname?: string;
     email?: string;
     birthDate?: string;
-    role?: string;
+    role : Role = Role.Manager;
     token?:string;
 
     constructor(data: any) {
@@ -26,16 +26,14 @@ export class User {
             this.email = data.email;
             this.birthDate = data.birthDate &&
                 data.birthDate.length > 10 ? data.birthDate.substring(0, 10) : data.birthDate;
-            //this.role : Role = Role.Manager;
             this.token = data.token; 
         }
     }
     
-    /*
     public get roleAsString(): string {
         return Role[this.role];
     }
-*/
+
 
 
 

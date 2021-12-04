@@ -39,7 +39,7 @@ public class UsersController : ControllerBase
     
       return _mapper.Map<List<UserDTO>>(await _context.Users.ToListAsync());
     }
-    [HttpGet("{pseudo}")]
+    [HttpGet("{email}")]
     public async Task<ActionResult<UserDTO>> GetOne(int id) {
       // Récupère en BD le membre dont le pseudo est passé en paramètre dans l'url
         var user = await _context.Users.FindAsync(id);
@@ -107,7 +107,7 @@ public class UsersController : ControllerBase
 [AllowAnonymous]
 [HttpPost("authenticate")]
 public async Task<ActionResult<UserDTO>> Authenticate(UserWithPasswordDTO dto) {
-    var user = await Authenticate(dto.userId, dto.Password);
+    var user = await Authenticate(dto.Email, dto.Password);
 
     if (user == null)
         return BadRequest(new ValidationErrors().Add("User not found", "wrong id"));
@@ -117,12 +117,14 @@ public async Task<ActionResult<UserDTO>> Authenticate(UserWithPasswordDTO dto) {
     return Ok(_mapper.Map<UserDTO>(user));
 }
 
-private async Task<User> Authenticate(int id, string password) {
-    var user = await _context.Users.FindAsync(id);
+private async Task<User> Authenticate(string email, string password) {
+    var user = await _context.Users.Where(u => u.Email == email).FirstOrDefaultAsync();
 
     // return null if user not found
-    if (user == null)
+    if (user == null){
+        Console.WriteLine("user nuuulll");
         return null;
+    }
 
     if (user.Password == password) {
         // authentication successful so generate jwt token
@@ -130,7 +132,7 @@ private async Task<User> Authenticate(int id, string password) {
         var key = Encoding.ASCII.GetBytes("my-super-secret-key");
         var tokenDescriptor = new SecurityTokenDescriptor {
             Subject = new ClaimsIdentity(new Claim[] {
-                    new Claim(ClaimTypes.Name, user.Pseudo),
+                    new Claim(ClaimTypes.Email, user.Email),
                     new Claim(ClaimTypes.Role, user.Role.ToString())
                 }),
             IssuedAt = DateTime.UtcNow,

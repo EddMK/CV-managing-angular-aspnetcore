@@ -5,9 +5,9 @@ namespace backend.Models {
       
     private Manager manager { get; set; }
 
-     public Consultant(string pseudo, string password, string email, string firtsname, string lastname, DateTime birthday, UserRole role, int userId)
+     public Consultant(string pseudo, string password, string email, string firtsname, string lastname, String title, DateTime birthday, Role role, int userId)
 
-    : base(pseudo, password, email, firtsname, lastname, birthday, role, userId){
+    : base(pseudo, password, email, firtsname, lastname, title, birthday, role, userId){
       
     }
 

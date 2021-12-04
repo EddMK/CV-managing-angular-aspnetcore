@@ -7,9 +7,9 @@ namespace backend.Helpers
 {
     public class AuthorizedAttribute : AuthorizeAttribute
     {
-        public AuthorizedAttribute(params UserRole[] roles) : base() {
+        public AuthorizedAttribute(params Role[] roles) : base() {
             var rolesNames = new List<string>();
-            var names = Enum.GetNames(typeof(UserRole));
+            var names = Enum.GetNames(typeof(Role));
             foreach (var role in roles) {
                 rolesNames.Add(names[(int)role]);
             }

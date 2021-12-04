@@ -10,7 +10,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backend.Models
 {
-    public enum UserRole {
+    public enum Role {
         MANAGER = 0, CONSULTANT = 1
     }
     public abstract class User : IValidatableObject
@@ -35,16 +35,18 @@ namespace backend.Models
         [MinLength(3, ErrorMessage = "Minimum 3 characters"),  StringLength(50, ErrorMessage = "Maximum 50 characters")]
         public string LastName { get; set; }
 
+        public String Title { get; set; }
+
         public DateTime? BirthDate { get; set; }
 
-        public UserRole Role { get; set;} = UserRole.MANAGER;
+        public Role Role { get; set;} = Role.MANAGER;
 
         [NotMapped]
         public string Token { get; set; }
 
 
         
-        public User(string pseudo, string password, string email, string firtsname, string lastname, DateTime birthday, UserRole role, int userId = 0){
+        public User(string pseudo, string password, string email, string firtsname, string lastname, string tile, DateTime birthday, Role role, int userId = 0){
             this.Pseudo = pseudo;
             this.Password = password;
             this.Email = email;

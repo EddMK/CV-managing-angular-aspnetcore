@@ -9,6 +9,7 @@ import { NavMenuComponent } from '../components/nav-menu/nav-menu.component';
 import { HomeComponent } from '../components/home/home.component';
 import { UserListComponent } from '../components/userlist/userlist.component';
 import { CVComponent } from '../components/CV/CV.component';
+import { TitleComponent } from '../components/CV/title/title.component';
 
  
 
@@ -22,7 +23,9 @@ export function getBaseUrl() {
         NavMenuComponent,
         HomeComponent,
         UserListComponent,
-        CVComponent
+        CVComponent,
+        TitleComponent,
+        
         
     ],
     imports: [

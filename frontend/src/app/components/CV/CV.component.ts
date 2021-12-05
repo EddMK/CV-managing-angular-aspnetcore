@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AuthenticationService } from '../../services/authentication.service';
+import { Router } from '@angular/router';
 
 
 
@@ -9,6 +11,16 @@ import { Component } from '@angular/core';
 
 })
 export class CVComponent{
-
+    
+    
+    constructor(private authenticationService: AuthenticationService) {
+    
+    }
+    get currentUser() {
+        return this.authenticationService.currentUser;
+    }
+  
+    
    
 }
+

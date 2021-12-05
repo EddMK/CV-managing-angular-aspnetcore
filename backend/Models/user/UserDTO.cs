@@ -10,9 +10,9 @@ namespace backend.Models
        
         public string Pseudo { get; set; }
 
-        public string FirstName { get; set; }
+        public string Firstname { get; set; }
         
-        public string LastName { get; set; }
+        public string Lastname { get; set; }
 
         public string title { get; set; }
         

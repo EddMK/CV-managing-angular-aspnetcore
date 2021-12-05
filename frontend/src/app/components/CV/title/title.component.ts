@@ -1,22 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 
+import { CVComponent } from '../CV.component';
+
+
 
 
 @Component({
   selector: 'app-title',
-  template: `
-    <p>
-      title works!
-    </p>
-  `,
+  templateUrl: './title.component.html',
   styles: [
   ]
 })
-export class TitleComponent implements OnInit {
+export class TitleComponent extends CVComponent  implements OnInit {
+  
 
-  constructor() { }
+  
 
   ngOnInit(): void {
+    
   }
+
+
 
 }

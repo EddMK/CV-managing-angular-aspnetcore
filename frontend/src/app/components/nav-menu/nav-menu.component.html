@@ -11,10 +11,10 @@
                         <a class="nav-link text-white" [routerLink]="['/']">Home</a>
                     </li>
                     
-                    <li class="nav-item" [routerLinkActive]='["link-active"]'>
+                    <li class="nav-item" [routerLinkActive]='["link-active"]'  *ngIf="currentUser">
                         <a class="nav-link text-white" [routerLink]="['/team']">Team</a>
                     </li>
-                    <li class="nav-item" [routerLinkActive]='["link-active"]'>
+                    <li class="nav-item" [routerLinkActive]='["link-active"]'  *ngIf="currentUser">
                         <a class="nav-link text-white" [routerLink]="['/CV']">CV</a>
                     </li>
                     <li class="nav-item" [routerLinkActive]='["link-active"]' *ngIf="!currentUser">
@@ -25,9 +25,6 @@
                         <a class="nav-link text-white" [routerLink]='' (click)='logout()'>Logout</a>
                     </li>
                     
-                    <li class="nav-item" [routerLinkActive]='["link-active"]' *ngIf="currentUser">
-                        <a class="nav-link text-white" >{{currentUser.pseudo}}</a>
-                    </li>
                 </ul>
             </div>
         </div>

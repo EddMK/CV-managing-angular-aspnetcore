@@ -28,8 +28,8 @@ namespace backend.Models
             //modelBuilder.Entity<User>().Property(u => u.userId).ValueGeneratedOnAdd();
 
             modelBuilder.Entity<Manager>().HasData(
-                new Manager {Pseudo = "dan", Password = "dan", Email="danielsoria@gmail.com", FirstName="Daniel", LastName="Soria", Title= "Java developer", BirthDate=new DateTime(1989, 11, 26), Role = Role.MANAGER, userId = 1},
-                new Manager {Pseudo = "ed", Password = "ed", Email="edouardkourieh@gmail.com", FirstName="Edouard", LastName="Kourieh" , Title="Php developer",  BirthDate=new DateTime(1995, 1, 2), Role = Role.MANAGER, userId = 2}
+                new Manager {Pseudo = "dan", Password = "dan", Email="danielsoria@gmail.com", FirstName="Daniel", LastName="Soria", Title= "Project manager", BirthDate=new DateTime(1989, 11, 26), Role = Role.MANAGER, userId = 1},
+                new Manager {Pseudo = "ed", Password = "ed", Email="edouardkourieh@gmail.com", FirstName="Edouard", LastName="Kourieh" , Title="Product manager",  BirthDate=new DateTime(1995, 1, 2), Role = Role.MANAGER, userId = 2}
             );
 
             modelBuilder.Entity<Consultant>().HasData(

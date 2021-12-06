@@ -15,6 +15,7 @@ import { TitleComponent } from '../components/CV/title/title.component';
 import { UnknownComponent } from '../components/unknown/unknown.component';
 import { JwtInterceptor } from '../interceptors/jwt.interceptor';
 import { LoginComponent } from '../components/login/login.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
  
@@ -50,7 +51,8 @@ export function getBaseUrl() {
             { path: 'login', component: LoginComponent}
             
             
-        ])
+        ]),
+        BrowserAnimationsModule
     ],
     providers: [
         { provide: 'BASE_URL', useFactory: getBaseUrl, deps: [] },

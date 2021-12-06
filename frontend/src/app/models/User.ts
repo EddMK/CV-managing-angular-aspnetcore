@@ -1,3 +1,5 @@
+
+
 export enum Role {
     Manager = 0,
     Consultant = 1
@@ -29,6 +31,10 @@ export class User {
                 data.birthDate.length > 10 ? data.birthDate.substring(0, 10) : data.birthDate;
             this.token = data.token; 
         }
+    }
+
+    Constructor(){
+        
     }
     
     public get roleAsString(): string {

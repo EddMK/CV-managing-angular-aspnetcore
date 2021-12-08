@@ -16,7 +16,6 @@ import { UnknownComponent } from '../components/unknown/unknown.component';
 import { JwtInterceptor } from '../interceptors/jwt.interceptor';
 import { LoginComponent } from '../components/login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SharedModule } from './shared.module';
 
 
  
@@ -44,7 +43,6 @@ export function getBaseUrl() {
         BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
         HttpClientModule,
         FormsModule,
-        SharedModule,
         ReactiveFormsModule,
         RouterModule.forRoot([
             { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -63,4 +61,5 @@ export function getBaseUrl() {
     ],
     bootstrap: [AppComponent]
 })
+
 export class AppModule { }

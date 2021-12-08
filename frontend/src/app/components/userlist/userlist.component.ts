@@ -17,6 +17,7 @@ import { plainToClass } from 'class-transformer';
     selector: 'app-userlist',
     templateUrl: './userlist.component.html',
     styleUrls: ['./userlist.component.css']
+
 })
 
 export class UserListComponent implements AfterViewInit, OnDestroy {
@@ -57,7 +58,6 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
         this.userService.getAll().subscribe(users => {
             // assigne les données récupérées au datasource
             this.dataSource.data = users;
-            //console.log(users);
             // restaure l'état du datasource (tri et pagination) à partir du state
             this.state.restoreState(this.dataSource);
             // restaure l'état du filtre à partir du state

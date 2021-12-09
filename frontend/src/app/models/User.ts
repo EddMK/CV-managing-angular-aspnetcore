@@ -15,7 +15,7 @@ export class User {
     email?: string;
     title?: string;
     birthDate?: string;
-    role : Role = Role.Manager;
+    role?: Role;
     token?:string;
 
     constructor(data: any) {
@@ -23,13 +23,14 @@ export class User {
         
             this.pseudo = data.pseudo;
             this.password = data.password;
-            this.firstname = data.firstName;
+            this.firstname = data.firstname;
             this.lastname = data.lastname;
             this.email = data.email;
             this.title = data.title;
             this.birthDate = data.birthDate &&
                 data.birthDate.length > 10 ? data.birthDate.substring(0, 10) : data.birthDate;
             this.token = data.token; 
+            this.role = data.role;
         }
     }
 
@@ -37,9 +38,9 @@ export class User {
         
     }
     
-    public get roleAsString(): string {
+    /*public get roleAsString(): string {
         return Role[this.role];
-    }
+    }*/
 
 
 

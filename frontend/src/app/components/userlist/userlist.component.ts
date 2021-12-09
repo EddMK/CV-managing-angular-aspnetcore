@@ -19,7 +19,7 @@ import { plainToClass } from 'class-transformer';
 })
 
 export class UserListComponent implements AfterViewInit, OnDestroy {
-    displayedColumns: string[] = ['firstName','lastName', 'email', 'title'];
+    displayedColumns: string[] = ['firstName','lastName', 'email', 'title', 'role'];
     dataSource: MatTableDataSource<User> = new MatTableDataSource();
     filter: string = '';
     state: MatTableState;
@@ -42,7 +42,7 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
         this.dataSource.sort = this.sort;
         // définit le predicat qui doit être utilisé pour filtrer les membres
         this.dataSource.filterPredicate = (data: User, filter: string) => {
-            const str = data.firstname + ' ' + data.lastname + ' ' + data.email + '  ' + data.title;
+            const str = data.firstname + ' ' + data.lastname + ' ' + data.email + '  ' + data.title + '  ' + data.role;
         
             
             return str.toLowerCase().includes(filter);

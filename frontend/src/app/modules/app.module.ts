@@ -11,12 +11,16 @@ import { HomeComponent } from '../components/home/home.component';
 import { UserListComponent } from '../components/userlist/userlist.component';
 import { CVComponent } from '../components/CV/CV.component';
 import { TitleComponent } from '../components/CV/title/title.component';
+import { ExperiencesComponent } from '../components/CV/experiences/experiences.component';
+import { SkillsComponent } from '../components/CV/skills/skills.component';
 //import { RestrictedComponent } from '../components/restricted/restricted.component';
 import { UnknownComponent } from '../components/unknown/unknown.component';
 import { JwtInterceptor } from '../interceptors/jwt.interceptor';
 import { LoginComponent } from '../components/login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule} from './shared.module'
+
+
 
 
  
@@ -36,6 +40,8 @@ export function getBaseUrl() {
         //RestrictedComponent,
         CVComponent,
         TitleComponent,
+        ExperiencesComponent,
+        SkillsComponent
        
         
         

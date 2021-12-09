@@ -20,9 +20,11 @@ namespace backend.Models {
         [Required (ErrorMessage = "Required")]
         public DateTime Finish { get;set;}
         [Required (ErrorMessage = "Required")]
-        public String Title { get;set;}
 
-        public String Description { get;set;}
+        public string place { get; set; }
+        public string Title { get;set;}
+
+        public string Description { get;set;}
 
         public ExperienceRole Role { get; set;}
 

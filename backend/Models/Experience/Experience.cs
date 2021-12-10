@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-//using PRID_Framework;
+using PRID_Framework;
 
 namespace backend.Models {
 
@@ -21,7 +21,7 @@ namespace backend.Models {
         public DateTime Finish { get;set;}
         [Required (ErrorMessage = "Required")]
 
-        public string place { get; set; }
+
         public string Title { get;set;}
 
         public string Description { get;set;}

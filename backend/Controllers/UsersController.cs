@@ -72,12 +72,15 @@ public class UsersController : ControllerBase
 
 
     [HttpPut]
-    public async Task<IActionResult> PutUser(UserDTO dto) {
+    public async Task<IActionResult> PutUser(UserWithPasswordDTO dto) {
        // Récupère en BD le membre à mettre à jour
        var user = await _context.Users.FindAsync(dto.userId);
        // Si aucun membre n'a été trouvé, renvoyer une erreur 404 Not Found
        if (user == null)
            return NotFound();
+            // S'il n'y a pas de mot de passe dans le dto, on garde le mot de passe actuel
+    if (string.IsNullOrEmpty(dto.Password))
+        dto.Password = user.Password;
        // Mappe les données reçues sur celles du membre en question
         _mapper.Map<UserDTO, User>(dto, user);
        // Sauve les changements

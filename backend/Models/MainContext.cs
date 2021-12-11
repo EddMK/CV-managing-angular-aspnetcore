@@ -10,9 +10,12 @@ namespace backend.Models
     {
 
          public DbSet<User> Users { get; set; }
-    
 
         public DbSet<Experience> Experience { get; set; }
+
+        public DbSet<Category> Categories { get; set; }
+
+        public DbSet<Skill> Skills { get; set; }
 
 
         public MainContext(DbContextOptions<MainContext> options)
@@ -24,6 +27,12 @@ namespace backend.Models
 
             modelBuilder.Entity<User>().HasIndex(u => u.userId).IsUnique();
             modelBuilder.Entity<Experience>().HasIndex(e => e.IdExperience).IsUnique();
+            modelBuilder.Entity<Category>().HasIndex(c => c.categoryId).IsUnique();
+    
+            modelBuilder.Entity<Skill>().HasIndex(s => s.skillId).IsUnique();
+         
+            
+
 
             //modelBuilder.Entity<User>().Property(u => u.userId).ValueGeneratedOnAdd();
 
@@ -41,10 +50,23 @@ namespace backend.Models
                 new Training {IdExperience = 1, Start = new DateTime(2022, 02, 1), Finish = new DateTime(2022, 06, 30), Title = "Bachelore in computer science",Description ="", Role = ExperienceRole.TRAINING, Grade = 90},
                 new Training {IdExperience = 2, Start = new DateTime(2021, 02, 1), Finish = new DateTime(2021, 06, 30), Title = "Bachelore in computer science",Description ="", Role = ExperienceRole.TRAINING, Grade = 77}
             );
+ 
+            modelBuilder.Entity<Category>().HasData(
+                new Category {categoryId = 1,  Name = "Language"},
+                new Category { categoryId = 2,  Name = "Database"},
+                new Category { categoryId = 3,  Name = "Framework"}
+            );
+
+            modelBuilder.Entity<Skill>().HasData(
+                new Skill { skillId = 1, Name = "Java"}
+            );
+
 
             
+            
         }
-        
+
+      
         
       
     }

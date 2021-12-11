@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace backend.Models
 {
@@ -23,6 +24,8 @@ namespace backend.Models
         public string Role { get; set; }
 
        public string Token { get; set; }
+
+       public ICollection<MasteringDto> Masterings { get; set; }
         
         
     }

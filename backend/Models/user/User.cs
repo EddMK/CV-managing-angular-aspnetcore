@@ -44,6 +44,8 @@ namespace backend.Models
         [NotMapped]
         public string Token { get; set; }
 
+        public ICollection<Mastering> masterings { get; set; } = new HashSet<Mastering>();
+
 
         
         public User(string pseudo, string password, string email, string firtsname, string lastname, string title, DateTime birthday, Role role, int userId = 0){

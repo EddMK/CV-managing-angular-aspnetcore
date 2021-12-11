@@ -37,12 +37,13 @@ public class UsersController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<UserDTO>>> GetAll() {
     
-      return _mapper.Map<List<UserDTO>>(await _context.Users.ToListAsync());
+      return _mapper.Map<List<UserDTO>>(await _context.Users.Include(u => u.masterings).ToListAsync());
     }
     [HttpGet("{email}")]
     public async Task<ActionResult<UserDTO>> GetOne(int id) {
       // Récupère en BD le membre dont le pseudo est passé en paramètre dans l'url
-        var user = await _context.Users.FindAsync(id);
+        var user = await _context.Users.Include(u => u.masterings).SingleAsync(u => u.userId == id);
+      
       // Si aucun membre n'a été trouvé, renvoyer une erreur 404 Not Found
        if (user == null)
            return NotFound();
@@ -74,7 +75,7 @@ public class UsersController : ControllerBase
     [HttpPut]
     public async Task<IActionResult> PutUser(UserWithPasswordDTO dto) {
        // Récupère en BD le membre à mettre à jour
-       var user = await _context.Users.FindAsync(dto.userId);
+       var user = await _context.Users.Include(u => u.masterings).SingleAsync(u => u.userId == dto.userId);
        // Si aucun membre n'a été trouvé, renvoyer une erreur 404 Not Found
        if (user == null)
            return NotFound();
@@ -82,7 +83,7 @@ public class UsersController : ControllerBase
     if (string.IsNullOrEmpty(dto.Password))
         dto.Password = user.Password;
        // Mappe les données reçues sur celles du membre en question
-        _mapper.Map<UserDTO, User>(dto, user);
+       _mapper.Map<UserWithPasswordDTO, User>(dto, user);
        // Sauve les changements
        var res = await _context.SaveChangesAsyncWithValidation();
        if (!res.IsEmpty)

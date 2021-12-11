@@ -11,8 +11,9 @@ export class UserService {
     constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
     getAll(): Observable<User[]> {
-        return this.http.get<User[]>(`${this.baseUrl}api/Users`)
-            .pipe(map(res => res.map(m => new User(m))));
+        return this.http.get<any[]>(`${this.baseUrl}api/Users`)
+            .pipe(map(res => plainToClass(User, res))
+        );
     }
     getByEmail(email: string) {
         return this.http.get<User>(`${this.baseUrl}api/Users/${email}`).pipe(

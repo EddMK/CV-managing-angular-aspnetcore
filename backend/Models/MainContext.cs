@@ -17,6 +17,8 @@ namespace backend.Models
 
         public DbSet<Skill> Skills { get; set; }
 
+        public DbSet<Mastering> Masterings { get; set; }
+
 
         public MainContext(DbContextOptions<MainContext> options)
             : base(options) {
@@ -30,6 +32,8 @@ namespace backend.Models
             modelBuilder.Entity<Category>().HasIndex(c => c.categoryId).IsUnique();
     
             modelBuilder.Entity<Skill>().HasIndex(s => s.skillId).IsUnique();
+            modelBuilder.Entity<Mastering>().HasIndex(s => s.masteringId).IsUnique();
+
          
             
 
@@ -59,6 +63,11 @@ namespace backend.Models
 
             modelBuilder.Entity<Skill>().HasData(
                 new Skill { skillId = 1, Name = "Java"}
+            );
+
+            modelBuilder.Entity<Mastering>().HasData(
+            
+               new Mastering { masteringId = 1, Level = Level.Advanced, UserID = 1, skillId = 1}
             );
 
 

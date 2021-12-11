@@ -15,7 +15,7 @@ namespace backend.Models {
    
    public string Name {get; set; }
 
-   public int CategorieId { get; set;}
+   public Category category { get; set;}
 
    public IEnumerable<ValidationResult> Validate(ValidationContext validationContext) {
             var currContext = validationContext.GetService(typeof(MainContext)) as MainContext;

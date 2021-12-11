@@ -3,7 +3,8 @@
 
 <h2 class="text-center">{{currentUser.title}}</h2>
 <h2 class="text-center">{{currentUser.email}}</h2>
-<h2 class="text-center">{{currentUser.birthDate}}</h2>
+<h2 class="text-center">{{currentUser.birthDate?.format('DD/MM/YYYY')}}</h2>
+<H2>{{currentUser.masterings.length}}</H2>
 
 
 </div>

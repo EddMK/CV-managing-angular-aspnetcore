@@ -19,10 +19,10 @@ namespace backend.Models {
    public Level Level { get; set; }
    
    [Required]
-   public Skill Skill { get; set; }
+   public int skillId { get; set; }
 
    [Required]
-   public User User { get; set; }
+   public int  UserID { get; set; }
 
 
 

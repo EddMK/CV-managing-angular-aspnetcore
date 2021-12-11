@@ -7,7 +7,7 @@ import { FormControl } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import * as _ from 'lodash-es';
-import { User, Role } from 'src/app/models/User';
+import { User,  Mastering, Role } from 'src/app/models/User';
 import { Moment } from 'moment';
 import * as moment from 'moment';
 
@@ -18,6 +18,7 @@ import * as moment from 'moment';
 })
 export class EditUserComponent {
     public frm!: FormGroup;
+    public frmMastering!: FormGroup; 
     public ctlFirstname!: FormControl;
     public ctlLastname!: FormControl;
     public ctlEmail!: FormControl;
@@ -25,6 +26,7 @@ export class EditUserComponent {
     public ctlRole!: FormControl;
     public isNew: boolean;
     public maxDate: Moment = moment().subtract(18, 'years');
+    public mastering!: Mastering[];
 
     constructor(public dialogRef: MatDialogRef<EditUserComponent>,
         @Inject(MAT_DIALOG_DATA) public data: { user: User; isNew: boolean; },

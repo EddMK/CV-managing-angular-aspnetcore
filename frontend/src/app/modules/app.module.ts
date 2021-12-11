@@ -19,6 +19,7 @@ import { JwtInterceptor } from '../interceptors/jwt.interceptor';
 import { LoginComponent } from '../components/login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule} from './shared.module'
+import { EditUserComponent } from '../components/edit/edit-user.component';
 
 
 export function getBaseUrl() {
@@ -37,10 +38,13 @@ export function getBaseUrl() {
         CVComponent,
         TitleComponent,
         ExperiencesComponent,
-        SkillsComponent
-       
+        SkillsComponent,
+        EditUserComponent
+    
         
-        
+    ],
+    entryComponents: [
+        EditUserComponent
     ],
     imports: [
         BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

@@ -1,4 +1,4 @@
-<!--<form id="frm" class="form" [formGroup]="frm" novalidate>
+<form id="frm" class="form" [formGroup]="frm" novalidate>
     <h1 class="header">{{(!isNew ? 'Edit existing' : 'Add a new') + ' member'}}</h1>
     <div class="form">
         <mat-form-field>
@@ -14,7 +14,7 @@
         </mat-form-field>
         <mat-form-field>
             <input matInput placeholder="First Name" [formControl]="ctlFirstname">
-            <mat-error class="field-error" *ngIf="ctlFullName.hasError('minlength')">Minimum length is {{ctlFirstname.errors?.minlength?.requiredLength}}</mat-error>
+            <mat-error class="field-error" *ngIf="ctlFirstname.hasError('minlength')">Minimum length is {{ctlFirstname.errors?.minlength?.requiredLength}}</mat-error>
         </mat-form-field>
         <mat-form-field>
             <input matInput placeholder="Last Name" [formControl]="ctlLastname">
@@ -35,7 +35,7 @@
     </div>
 
 </form> 
- <pre>
+ <!--<pre>
 {{frm.value | json }}
 {{frm.invalid | json }}
 {{frm.pristine | json }}

@@ -1,0 +1,43 @@
+<!--<form id="frm" class="form" [formGroup]="frm" novalidate>
+    <h1 class="header">{{(!isNew ? 'Edit existing' : 'Add a new') + ' member'}}</h1>
+    <div class="form">
+        <mat-form-field>
+            <input matInput placeholder="Email" [formControl]="ctlEmail" required [readonly]="!isNew">
+            <mat-error class="field-error" *ngIf="ctlEmail.hasError('required')">Required</mat-error>
+            <mat-error class="field-error" *ngIf="ctlEmail.hasError('minlength')">Minimum length is {{ctlEmail.errors?.minlength?.requiredLength}}</mat-error>
+            <mat-error class="field-error" *ngIf="ctlEmail.hasError('emailUsed')">Email already in use</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput [placeholder]="'Password ' + (isNew ? '' : ' (leave blank if no change)')" [formControl]="ctlPassword" type="password" [required]="isNew" autocomplete="new-password">
+            <mat-error class="field-error" *ngIf="ctlPassword.hasError('required')">Required</mat-error>
+            <mat-error class="field-error" *ngIf="ctlPassword.hasError('minlength')">Minimum length is {{ctlPassword.errors?.minlength?.requiredLength}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="First Name" [formControl]="ctlFirstname">
+            <mat-error class="field-error" *ngIf="ctlFullName.hasError('minlength')">Minimum length is {{ctlFirstname.errors?.minlength?.requiredLength}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Last Name" [formControl]="ctlLastname">
+            <mat-error class="field-error" *ngIf="ctlLastname.hasError('minlength')">Minimum length is {{ctlLastname.errors?.minlength?.requiredLength}}</mat-error>
+        </mat-form-field>
+     
+        <mat-form-field>
+            <mat-select placeholder="Role" [formControl]="ctlRole">
+               <mat-option [value]="0">Manager</mat-option> 
+                <mat-option [value]="1">Consultant</mat-option> 
+            </mat-select>
+        </mat-form-field>
+    </div>
+  
+    <div class="footer">
+        <button type="submit" mat-button form="frm" [disabled]="frm.pristine || frm.invalid || frm.pending" (click)="update()">{{!isNew ? 'Update' : 'Add'}}</button>
+        <button type="reset" mat-button (click)="cancel()">Cancel</button>
+    </div>
+
+</form> 
+ <pre>
+{{frm.value | json }}
+{{frm.invalid | json }}
+{{frm.pristine | json }}
+{{frm.pending | json }}
+</pre>  -->

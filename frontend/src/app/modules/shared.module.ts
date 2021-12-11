@@ -17,18 +17,19 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
+
 @NgModule({
     imports: [
         MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule,
         MatTableModule, MatPaginatorModule, MatSortModule, MatIconModule,
         MatSlideToggleModule, MatDialogModule, MatSnackBarModule, MatTabsModule,
-        MatSelectModule, MatCardModule, MatMomentDateModule, MatDatepickerModule
+        MatSelectModule, MatCardModule, MatMomentDateModule, MatDatepickerModule,
     ],
     exports: [
         MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule,
         MatTableModule, MatPaginatorModule, MatSortModule, MatIconModule,
         MatSlideToggleModule, MatDialogModule, MatSnackBarModule, MatTabsModule,
-        MatSelectModule, MatCardModule, MatMomentDateModule, MatDatepickerModule
+        MatSelectModule, MatCardModule, MatMomentDateModule, MatDatepickerModule, 
     ],
 })
 

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, AfterViewInit, ElementRef, OnDestroy } fr
 import * as _ from 'lodash-es';
 import { User } from '../../models/User';
 import { UserService } from '../../services/user.service';
-//import { EditUserComponent } from '../edit-user/edit-user.component';
+import { EditUserComponent } from '../edit/edit-user.component';
 import { StateService } from 'src/app/services/state.service';
 import { MatTableState } from 'src/app/helpers/mattable.state';
 import { MatTableDataSource } from '@angular/material/table';
@@ -19,7 +19,7 @@ import { plainToClass } from 'class-transformer';
 })
 
 export class UserListComponent implements AfterViewInit, OnDestroy {
-    displayedColumns: string[] = ['firstName','lastName', 'email', 'title', 'role'];
+    displayedColumns: string[] = ['firstName','lastName', 'email', 'title', 'role', 'actions'];
     dataSource: MatTableDataSource<User> = new MatTableDataSource();
     filter: string = '';
     state: MatTableState;
@@ -77,7 +77,7 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
         if (this.dataSource.paginator)
             this.dataSource.paginator.firstPage();
     }
-    /*
+
 
     // appelée quand on clique sur le bouton "edit" d'un membre
     edit(user: User) {
@@ -108,10 +108,10 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
                 this.dataSource.data = backup;
         });
     }
-
+    /*
     // appelée quand on clique sur le bouton "new user"
     create() {
-        const user = new User();
+        const user = new User(data : any);
         const dlg = this.dialog.open(EditUserComponent, { data: { user, isNew: true } });
         dlg.beforeClosed().subscribe(res => {
             if (res) {
@@ -125,8 +125,8 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
                 });
             }
         });
-    }
-   */
+    }*/
+   
     ngOnDestroy(): void {
         this.snackBar.dismiss();
     }

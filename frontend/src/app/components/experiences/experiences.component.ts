@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { CVComponent } from '../CV.component';
+import { CVComponent } from '../CV/CV.component';
 
 
 

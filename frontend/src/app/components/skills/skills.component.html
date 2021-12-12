@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col-sm-12">
         <ul *ngIf="masterings.length > 0">
-            <li *ngFor="let mastering of masterings">{{ mastering.level}}      {{ mastering.masteringId}}</li>
+            <li *ngFor="let mastering of masterings">{{ mastering.categoryToString }} : {{ mastering.skilltoString}}  : {{ mastering.level}} , </li>
         </ul>
         <p *ngIf="masterings.length == 0">No skills found</p>
     </div>

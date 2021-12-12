@@ -3,29 +3,17 @@ import * as internal from "assert";
 import { Transform, Type } from "class-transformer";
 import * as moment from "moment";
 import { Moment } from "moment";
+import { Mastering } from "./Mastering";
 
 import 'reflect-metadata';
+
+
 
 
 export enum Role {
     Manager = 0,
     Consultant = 1
   }
-
-  export enum Level {
-      Beginner = 1, Intermediate = 2, Advanced = 3
-  }
-
-
-
-  export class Mastering {
-
-   masteringId?: number;
-   level?: Level;
-   skill?: number;
-
-  }
-
 
 
 export class User {

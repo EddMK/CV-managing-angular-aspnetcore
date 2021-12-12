@@ -1,8 +1,8 @@
 
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
-import { User, Mastering } from '../models/User';
+import { Mastering } from '../models/Mastering';
+import { User } from '../models/User';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { plainToClass } from 'class-transformer';

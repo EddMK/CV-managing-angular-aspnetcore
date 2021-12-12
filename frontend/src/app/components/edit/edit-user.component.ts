@@ -7,7 +7,8 @@ import { FormControl } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import * as _ from 'lodash-es';
-import { User,  Mastering, Role } from 'src/app/models/User';
+import { User,  Role } from 'src/app/models/User';
+import { Mastering } from 'src/app/models/Mastering';
 import { Moment } from 'moment';
 import * as moment from 'moment';
 

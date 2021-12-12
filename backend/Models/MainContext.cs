@@ -38,7 +38,7 @@ namespace backend.Models
 
 
             modelBuilder.Entity<Manager>().HasData(
-                new Manager {Pseudo = "dan", Password = "dan", Email="danielsoria@gmail.com", FirstName="Daniel", LastName="Soria", Title= "Project manager", BirthDate=new DateTime(1989, 11, 26), Role = Role.MANAGER, userId = 1},
+                new Manager {Pseudo = "dan", Password = "dan", Email="danielsoria@gmail.com", FirstName="Daniel", LastName="Calatayud Soria", Title= "Java developer", BirthDate=new DateTime(1989, 11, 26), Role = Role.CONSULTANT, userId = 1},
                 new Manager {Pseudo = "ed", Password = "ed", Email="edouardkourieh@gmail.com", FirstName="Edouard", LastName="Kourieh" , Title="Product manager",  BirthDate=new DateTime(1995, 1, 2), Role = Role.MANAGER, userId = 2}
             );
 
@@ -59,12 +59,34 @@ namespace backend.Models
             );
 
             modelBuilder.Entity<Skill>().HasData(
-                new Skill { skillId = 1, Name = "Java", categoryId = 1}
+                // linked to languages
+                new Skill { skillId = 1, Name = "Java", categoryId = 1},
+                new Skill { skillId = 2, Name = "C#", categoryId = 1},
+                new Skill { skillId = 3, Name = "C++", categoryId = 1},
+                new Skill { skillId = 4, Name = "Python", categoryId = 1},
+                new Skill { skillId = 5, Name = "Typescript", categoryId = 1},
+                // linked to databases 
+                new Skill { skillId = 6, Name = "Oracle", categoryId = 2},
+                new Skill { skillId = 7, Name = "MySQL", categoryId = 2},
+                new Skill { skillId = 8, Name = "MongoDB", categoryId = 2},
+                new Skill { skillId = 9, Name = "MariaDB", categoryId = 2},
+                new Skill { skillId = 10, Name = "SqlLite", categoryId = 2}
             );
 
            modelBuilder.Entity<Mastering>().HasData(
-            
-               new Mastering { masteringId=1, userId=1, SkillId=1,  Level = Level.Advanced}
+               // for dan
+               new Mastering { masteringId=1, userId=1, SkillId=1,  Level = Level.Advanced},
+               new Mastering { masteringId=2, userId=1, SkillId=2,  Level = Level.Intermediate},
+               new Mastering { masteringId=3, userId=1, SkillId=3,  Level = Level.Intermediate},
+               new Mastering { masteringId=4, userId=1, SkillId=4,  Level = Level.Beginner},
+               new Mastering { masteringId=5, userId=1, SkillId=5,  Level = Level.Advanced},
+               new Mastering { masteringId=6, userId=1, SkillId=6,  Level = Level.Advanced},
+               new Mastering { masteringId=7, userId=1, SkillId=10,  Level = Level.Intermediate}
+
+
+
+
+
                
             );
 

@@ -10,6 +10,7 @@ export class AuthenticationService {
 
     // l'utilisateur couramment connecté (undefined sinon)
     public currentUser?: User;
+    public current : User;
 
     constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
         // au départ on récupère un éventuel utilisateur stocké dans le sessionStorage
@@ -17,6 +18,7 @@ export class AuthenticationService {
         if (data)
             data = JSON.parse(data);
         this.currentUser = plainToClass(User, data);
+        this.current = this.currentUser;
     }
 
     login(email: string, password: string) {

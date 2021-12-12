@@ -12,12 +12,12 @@ import { User } from 'src/app/models/User';
   styles: [
   ]
 })
-export class TitleComponent extends CVComponent  implements OnInit {
+export class TitleComponent extends CVComponent implements OnInit {
   
   
 
   ngOnInit(): void {
-    
+     
   }
 
 

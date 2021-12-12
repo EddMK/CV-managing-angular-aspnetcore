@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { CVComponent } from '../CV/CV.component';
-
-
+import { TitleComponent } from '../title/title.component';
 
 
 @Component({
@@ -11,9 +10,7 @@ import { CVComponent } from '../CV/CV.component';
   styles: [
   ]
 })
-export class ExperiencesComponent extends CVComponent  implements OnInit {
-  
-
+export class ExperiencesComponent extends CVComponent implements OnInit {
   
 
   ngOnInit(): void {

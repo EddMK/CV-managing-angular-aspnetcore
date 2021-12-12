@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Router } from '@angular/router';
+import { User } from 'src/app/models/User';
+
+
 
 
 
@@ -8,20 +11,19 @@ import { Router } from '@angular/router';
 @Component({
     selector: 'app-CV',
     templateUrl: './CV.component.html',
+    
 
 
 })
 export class CVComponent{
     
-    public test :  String;
+    public currentUser : User;
 
     constructor(private authenticationService: AuthenticationService) {
-        this.test = "kjgkjkgjkfjg";
+        this.currentUser = this.authenticationService.current;
     }
     
-    get currentUser()  {
-        return this.authenticationService.currentUser;
-    }
+   
   
     
    

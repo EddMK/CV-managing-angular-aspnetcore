@@ -12,9 +12,9 @@ import { User } from 'src/app/models/User';
   styles: [
   ]
 })
-export class TitleComponent extends CVComponent implements OnInit {
+export class TitleComponent implements OnInit {
   
-  
+  @Input() public connectedUser! : User | undefined
 
   ngOnInit(): void {
      

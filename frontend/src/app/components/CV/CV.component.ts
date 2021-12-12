@@ -14,9 +14,10 @@ import { User } from 'src/app/models/User';
 })
 export class CVComponent{
     
-   
+    connectedUser : User | undefined;
+    
     constructor(private authenticationService: AuthenticationService) {
-       
+       this.connectedUser = this.currentUser
     }
     
     get currentUser()  {

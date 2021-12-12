@@ -1,12 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { CVComponent } from '../CV/CV.component';
 
-
-
-
-
-
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { User } from 'src/app/models/User';
 
 
 @Component({
@@ -17,7 +14,6 @@ import { CVComponent } from '../CV/CV.component';
 })
 export class TitleComponent extends CVComponent  implements OnInit {
   
-
   
 
   ngOnInit(): void {

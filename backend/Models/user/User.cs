@@ -44,7 +44,8 @@ namespace backend.Models
         [NotMapped]
         public string Token { get; set; }
 
-        public ICollection<Mastering> masterings { get; set; } = new HashSet<Mastering>();
+      
+       public ICollection<Mastering> masterings { get; set; } = new HashSet<Mastering>();
 
 
         
@@ -58,7 +59,9 @@ namespace backend.Models
             this.Role = role;
             this.Title = Title;
             this.userId = userId;
+          
         }
+
         
 
         public User(){}

@@ -4,14 +4,12 @@ namespace backend.Models {
 
    public class MasteringDto {
 
-       
-   public int masteringId { get; set; }
-   
+    public int masteringId {get; set; }
+    public int UserId { get; set; }
  
-   public string Level { get; set; }
-   
-  
-   public int skillID { get; set; }
+    public int SkillId { get; set; } 
+   public SkillDto Skill { get; set; }
+    public int Level { get; set; }
 
 
     }

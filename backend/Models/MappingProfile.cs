@@ -26,8 +26,16 @@ namespace backend.Models
             CreateMap<Experience,ExperienceDTO>();
             CreateMap<ExperienceDTO,Experience>();
 
+            CreateMap<Category, CategoryDto>();
+            CreateMap<CategoryDto, Category>();
+
+            CreateMap<Skill, SkillDto>();
+            CreateMap<SkillDto, Skill>();
+
             CreateMap<Mastering, MasteringDto>();
             CreateMap<MasteringDto, Mastering>();
+
+           
         }
     }
 }

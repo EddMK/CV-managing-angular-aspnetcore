@@ -19,6 +19,8 @@ namespace backend.Models
 
         public DbSet<Mastering> Masterings { get; set; }
 
+      
+
 
         public MainContext(DbContextOptions<MainContext> options)
             : base(options) {
@@ -32,13 +34,8 @@ namespace backend.Models
             modelBuilder.Entity<Category>().HasIndex(c => c.categoryId).IsUnique();
     
             modelBuilder.Entity<Skill>().HasIndex(s => s.skillId).IsUnique();
-            modelBuilder.Entity<Mastering>().HasIndex(s => s.masteringId).IsUnique();
+            modelBuilder.Entity<Mastering>().HasIndex(m => m.masteringId).IsUnique();
 
-         
-            
-
-
-            //modelBuilder.Entity<User>().Property(u => u.userId).ValueGeneratedOnAdd();
 
             modelBuilder.Entity<Manager>().HasData(
                 new Manager {Pseudo = "dan", Password = "dan", Email="danielsoria@gmail.com", FirstName="Daniel", LastName="Soria", Title= "Project manager", BirthDate=new DateTime(1989, 11, 26), Role = Role.MANAGER, userId = 1},
@@ -62,19 +59,25 @@ namespace backend.Models
             );
 
             modelBuilder.Entity<Skill>().HasData(
-                new Skill { skillId = 1, Name = "Java"}
+                new Skill { skillId = 1, Name = "Java", categoryId = 1}
             );
 
-            modelBuilder.Entity<Mastering>().HasData(
+           modelBuilder.Entity<Mastering>().HasData(
             
-               new Mastering { masteringId = 1, Level = Level.Advanced, UserID = 1, skillId = 1}
+               new Mastering { masteringId=1, userId=1, SkillId=1,  Level = Level.Advanced}
+               
             );
+
+
 
 
             
             
         }
 
+   
+
+      
       
         
       

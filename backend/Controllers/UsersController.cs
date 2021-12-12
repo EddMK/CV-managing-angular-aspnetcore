@@ -36,14 +36,20 @@ public class UsersController : ControllerBase
     [AllowAnonymous]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<UserDTO>>> GetAll() {
-    
-      return _mapper.Map<List<UserDTO>>(await _context.Users.Include(u => u.masterings).ToListAsync());
+      
+      return _mapper.Map<List<UserDTO>>(await _context.Users.Include(u => u.masterings)
+       .ThenInclude(s => s.Skill)
+       .ThenInclude(c => c.category)
+      .ToListAsync());
     }
-    [HttpGet("{email}")]
+    [HttpGet("{id}")]
     public async Task<ActionResult<UserDTO>> GetOne(int id) {
       // Récupère en BD le membre dont le pseudo est passé en paramètre dans l'url
-        var user = await _context.Users.Include(u => u.masterings).SingleAsync(u => u.userId == id);
-      
+        var user = await _context.Users.Include(u => u.masterings)
+        //.ThenInclude(s => s.Skill)
+        .SingleAsync(u => u.userId == id);
+
+    
       // Si aucun membre n'a été trouvé, renvoyer une erreur 404 Not Found
        if (user == null)
            return NotFound();

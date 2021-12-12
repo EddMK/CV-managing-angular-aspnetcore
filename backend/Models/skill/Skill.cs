@@ -15,6 +15,8 @@ namespace backend.Models {
    
    public string Name {get; set; }
 
+   public int categoryId { get; set; }
+
    public Category category { get; set;}
 
    public IEnumerable<ValidationResult> Validate(ValidationContext validationContext) {

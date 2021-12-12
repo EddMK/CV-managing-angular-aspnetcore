@@ -16,9 +16,9 @@ export enum Role {
 
   export class Mastering {
 
-   masteringId?: string;
+   masteringId?: number;
    level?: string;
-   skill?: string;
+   skill?: number;
 
   }
 

@@ -6,24 +6,22 @@ import { User } from 'src/app/models/User';
 
 
 
-
-
 @Component({
     selector: 'app-CV',
     templateUrl: './CV.component.html',
-    
 
 
 })
 export class CVComponent{
     
-    public currentUser : User;
-
+   
     constructor(private authenticationService: AuthenticationService) {
-        this.currentUser = this.authenticationService.current;
+       
     }
     
-   
+    get currentUser()  {
+        return this.authenticationService.currentUser;
+    }
   
     
    

@@ -9,7 +9,7 @@ namespace backend.Models {
  
     public int SkillId { get; set; } 
    public SkillDto Skill { get; set; }
-    public int Level { get; set; }
+    public string Level { get; set; }
 
 
     }

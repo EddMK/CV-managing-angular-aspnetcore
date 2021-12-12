@@ -1,11 +1,12 @@
 <div *ngIf="currentUser">
-<h1 class="text-center " style='font-size: 30px;'> {{currentUser.firstname}}      {{currentUser.lastname}} </h1>
+<h1 class="text-center font-weight-bold" style='font-size: 30px;'> {{currentUser.firstname}}      {{currentUser.lastname}} </h1>
 
 <h2 class="text-center">{{currentUser.title}}</h2>
 <h2 class="text-center">{{currentUser.email}}</h2>
 <h2 class="text-center">{{currentUser.birthDate?.format('DD/MM/YYYY')}}</h2>
-<H2>{{currentUser.masterings.length}}</H2>
-
 
 
 </div>
+
+
+

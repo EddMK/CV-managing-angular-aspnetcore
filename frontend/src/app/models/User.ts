@@ -12,12 +12,16 @@ export enum Role {
     Consultant = 1
   }
 
+  export enum Level {
+      Beginner = 1, Intermediate = 2, Advanced = 3
+  }
+
 
 
   export class Mastering {
 
    masteringId?: number;
-   level?: string;
+   level?: Level;
    skill?: number;
 
   }

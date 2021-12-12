@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { CVComponent } from '../CV/CV.component';
+import { Mastering } from 'src/app/models/User';
+import { MasteringService } from 'src/app/services/mastering.service';
 
 
 
@@ -11,9 +13,16 @@ import { CVComponent } from '../CV/CV.component';
   styles: [
   ]
 })
-export class SkillsComponent extends CVComponent  implements OnInit {
+export class SkillsComponent  implements OnInit {
   
+   masterings : Mastering[] = [];
 
+   constructor(public masteringService : MasteringService){
+       masteringService.getAll().subscribe(m => {
+           this.masterings = m;
+           console.log(m);
+       });
+   }
   
 
   ngOnInit(): void {

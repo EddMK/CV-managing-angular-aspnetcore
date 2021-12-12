@@ -1,1 +1,12 @@
-<H1>SKILLS</H1>
+<H1 class = "font-weight-bold" style='font-size: 30px'>SKILLS</H1>
+
+
+<div class="row">
+    <div class="col-sm-12">
+        <ul *ngIf="masterings.length > 0">
+            <li *ngFor="let mastering of masterings">{{ mastering.level}}      {{ mastering.masteringId}}</li>
+        </ul>
+        <p *ngIf="masterings.length == 0">No skills found</p>
+    </div>
+</div>
+

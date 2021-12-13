@@ -70,7 +70,16 @@ namespace backend.Models
                 new Skill { skillId = 7, Name = "MySQL", categoryId = 2},
                 new Skill { skillId = 8, Name = "MongoDB", categoryId = 2},
                 new Skill { skillId = 9, Name = "MariaDB", categoryId = 2},
-                new Skill { skillId = 10, Name = "SqlLite", categoryId = 2}
+                new Skill { skillId = 10, Name = "SqlLite", categoryId = 2},
+
+                // linked to frameworks 
+                
+                new Skill { skillId = 11, Name = "Spring Boot", categoryId = 3},
+                new Skill { skillId = 12, Name = "Asp.net core", categoryId = 3},
+                new Skill { skillId = 13, Name = "Xaml", categoryId = 3},
+                new Skill { skillId = 14, Name = "Java FX", categoryId = 3},
+                new Skill { skillId = 15, Name = "Java EE", categoryId = 3}
+                
             );
 
            modelBuilder.Entity<Mastering>().HasData(
@@ -81,7 +90,11 @@ namespace backend.Models
                new Mastering { masteringId=4, userId=1, SkillId=4,  Level = Level.Beginner},
                new Mastering { masteringId=5, userId=1, SkillId=5,  Level = Level.Advanced},
                new Mastering { masteringId=6, userId=1, SkillId=6,  Level = Level.Advanced},
-               new Mastering { masteringId=7, userId=1, SkillId=10,  Level = Level.Intermediate}
+               new Mastering { masteringId=7, userId=1, SkillId=10,  Level = Level.Intermediate},
+               new Mastering { masteringId=8, userId=1, SkillId=11,  Level = Level.Advanced},
+               new Mastering { masteringId=9, userId=1, SkillId=12,  Level = Level.Beginner},
+               new Mastering { masteringId=10, userId=1, SkillId=13,  Level = Level.Advanced},
+               new Mastering { masteringId=11, userId=1, SkillId=14,  Level = Level.Intermediate}
 
 
 

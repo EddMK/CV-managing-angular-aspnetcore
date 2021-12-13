@@ -11,8 +11,8 @@ import { plainToClass } from 'class-transformer';
 export class MasteringService {
     constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
-    getAll(): Observable<Mastering[]> {
-        return this.http.get<any[]>(`${this.baseUrl}api/Mastering`)
+    getAllById(id : number): Observable<Mastering[]> {
+        return this.http.get<any[]>(`${this.baseUrl}api/Mastering/` + id)
             .pipe(map(res => plainToClass(Mastering, res))
         );
     }

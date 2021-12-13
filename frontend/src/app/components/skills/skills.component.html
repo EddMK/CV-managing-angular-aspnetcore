@@ -2,13 +2,31 @@
 <H1 class = "font-weight-bold" style='font-size: 30px'>COMPETENCES</H1>
 
 
-<div class="row">
-    <div class="col-sm-12">
-        <ul *ngIf="masterings.length > 0">
-            <li *ngFor="let mastering of masterings">{{ mastering.categoryToString }} : {{ mastering.skilltoString}}  : {{ mastering.level}} , </li>
-        </ul>
+<div class="row" >
+    <div class="col-sm-12  d-inline" >
+        <div *ngIf="masterings.length > 0">
+            <p style="font-style: italic; font-weight: bold; font-size: large;">Language :</p>
+            <div *ngFor="let mastering of masterings" Style="display: inline-flex">
+                <p Style="font-size: large;" *ngIf="mastering.categoryToString === 'Language'" >
+                    {{ mastering.skilltoString}}  : {{ mastering.level}}   , 
+                </p>
+            </div>
+            <p style="font-style: italic; font-weight: bold;font-size: large;">Database :</p>
+            <div *ngFor="let mastering of masterings" Style="display: inline-flex">
+                <p Style="font-size: large;" *ngIf="mastering.categoryToString === 'Database'" >
+                    {{ mastering.skilltoString}}  : {{ mastering.level}}   , 
+                </p>
+            </div>
+            <p style="font-style: italic; font-weight: bold; font-size: large;">Framework :</p>
+            <div *ngFor="let mastering of masterings" Style="display: inline-flex">
+                <p Style="font-size: large;" *ngIf="mastering.categoryToString === 'Framework'" >
+                    {{ mastering.skilltoString}}  : {{ mastering.level}}   , 
+                </p>
+            </div>
+        </div>
         <p *ngIf="masterings.length == 0">No skills found</p>
     </div>
+   
 </div>
 </div>
 

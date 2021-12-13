@@ -36,8 +36,8 @@ public class MasteringController : ControllerBase
        .ToListAsync());
     }
     [AllowAnonymous]
-    [Route("/api/[controller]/getMasterings")]
-    [HttpGet]
+   
+    [HttpGet("{id}")]
     public async Task<ActionResult<IEnumerable<MasteringDto>>> GetAllById(int id) {
       return _mapper.Map<List<MasteringDto>>(await _context.Masterings.Where(m => m.userId == id).Include(s => s.Skill)
        .ThenInclude(c => c.category)

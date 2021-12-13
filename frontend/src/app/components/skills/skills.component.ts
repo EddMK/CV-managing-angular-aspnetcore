@@ -16,27 +16,20 @@ import { MasteringService } from 'src/app/services/mastering.service';
 export class SkillsComponent  implements OnInit {
 
   @Input() public connectedUser! : User | undefined
+
+  userId : number | undefined;
   
    masterings : Mastering[] = [];
-   languages : Mastering[] = [];
-   databases : Mastering[] = [];
-   framework : Mastering[] = [];
+   
 
    constructor(public masteringService : MasteringService){
-       masteringService.getAll().subscribe(m => {
+       this.userId = this.connectedUser?.id
+       masteringService.getAllById(1).subscribe(m => {
            this.masterings = m;
-           this.initCategories("Language");
-           this.initCategories("database");
-           this.initCategories("frameworks");
+         
        });
    }
 
-   initCategories(category : String) : void {
-    for (var val of this.masterings) {
-        if(val.categoryToString == category)
-            this.languages.fill(val);
-     }
-   }
   
 
   ngOnInit(): void {

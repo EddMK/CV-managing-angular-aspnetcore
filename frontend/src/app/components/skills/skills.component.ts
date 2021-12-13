@@ -10,8 +10,7 @@ import { MasteringService } from 'src/app/services/mastering.service';
 @Component({
   selector: 'app-skills',
   templateUrl: './skills.component.html',
-  styles: [
-  ]
+  styleUrls: ['./skills.component.css']
 })
 export class SkillsComponent  implements OnInit {
 

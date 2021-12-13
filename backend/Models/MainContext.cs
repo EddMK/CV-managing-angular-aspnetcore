@@ -19,9 +19,7 @@ namespace backend.Models
 
         public DbSet<Mastering> Masterings { get; set; }
 
-      
-
-
+    
         public MainContext(DbContextOptions<MainContext> options)
             : base(options) {
         }

@@ -5,6 +5,11 @@ using System.Diagnostics;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using PRID_Framework;
+using System.ComponentModel.DataAnnotations.Schema;
+
+
+
+
 
 namespace backend.Models {
 
@@ -15,7 +20,12 @@ namespace backend.Models {
         
         [Key]
         public int IdExperience { get;set;}
-        [Required (ErrorMessage = "Required")]
+
+        [ForeignKey(nameof(User))]
+        public int userId { get; set; }
+
+         public User User { get; set; }
+
         public DateTime Start { get;set;}
         [Required (ErrorMessage = "Required")]
         public DateTime Finish { get;set;}

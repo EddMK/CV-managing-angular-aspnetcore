@@ -26,6 +26,8 @@ namespace backend.Models
        public string Token { get; set; }
 
        public ICollection<MasteringDto> Masterings { get; set; }
+
+       public ICollection<ExperienceDTO> Experiences { get; set; }
         
         
     }

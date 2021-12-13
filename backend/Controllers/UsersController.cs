@@ -40,7 +40,8 @@ public class UsersController : ControllerBase
       return _mapper.Map<List<UserDTO>>(await _context.Users.Include(u => u.masterings)
        .ThenInclude(s => s.Skill)
        .ThenInclude(c => c.category)
-      .ToListAsync());
+       .Include(u => u.experiences)
+       .ToListAsync());
     }
     [HttpGet("{id}")]
     public async Task<ActionResult<UserDTO>> GetOne(int id) {

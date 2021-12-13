@@ -43,6 +43,8 @@ export class User {
             return today.diff(this.birthDate, 'years');
     }
 
+  
+
    /* constructor(data: any) {
         if (data) {
         

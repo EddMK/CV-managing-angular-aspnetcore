@@ -12,7 +12,7 @@ export class MasteringService {
     constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
     getAllById(id : number): Observable<Mastering[]> {
-        return this.http.get<any[]>(`${this.baseUrl}api/Mastering/` + id)
+        return this.http.get<any[]>(`${this.baseUrl}api/mastering/` + id)
             .pipe(map(res => plainToClass(Mastering, res))
         );
     }

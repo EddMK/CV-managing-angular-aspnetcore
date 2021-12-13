@@ -16,7 +16,7 @@ namespace backend.Models
     public abstract class User : IValidatableObject
     {
         [Key]
-        public int userId { get; set;}
+        public int UserId { get; set;}
         
         [Required(ErrorMessage = "Required")]
         [MinLength(3, ErrorMessage = "Minimum 3 characters"), StringLength(10, ErrorMessage = "Maximum 10 characters"),]
@@ -62,7 +62,7 @@ namespace backend.Models
             this.BirthDate = birthday;
             this.Role = role;
             this.Title = Title;
-            this.userId = userId;
+            this.UserId = userId;
           
         }
 

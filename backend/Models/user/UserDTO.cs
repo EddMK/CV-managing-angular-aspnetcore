@@ -7,7 +7,7 @@ namespace backend.Models
     public class UserDTO
     {
 
-        public int userId { get; set; }
+        public int UserId { get; set; }
        
         public string Pseudo { get; set; }
 

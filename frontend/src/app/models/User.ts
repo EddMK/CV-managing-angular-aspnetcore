@@ -17,7 +17,7 @@ export enum Role {
 
 
 export class User {
-    id?: number;
+    userId?: number;
     pseudo?: string;
     password?: string;
     firstname?: string;

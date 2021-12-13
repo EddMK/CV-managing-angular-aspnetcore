@@ -9,8 +9,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 
 
-
-
 namespace backend.Models {
 
     public enum ExperienceRole {

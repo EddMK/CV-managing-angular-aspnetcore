@@ -48,7 +48,7 @@ public class UsersController : ControllerBase
       // Récupère en BD le membre dont le pseudo est passé en paramètre dans l'url
         var user = await _context.Users.Include(u => u.masterings)
         //.ThenInclude(s => s.Skill)
-        .SingleAsync(u => u.userId == id);
+        .SingleAsync(u => u.UserId == id);
 
     
       // Si aucun membre n'a été trouvé, renvoyer une erreur 404 Not Found
@@ -82,7 +82,7 @@ public class UsersController : ControllerBase
     [HttpPut]
     public async Task<IActionResult> PutUser(UserWithPasswordDTO dto) {
        // Récupère en BD le membre à mettre à jour
-       var user = await _context.Users.Include(u => u.masterings).SingleAsync(u => u.userId == dto.userId);
+       var user = await _context.Users.Include(u => u.masterings).SingleAsync(u => u.UserId == dto.UserId);
        // Si aucun membre n'a été trouvé, renvoyer une erreur 404 Not Found
        if (user == null)
            return NotFound();
@@ -125,7 +125,9 @@ public async Task<ActionResult<UserDTO>> Authenticate(UserWithPasswordDTO dto) {
     if (user.Token == null)
         return BadRequest(new ValidationErrors().Add("Incorrect password", "Password"));
 
-    return Ok(_mapper.Map<UserDTO>(user));
+    var mapped = _mapper.Map<UserDTO>(user);
+    Console.WriteLine("mapped : " + mapped.UserId);
+    return Ok(mapped);
 }
 
 private async Task<User> Authenticate(string email, string password) {
@@ -143,7 +145,7 @@ private async Task<User> Authenticate(string email, string password) {
         var key = Encoding.ASCII.GetBytes("my-super-secret-key");
         var tokenDescriptor = new SecurityTokenDescriptor {
             Subject = new ClaimsIdentity(new Claim[] {
-                    new Claim(ClaimTypes.Name, user.userId.ToString()),
+                    new Claim(ClaimTypes.Name, user.UserId.ToString()),
                     new Claim(ClaimTypes.Role, user.Role.ToString())
                 }),
             IssuedAt = DateTime.UtcNow,

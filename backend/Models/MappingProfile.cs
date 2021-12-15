@@ -35,6 +35,9 @@ namespace backend.Models
             CreateMap<Mastering, MasteringDto>();
             CreateMap<MasteringDto, Mastering>();
 
+            CreateMap<Training, TrainingDTO>();
+            CreateMap<TrainingDTO, Training>();
+
            
 
            

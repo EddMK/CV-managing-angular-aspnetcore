@@ -5,12 +5,11 @@ import { TitleComponent } from '../title/title.component';
 
 
 @Component({
-  selector: 'app-experiences',
-  templateUrl: './experiences.component.html',
-  styles: [
-  ]
+  selector: 'app-trainings',
+  templateUrl: './trainings.component.html',
+  styleUrls: [ './trainings.component.css']
 })
-export class ExperiencesComponent extends CVComponent implements OnInit {
+export class TrainingsComponent implements OnInit {
   
 
   ngOnInit(): void {

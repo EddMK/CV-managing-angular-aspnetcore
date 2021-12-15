@@ -20,7 +20,7 @@ namespace backend.Models {
         public int IdExperience { get;set;}
 
         [ForeignKey(nameof(User))]
-        public int userId { get; set; }
+        public int UserId { get; set; }
 
          public User User { get; set; }
 
@@ -37,6 +37,24 @@ namespace backend.Models {
         public ExperienceRole Role { get; set;}
 
         public Enterprise enterprise;
+
+
+        public Experience(User user, DateTime start, DateTime finish, string title, string description, ExperienceRole role, Enterprise enterprise, int id){
+            this.UserId = user.UserId;
+            this.User = user;
+            this.Start = start;
+            this.Finish = finish;
+            this.Title = title;
+            this.Description = description;
+            this.Role = role;
+            this.enterprise = enterprise;
+            this.IdExperience = id;
+        }
+
+
+        public Experience(){
+        }
+
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext) {
             var currContext = validationContext.GetService(typeof(MainContext)) as MainContext;

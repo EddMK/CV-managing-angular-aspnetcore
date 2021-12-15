@@ -49,10 +49,7 @@ namespace backend.Models
 
        public ICollection<Experience> experiences { get; set; } = new HashSet<Experience>();
 
-       
-
-
-        
+    
         public User(string pseudo, string password, string email, string firtsname, string lastname, string title, DateTime birthday, Role role, int userId = 0){
             this.Pseudo = pseudo;
             this.Password = password;
@@ -65,8 +62,6 @@ namespace backend.Models
             this.UserId = userId;
           
         }
-
-        
 
         public User(){}
 

@@ -11,7 +11,6 @@ import { HomeComponent } from '../components/home/home.component';
 import { UserListComponent } from '../components/userlist/userlist.component';
 import { CVComponent } from '../components/CV/CV.component';
 import { TitleComponent } from '../components/title/title.component';
-import { ExperiencesComponent } from '../components/experiences/experiences.component';
 import { SkillsComponent } from '../components/skills/skills.component';
 //import { RestrictedComponent } from '../components/restricted/restricted.component';
 import { UnknownComponent } from '../components/unknown/unknown.component';
@@ -20,6 +19,8 @@ import { LoginComponent } from '../components/login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule} from './shared.module'
 import { EditUserComponent } from '../components/edit/edit-user.component';
+import { TrainingsComponent } from '../components/Training/trainings.component';
+import { MissionsComponent } from '../components/missions/missions.component';
 
 
 export function getBaseUrl() {
@@ -37,7 +38,8 @@ export function getBaseUrl() {
         //RestrictedComponent,
         CVComponent,
         TitleComponent,
-        ExperiencesComponent,
+        TrainingsComponent,
+        MissionsComponent,
         SkillsComponent,
         EditUserComponent
     

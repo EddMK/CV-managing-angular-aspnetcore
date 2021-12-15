@@ -24,14 +24,14 @@ namespace prid_2122_g04.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ExperienceDTO>>> GetAllTraining() {//OK
+        public async Task<ActionResult<IEnumerable<ExperienceDTO>>> GetAll() {//OK
             // Récupère une liste de tous les membres
             return _mapper.Map<List<ExperienceDTO>>(await _context.Experience.ToListAsync());
         }
 
         [HttpGet("getTrainingById/{id}")]
         public async Task<ActionResult<IEnumerable<ExperienceDTO>>> GetAllTraingById(int id) {//OK
-           return _mapper.Map<List<ExperienceDTO>>(await _context.Experience.Where(t => t.Role == ExperienceRole.TRAINING && t.userId == id).ToListAsync());
+           return _mapper.Map<List<ExperienceDTO>>(await _context.Experience.Where(t => t.Role == ExperienceRole.TRAINING && t.UserId == id).ToListAsync());
         }
         
         [HttpGet("{titre}")]

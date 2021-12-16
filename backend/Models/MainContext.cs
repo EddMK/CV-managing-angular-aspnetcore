@@ -46,7 +46,7 @@ namespace backend.Models
             );
 
             modelBuilder.Entity<Training>().HasData(
-                new Training {IdExperience = 1, UserId = 1,Start = new DateTime(2019, 10, 15), Finish = new DateTime(2022, 06, 30), Title = "Bachelore in computer science",Description ="", Role = ExperienceRole.TRAINING, Grade = 90},
+                new Training {IdExperience = 1, UserId = 1,Start = new DateTime(2019, 10, 15), Finish = new DateTime(2022, 06, 30), Title = "Bachelore in computer science",Description ="Learning fundamentals of I.T and software development", Role = ExperienceRole.TRAINING, Grade = 90},
                 new Training {IdExperience = 2, UserId = 3, Start = new DateTime(2021, 02, 1), Finish = new DateTime(2021, 06, 30), Title = "Bachelore in computer science",Description ="", Role = ExperienceRole.TRAINING, Grade = 77}
             );
  

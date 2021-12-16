@@ -1,2 +1,9 @@
+
 <H1 class = "font-weight-bold mt-sm-2" style='font-size: 30px; font-family:Segoe UI'>TRAININGS</H1>
+<div *ngFor="let training of trainings" Style="display: inline-flex">
+    
+      <p> {{ training.start?.format('DD/MM/YYYY')}}   :    {{ training.finish?.format('DD/MM/YYYY')}} </p>
+      <p class="font-weight-bold ml-3">   {{ training.title}}</p>
+    
+</div> 
 

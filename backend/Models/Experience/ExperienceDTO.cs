@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace backend.Models {
     public class ExperienceDTO{
@@ -9,9 +10,13 @@ namespace backend.Models {
 
         public DateTime Start { get;set;}
         public DateTime Finish { get;set;}
+
+        public EnterpriseDto Enterprise {get; set; }
         public string Title { get;set;}
         public string Description { get;set;}
         public string Role { get; set;}
+
+         public ICollection<UsingDto> Usings { get; set; } = new HashSet<UsingDto>(); // using dto 
 
         
 

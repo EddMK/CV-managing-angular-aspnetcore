@@ -19,6 +19,8 @@ namespace backend.Models
 
         public DbSet<Mastering> Masterings { get; set; }
 
+        public DbSet<Using> Usings { get; set; }
+
     
         public MainContext(DbContextOptions<MainContext> options)
             : base(options) {
@@ -33,6 +35,8 @@ namespace backend.Models
     
             modelBuilder.Entity<Skill>().HasIndex(s => s.skillId).IsUnique();
             modelBuilder.Entity<Mastering>().HasIndex(m => m.masteringId).IsUnique();
+            modelBuilder.Entity<Using>().HasIndex(u => u.Id).IsUnique();
+            modelBuilder.Entity<Enterprise>().HasIndex(e => e.IdEntreprise).IsUnique();
 
 
             modelBuilder.Entity<Manager>().HasData(
@@ -48,6 +52,20 @@ namespace backend.Models
             modelBuilder.Entity<Training>().HasData(
                 new Training {IdExperience = 1, UserId = 1,Start = new DateTime(2019, 10, 15), Finish = new DateTime(2022, 06, 30), Title = "Bachelore in computer science",Description ="Learning fundamentals of I.T and software development", Role = ExperienceRole.TRAINING, Grade = 90},
                 new Training {IdExperience = 2, UserId = 3, Start = new DateTime(2021, 02, 1), Finish = new DateTime(2021, 06, 30), Title = "Bachelore in computer science",Description ="", Role = ExperienceRole.TRAINING, Grade = 77}
+            );
+
+            modelBuilder.Entity<Enterprise>().HasData(
+               new Enterprise { IdEntreprise = 1, Name = "Epfc"}
+            );
+
+            modelBuilder.Entity<Using>().HasData(
+               new Using {Id =1, ExperienceId = 1, SkillId = 1},
+               new Using {Id =2, ExperienceId = 1, SkillId = 2},
+               new Using {Id =3, ExperienceId = 1, SkillId = 3},
+               new Using {Id =4,ExperienceId = 1, SkillId = 4},
+               new Using {Id =5,ExperienceId = 1, SkillId = 5},
+               new Using {Id =6,ExperienceId = 1, SkillId = 6},
+               new Using {Id =7, ExperienceId = 1, SkillId = 7}
             );
  
             modelBuilder.Entity<Category>().HasData(
@@ -96,10 +114,6 @@ namespace backend.Models
                new Mastering { masteringId=11, userId=1, SkillId=14,  Level = Level.Intermediate}
 
 
-
-
-
-               
             );
 
 

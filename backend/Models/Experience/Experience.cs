@@ -29,6 +29,7 @@ namespace backend.Models {
         public DateTime Finish { get;set;}
         [Required (ErrorMessage = "Required")]
 
+        public Enterprise Enterprise { get; set; }
 
         public string Title { get;set;}
 
@@ -36,7 +37,8 @@ namespace backend.Models {
 
         public ExperienceRole Role { get; set;}
 
-        public Enterprise enterprise;
+
+         public ICollection<Using> usings { get; set; } = new HashSet<Using>();
 
 
         public Experience(User user, DateTime start, DateTime finish, string title, string description, ExperienceRole role, Enterprise enterprise, int id){
@@ -47,7 +49,7 @@ namespace backend.Models {
             this.Title = title;
             this.Description = description;
             this.Role = role;
-            this.enterprise = enterprise;
+            this.Enterprise = enterprise;
             this.IdExperience = id;
         }
 

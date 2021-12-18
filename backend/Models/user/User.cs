@@ -39,7 +39,7 @@ namespace backend.Models
 
         public DateTime? BirthDate { get; set; }
 
-        public Role Role { get; set;} = Role.MANAGER;
+        public Role Role { get; set;}
 
         [NotMapped]
         public string Token { get; set; }

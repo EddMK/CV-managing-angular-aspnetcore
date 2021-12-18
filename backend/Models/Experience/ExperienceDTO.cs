@@ -16,6 +16,8 @@ namespace backend.Models {
         public string Description { get;set;}
         public string Role { get; set;}
 
+        public double Grade { get; set; }
+
          public ICollection<UsingDto> Usings { get; set; } = new HashSet<UsingDto>(); // using dto 
 
         

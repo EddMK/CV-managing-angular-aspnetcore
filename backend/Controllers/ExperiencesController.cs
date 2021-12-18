@@ -26,7 +26,7 @@ namespace prid_2122_g04.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ExperienceDTO>>> GetAll() {//OK
             // Récupère une liste de tous les membres
-            return _mapper.Map<List<ExperienceDTO>>(await _context.Experience.ToListAsync());
+            return _mapper.Map<List<ExperienceDTO>>(await _context.Experience.Include(e => e.Enterprise).ToListAsync());
         }
 
         [HttpGet("getTrainingById/{id}")]

@@ -26,6 +26,7 @@ export class Experience {
     title?: string;
     description?: string;
     role?: RoleExperience;
+    grade?: number;
 
 }
 

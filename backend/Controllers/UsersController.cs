@@ -58,7 +58,9 @@ public class UsersController : ControllerBase
     return _mapper.Map<UserDTO>(user);
     }
     
+    
     //[Authorized(Role.MANAGER)]
+    [AllowAnonymous]
     [HttpPost]
     public async Task<ActionResult<UserDTO>> PostUser(UserWithPasswordDTO user) {
     // Utilise le mapper pour convertir le DTO qu'on a reçu en une instance de Member
@@ -73,7 +75,7 @@ public class UsersController : ControllerBase
 
     // Renvoie une réponse ayant dans son body les données du nouveau membre (3ème paramètre)
     // et ayant dans ses headers une entrée 'Location' qui contient l'url associé à GetOne avec la bonne valeur 
-    // pour le paramètre 'pseudo' de cet url.
+    // pour le paramètre 'pseudo' de cet url
     return CreatedAtAction(nameof(GetOne), new { pseudo = user.Pseudo }, _mapper.Map<UserDTO>(newuser));
     }
 

@@ -28,7 +28,9 @@ namespace backend.Models {
         [Required (ErrorMessage = "Required")]
         public DateTime Finish { get;set;}
         [Required (ErrorMessage = "Required")]
-
+        
+        [ForeignKey(nameof(Enterprise))]
+        public int IdEnterprise { get; set; }
         public Enterprise Enterprise { get; set; }
 
         public string Title { get;set;}

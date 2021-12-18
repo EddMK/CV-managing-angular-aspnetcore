@@ -19,8 +19,8 @@ import { LoginComponent } from '../components/login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule} from './shared.module'
 import { EditUserComponent } from '../components/edit/edit-user.component';
-import { TrainingsComponent } from '../components/Training/trainings.component';
-import { MissionsComponent } from '../components/missions/missions.component';
+import { ExperiencesComponent } from '../components/Experiences/experiences.component';
+
 
 
 export function getBaseUrl() {
@@ -38,8 +38,8 @@ export function getBaseUrl() {
         //RestrictedComponent,
         CVComponent,
         TitleComponent,
-        TrainingsComponent,
-        MissionsComponent,
+        ExperiencesComponent,
+
         SkillsComponent,
         EditUserComponent
     

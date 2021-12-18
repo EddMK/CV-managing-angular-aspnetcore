@@ -3,23 +3,27 @@ import { User } from 'src/app/models/User';
 import { Experience } from 'src/app/models/Experience';
 import { CVComponent } from '../CV/CV.component';
 import { TitleComponent } from '../title/title.component';
-import { TrainingService } from 'src/app/services/training.service';
+import { ExperienceService } from 'src/app/services/experience.service';
 
 
 @Component({
-  selector: 'app-trainings',
-  templateUrl: './trainings.component.html',
-  styleUrls: [ './trainings.component.css']
+  selector: 'app-experiences',
+  templateUrl: './experiences.component.html',
+  styleUrls: [ './experiences.component.css']
 })
-export class TrainingsComponent implements OnInit {
+export class ExperiencesComponent implements OnInit {
   
   @Input() public set connectedUser(user: User | undefined) {
     
     if (user != undefined) {
       console.log("user : " + user?.firstname + ", " + user?.userId);
-      this.trainingService.GetAllTraingById(user?.userId!).subscribe(t => {
+      this.experienceService.GetAllTraingById(user?.userId!).subscribe(t => {
         this.trainings = t;
       });
+      this.experienceService.GetAllMissionById(user?.userId!).subscribe(t => {
+        this.missions = t;
+      });
+
     }
 }
 
@@ -29,8 +33,9 @@ export class TrainingsComponent implements OnInit {
   }
 
   trainings : Experience[] = [];
+  missions : Experience[] = [];
 
-  constructor(public trainingService :  TrainingService){
+  constructor(public experienceService :  ExperienceService){
 
   }
 

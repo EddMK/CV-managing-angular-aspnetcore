@@ -10,7 +10,7 @@ import { Experience } from '../models/Experience';
 
 
 @Injectable({ providedIn: 'root' })
-export class TrainingService {
+export class ExperienceService {
     constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
     GetAllTraingById(id : number): Observable<Experience[]> {
@@ -18,6 +18,12 @@ export class TrainingService {
             .pipe(map(res => plainToClass(Experience, res))
         );
     }
+    GetAllMissionById(id : number): Observable<Experience[]> {
+        return this.http.get<any[]>(`${this.baseUrl}api/experiences/getMissionById/` + id)
+            .pipe(map(res => plainToClass(Experience, res))
+        );
+    }
+
     
 }
 

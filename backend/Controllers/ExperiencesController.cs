@@ -33,6 +33,13 @@ namespace prid_2122_g04.Controllers
         public async Task<ActionResult<IEnumerable<ExperienceDTO>>> GetAllTraingById(int id) {//OK
            return _mapper.Map<List<ExperienceDTO>>(await _context.Experience.Where(t => t.Role == ExperienceRole.TRAINING && t.UserId == id).ToListAsync());
         }
+
+         [HttpGet("getMissionById/{id}")]
+        public async Task<ActionResult<IEnumerable<ExperienceDTO>>> GetAllMissionById(int id) {//OK
+           return _mapper.Map<List<ExperienceDTO>>(await _context.Experience.Where(t => t.Role == ExperienceRole.MISSION && t.UserId == id).ToListAsync());
+        }
+
+
         
         [HttpGet("{titre}")]
         public async Task<ActionResult<ExperienceDTO>> GetOne(int  id) {//OK

@@ -13,6 +13,6 @@ export class Enterprise {
     IdEnterprise?: number;
     name?: string;
    
-
+   
 }
 

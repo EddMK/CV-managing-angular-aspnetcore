@@ -4,6 +4,7 @@ import { Transform, Type } from "class-transformer";
 import * as moment from "moment";
 import { Moment } from "moment";
 import { Enterprise } from "./Enterprise";
+import { Using } from "./Using";
 
 import 'reflect-metadata';
 
@@ -30,6 +31,7 @@ export class Experience {
     role?: RoleExperience;
     enterprise?: Enterprise;
     grade?: number;
+    usings: Using[] = [];
 
 
     public get enterpriseToString(){

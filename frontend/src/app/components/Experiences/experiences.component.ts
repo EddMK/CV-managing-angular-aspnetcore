@@ -4,6 +4,8 @@ import { Experience } from 'src/app/models/Experience';
 import { CVComponent } from '../CV/CV.component';
 import { TitleComponent } from '../title/title.component';
 import { ExperienceService } from 'src/app/services/experience.service';
+import { Using } from 'src/app/models/Using';
+import { UsingService } from 'src/app/services/using.service';
 
 
 @Component({
@@ -35,8 +37,12 @@ export class ExperiencesComponent implements OnInit {
 
   trainings : Experience[] = [];
   missions : Experience[] = [];
+  
+  /*public Languages(id : number) {
+     return this.usingService.GetLanguagesById(id);
+  }*/
 
-  constructor(public experienceService :  ExperienceService){
+  constructor(public experienceService :  ExperienceService, public usingService : UsingService){
 
   }
 

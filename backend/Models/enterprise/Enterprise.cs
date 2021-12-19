@@ -1,11 +1,29 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics;
 
 namespace backend.Models {
-  public class Enterprise {
+  public class Enterprise : IValidatableObject {
+
+      [Key]
       public int IdEntreprise;
-      public string name;
+
+      [Required]
+      public string Name;
+
+      public Enterprise(){ }
+
+      public IEnumerable<ValidationResult> Validate(ValidationContext validationContext) {
+            var currContext = validationContext.GetService(typeof(MainContext)) as MainContext;
+            Debug.Assert(currContext != null);
+            yield return new ValidationResult(null);
+            
+      }
+
+
 
   }
 

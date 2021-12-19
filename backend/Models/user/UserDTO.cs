@@ -7,7 +7,7 @@ namespace backend.Models
     public class UserDTO
     {
 
-        public int userId { get; set; }
+        public int UserId { get; set; }
        
         public string Pseudo { get; set; }
 
@@ -25,9 +25,15 @@ namespace backend.Models
 
        public string Token { get; set; }
 
+       public UserDTO Manager {get; set; }
+
        public ICollection<MasteringDto> Masterings { get; set; }
 
        public ICollection<ExperienceDTO> Experiences { get; set; }
+
+        public ICollection<UserWithPasswordDTO> consultants { get; set; }
+
+
         
         
     }

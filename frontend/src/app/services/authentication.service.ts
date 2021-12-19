@@ -40,7 +40,7 @@ export class AuthenticationService {
     }
 
     signup( firstName : string, lastName : string, email : string, birthDate : Date, title : string, password : string ) {
-        return this.http.post<any>(`${this.baseUrl}api/users/postuser`, {firstName, lastName ,email, birthDate, title, password})
+        return this.http.post<any>(`${this.baseUrl}api/users/`, {firstName, lastName ,email, birthDate, title, password})
             .pipe(map(user => {
                 console.log(user);
                 return user;

@@ -11,7 +11,6 @@ import { HomeComponent } from '../components/home/home.component';
 import { UserListComponent } from '../components/userlist/userlist.component';
 import { CVComponent } from '../components/CV/CV.component';
 import { TitleComponent } from '../components/title/title.component';
-import { ExperiencesComponent } from '../components/experiences/experiences.component';
 import { SkillsComponent } from '../components/skills/skills.component';
 //import { RestrictedComponent } from '../components/restricted/restricted.component';
 import { UnknownComponent } from '../components/unknown/unknown.component';
@@ -21,6 +20,8 @@ import { SignupComponent } from '../components/signup/signup.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule} from './shared.module'
 import { EditUserComponent } from '../components/edit/edit-user.component';
+import { ExperiencesComponent } from '../components/Experiences/experiences.component';
+
 
 
 export function getBaseUrl() {
@@ -40,6 +41,7 @@ export function getBaseUrl() {
         CVComponent,
         TitleComponent,
         ExperiencesComponent,
+
         SkillsComponent,
         EditUserComponent
     

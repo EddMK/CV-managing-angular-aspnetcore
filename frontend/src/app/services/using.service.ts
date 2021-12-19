@@ -6,16 +6,21 @@ import { User } from '../models/User';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { plainToClass } from 'class-transformer';
+import { Experience } from '../models/Experience';
+import { Using } from '../models/Using';
+
 
 @Injectable({ providedIn: 'root' })
-export class MasteringService {
+export class UsingService {
     constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
-    getAllById(id : number): Observable<Mastering[]> {
-        return this.http.get<any[]>(`${this.baseUrl}api/mastering/` + id)
-            .pipe(map(res => plainToClass(Mastering, res))
+    GetLanguagesById(id : number): Observable<Using[]> {
+        return this.http.get<any[]>(`${this.baseUrl}api/usings/GetLanguagesById/` + id)
+            .pipe(map(res => plainToClass(Using, res))
         );
     }
     
-}
+    
 
+    
+}

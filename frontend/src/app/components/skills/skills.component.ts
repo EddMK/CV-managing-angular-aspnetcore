@@ -14,21 +14,21 @@ import { isDefined } from '@angular/compiler/src/util';
 })
 export class SkillsComponent  implements OnInit {
 
-  @Input() public connectedUser! : User | undefined
+  @Input() public set connectedUser(user: User | undefined) {
+    
+      if (user != undefined) {
+        console.log("user : " + user?.firstname + ", " + user?.userId);
+        this.masteringService.getAllById(user?.userId!).subscribe(m => {
+          this.masterings = m;
+        });
+      }
+  }
 
 
-  
-  
    masterings : Mastering[] = [];
    
-
    constructor(public masteringService : MasteringService){
-    
-        masteringService.getAllById(1).subscribe(m => {
-             this.masterings = m;
-         
-       });
-      
+  
    }
 
   
@@ -36,7 +36,6 @@ export class SkillsComponent  implements OnInit {
   ngOnInit(): void {
     
   }
-
 
 
 }

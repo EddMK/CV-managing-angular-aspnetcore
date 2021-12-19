@@ -17,14 +17,15 @@ namespace backend.Models
         public MappingProfile(MainContext context) {
             _context = context;
 
-            CreateMap<User, UserDTO>();
+            CreateMap<User, UserDTO>().Include<Consultant, UserDTO>().Include<Manager, UserDTO>();
             CreateMap<UserDTO, User>();
+            CreateMap<Consultant, UserDTO>().ForMember(o => o.Manager, m => m.MapFrom(x => x.Manager));
+            CreateMap<Manager, UserDTO>().ForMember(o => o.consultants, m => m.MapFrom(x => x.consultants));
 
             CreateMap<User, UserWithPasswordDTO>();
             CreateMap<UserWithPasswordDTO, User>();
+            CreateMap<UserWithPasswordDTO, Consultant>().IncludeAllDerived();
 
-            CreateMap<Experience,ExperienceDTO>();
-            CreateMap<ExperienceDTO,Experience>();
 
             CreateMap<Category, CategoryDto>();
             CreateMap<CategoryDto, Category>();
@@ -34,6 +35,17 @@ namespace backend.Models
 
             CreateMap<Mastering, MasteringDto>();
             CreateMap<MasteringDto, Mastering>();
+            
+            CreateMap<Experience,ExperienceDTO>().Include<Training, ExperienceDTO>(); 
+            CreateMap<Training, ExperienceDTO>().ForMember(o => o.Grade, m => m.MapFrom(x => x.Grade));
+            CreateMap<ExperienceDTO,Experience>();
+          
+
+            CreateMap<Enterprise, EnterpriseDto>();
+            CreateMap<EnterpriseDto, Enterprise>();
+
+            CreateMap<Using, UsingDto>();
+            CreateMap<UsingDto, Using>();
 
            
 

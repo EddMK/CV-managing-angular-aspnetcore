@@ -16,10 +16,10 @@ namespace backend.Models
     public abstract class User : IValidatableObject
     {
         [Key]
-        public int userId { get; set;}
+        public int UserId { get; set;}
         
-        //[Required(ErrorMessage = "Required")]
-        //[MinLength(3, ErrorMessage = "Minimum 3 characters"), StringLength(10, ErrorMessage = "Maximum 10 characters"),]
+        [Required(ErrorMessage = "Required")]
+        [MinLength(3, ErrorMessage = "Minimum 3 characters"), StringLength(10, ErrorMessage = "Maximum 10 characters"),]
         public string Pseudo { get; set; }
 
         [Required(ErrorMessage = "Required")]
@@ -49,10 +49,7 @@ namespace backend.Models
 
        public ICollection<Experience> experiences { get; set; } = new HashSet<Experience>();
 
-       
-
-
-        
+    
         public User(string pseudo, string password, string email, string firtsname, string lastname, string title, DateTime birthday, Role role, int userId = 0){
             this.Pseudo = pseudo;
             this.Password = password;
@@ -62,11 +59,9 @@ namespace backend.Models
             this.BirthDate = birthday;
             this.Role = role;
             this.Title = Title;
-            this.userId = userId;
+            this.UserId = userId;
           
         }
-
-        
 
         public User(){}
 
@@ -108,12 +103,12 @@ namespace backend.Models
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext) {
             var currContext = validationContext.GetService(typeof(MainContext)) as MainContext;
             Debug.Assert(currContext != null);
-            /*
+            
             if (!CheckPseudoUnicity(currContext))
                 yield return new ValidationResult("The Pseudo of a user must be unique", new[] { nameof(Pseudo) });
             if(!isPseudoValid())
                 yield return new ValidationResult("The Pseudo can't contain an underscore and the first character should be a letter", new[] { nameof(Pseudo) });
-            */
+            
             if (!CheckFullNameUnicity(currContext))
                  yield return new ValidationResult("The combinaison of a firstname and fullname should be unique", new[] { nameof(LastName) });
             if (Password == "abc")

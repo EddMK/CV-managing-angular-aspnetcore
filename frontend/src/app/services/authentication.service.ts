@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { User } from '../models/User';
 import { plainToClass } from 'class-transformer';
+import * as moment from 'moment';
 
 
 @Injectable({ providedIn: 'root' })
@@ -34,6 +35,14 @@ export class AuthenticationService {
                     this.currentUser = user;
                 }
 
+                return user;
+            }));
+    }
+
+    signup( firstName : string, lastName : string, email : string, birthDate : Date, title : string, password : string ) {
+        return this.http.post<any>(`${this.baseUrl}api/users/postuser`, {firstName, lastName ,email, birthDate, title, password})
+            .pipe(map(user => {
+                console.log(user);
                 return user;
             }));
     }

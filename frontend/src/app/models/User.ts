@@ -45,23 +45,17 @@ export class User {
 
   
 
-   /* constructor(data: any) {
+   constructor(data: any) {
         if (data) {
-        
-            this.pseudo = data.pseudo;
-            this.password = data.password;
+            
             this.firstname = data.firstname;
             this.lastname = data.lastname;
             this.email = data.email;
+            this.birthDate = data.birthDate;
             this.title = data.title;
-            this.birthDate = data.birthDate &&
-                data.birthDate.length > 10 ? data.birthDate.substring(0, 10) : data.birthDate;
-            this.token = data.token; 
-            this.role = data.role;
-            this.masterings = data.masterings;
-            
+            this.password = data.password;       
         }
-    } */
+    } 
 
     
     /*public get roleAsString(): string {

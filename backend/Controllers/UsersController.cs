@@ -13,6 +13,7 @@ using backend.Models;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authorization;
 using backend.Helpers;
+using System.Diagnostics;
 
 
 [Authorize]
@@ -59,10 +60,18 @@ public class UsersController : ControllerBase
     }
     
     //[Authorized(Role.MANAGER)]
-    [HttpPost]
+    //[HttpPost]
+    [AllowAnonymous]
+    [HttpPost("postuser")]
     public async Task<ActionResult<UserDTO>> PostUser(UserWithPasswordDTO user) {
     // Utilise le mapper pour convertir le DTO qu'on a reçu en une instance de Member
-      var newuser = _mapper.Map<User>(user);
+      Console.WriteLine("Arrrivé");
+      Console.WriteLine("user" + user.BirthDate);
+      //var newuser = _mapper.Map<Consultant>(user);
+      var newuser = new Consultant()
+            {Pseudo = user.Pseudo, Password = user.Password, Email= user.Email, 
+            FirstName= user.Firstname, LastName= user.Lastname, Title= user.title
+            ,BirthDate= user.BirthDate, Role = Role.CONSULTANT, userId = 0};
       // Ajoute ce nouveau membre au contexte EF
        _context.Users.Add(newuser);
        // Sauve les changements
@@ -70,15 +79,20 @@ public class UsersController : ControllerBase
        if (!res.IsEmpty)
           return BadRequest(res);
 
-
+    return null;
     // Renvoie une réponse ayant dans son body les données du nouveau membre (3ème paramètre)
     // et ayant dans ses headers une entrée 'Location' qui contient l'url associé à GetOne avec la bonne valeur 
     // pour le paramètre 'pseudo' de cet url.
-    return CreatedAtAction(nameof(GetOne), new { pseudo = user.Pseudo }, _mapper.Map<UserDTO>(newuser));
+    //return CreatedAtAction(nameof(GetOne), new { pseudo = user.Pseudo }, _mapper.Map<UserDTO>(newuser));
     }
-
-
-
+/*
+    [AllowAnonymous]
+    [HttpPost("postuser")]
+    public async Task<ActionResult<UserDTO>> AddNewUser(UserWithPasswordDTO user) {
+        Console.WriteLine("Arrrivé");
+        return null;
+    }
+*/
     [HttpPut]
     public async Task<IActionResult> PutUser(UserWithPasswordDTO dto) {
        // Récupère en BD le membre à mettre à jour

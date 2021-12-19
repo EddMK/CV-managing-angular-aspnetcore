@@ -17,6 +17,7 @@ import { SkillsComponent } from '../components/skills/skills.component';
 import { UnknownComponent } from '../components/unknown/unknown.component';
 import { JwtInterceptor } from '../interceptors/jwt.interceptor';
 import { LoginComponent } from '../components/login/login.component';
+import { SignupComponent } from '../components/signup/signup.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule} from './shared.module'
 import { EditUserComponent } from '../components/edit/edit-user.component';
@@ -33,6 +34,7 @@ export function getBaseUrl() {
         HomeComponent,
         UserListComponent,
         LoginComponent,
+        SignupComponent,
         UnknownComponent,
         //RestrictedComponent,
         CVComponent,
@@ -56,7 +58,8 @@ export function getBaseUrl() {
             { path: '', component: HomeComponent, pathMatch: 'full' },
             { path: 'team', component: UserListComponent },
             { path: 'CV', component: CVComponent },
-            { path: 'login', component: LoginComponent}
+            { path: 'login', component: LoginComponent},
+            { path: 'signup', component: SignupComponent}
             
             
         ]),

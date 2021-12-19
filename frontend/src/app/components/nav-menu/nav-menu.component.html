@@ -23,6 +23,9 @@
                         
                         </a>
                     </li>
+                    <li class="nav-item" [routerLinkActive]='["link-active"]' *ngIf="!currentUser">
+                        <a class="nav-link text-white" [routerLink]="['/signup']">Sign Up</a>
+                    </li>
                 
                     <li class="nav-item" [routerLinkActive]='["link-active"]' *ngIf="currentUser">
                     

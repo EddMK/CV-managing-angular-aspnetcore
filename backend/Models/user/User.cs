@@ -18,8 +18,8 @@ namespace backend.Models
         [Key]
         public int userId { get; set;}
         
-        [Required(ErrorMessage = "Required")]
-        [MinLength(3, ErrorMessage = "Minimum 3 characters"), StringLength(10, ErrorMessage = "Maximum 10 characters"),]
+        //[Required(ErrorMessage = "Required")]
+        //[MinLength(3, ErrorMessage = "Minimum 3 characters"), StringLength(10, ErrorMessage = "Maximum 10 characters"),]
         public string Pseudo { get; set; }
 
         [Required(ErrorMessage = "Required")]
@@ -39,7 +39,7 @@ namespace backend.Models
 
         public DateTime? BirthDate { get; set; }
 
-        public Role Role { get; set;} = Role.MANAGER;
+        public Role Role { get; set;}
 
         [NotMapped]
         public string Token { get; set; }
@@ -108,10 +108,12 @@ namespace backend.Models
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext) {
             var currContext = validationContext.GetService(typeof(MainContext)) as MainContext;
             Debug.Assert(currContext != null);
+            /*
             if (!CheckPseudoUnicity(currContext))
                 yield return new ValidationResult("The Pseudo of a user must be unique", new[] { nameof(Pseudo) });
             if(!isPseudoValid())
                 yield return new ValidationResult("The Pseudo can't contain an underscore and the first character should be a letter", new[] { nameof(Pseudo) });
+            */
             if (!CheckFullNameUnicity(currContext))
                  yield return new ValidationResult("The combinaison of a firstname and fullname should be unique", new[] { nameof(LastName) });
             if (Password == "abc")

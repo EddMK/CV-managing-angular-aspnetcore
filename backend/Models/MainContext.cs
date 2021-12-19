@@ -21,6 +21,8 @@ namespace backend.Models
 
         public DbSet<Using> Usings { get; set; }
 
+        public DbSet<Enterprise> Enterprises {get; set; }
+
     
         public MainContext(DbContextOptions<MainContext> options)
             : base(options) {
@@ -32,12 +34,14 @@ namespace backend.Models
             modelBuilder.Entity<User>().HasIndex(u => u.UserId).IsUnique();
             modelBuilder.Entity<Experience>().HasIndex(e => e.IdExperience).IsUnique();
             modelBuilder.Entity<Category>().HasIndex(c => c.categoryId).IsUnique();
+            modelBuilder.Entity<Enterprise>().HasIndex(e => e.IdEntreprise).IsUnique();
+            modelBuilder.Entity<Enterprise>().HasIndex(e => e.Name);
+
     
             modelBuilder.Entity<Skill>().HasIndex(s => s.skillId).IsUnique();
             modelBuilder.Entity<Mastering>().HasIndex(m => m.masteringId).IsUnique();
             modelBuilder.Entity<Using>().HasIndex(u => u.Id).IsUnique();
-            modelBuilder.Entity<Enterprise>().HasIndex(e => e.IdEntreprise).IsUnique();
-
+           
 
             modelBuilder.Entity<Manager>().HasData(
                 

@@ -24,6 +24,7 @@ namespace backend.Models
 
             CreateMap<User, UserWithPasswordDTO>();
             CreateMap<UserWithPasswordDTO, User>();
+            CreateMap<UserWithPasswordDTO, Consultant>().IncludeAllDerived();
 
 
             CreateMap<Category, CategoryDto>();
@@ -40,8 +41,11 @@ namespace backend.Models
             CreateMap<ExperienceDTO,Experience>();
           
 
-          CreateMap<Enterprise, EnterpriseDto>();
-          CreateMap<EnterpriseDto, Enterprise>();
+            CreateMap<Enterprise, EnterpriseDto>();
+            CreateMap<EnterpriseDto, Enterprise>();
+
+            CreateMap<Using, UsingDto>();
+            CreateMap<UsingDto, Using>();
 
            
 

@@ -19,6 +19,7 @@ export class ExperiencesComponent implements OnInit {
       console.log("user : " + user?.firstname + ", " + user?.userId);
       this.experienceService.GetAllTraingById(user?.userId!).subscribe(t => {
         this.trainings = t;
+        
       });
       this.experienceService.GetAllMissionById(user?.userId!).subscribe(t => {
         this.missions = t;

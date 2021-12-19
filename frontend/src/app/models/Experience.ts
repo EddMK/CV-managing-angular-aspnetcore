@@ -3,8 +3,10 @@ import * as internal from "assert";
 import { Transform, Type } from "class-transformer";
 import * as moment from "moment";
 import { Moment } from "moment";
+import { Enterprise } from "./Enterprise";
 
 import 'reflect-metadata';
+
 
 
 
@@ -26,7 +28,13 @@ export class Experience {
     title?: string;
     description?: string;
     role?: RoleExperience;
+    enterprise?: Enterprise;
     grade?: number;
+
+
+    public get enterpriseToString(){
+      return this.enterprise?.name;
+  }
 
 }
 

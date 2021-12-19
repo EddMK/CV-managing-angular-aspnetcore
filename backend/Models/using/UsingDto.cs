@@ -8,10 +8,10 @@ namespace backend.Models
     public int Id { get; set; }
 
     public int ExperienceId { get; set; } 
-    public Experience experience { get; set;}
+    public Experience Experience { get; set;}
 
     public int SkillId {get; set; }
-    public Skill skill { get; set; }
+    public Skill Skill { get; set; }
 
     }
 }

@@ -31,12 +31,12 @@ namespace prid_2122_g04.Controllers
 
         [HttpGet("getTrainingById/{id}")]
         public async Task<ActionResult<IEnumerable<ExperienceDTO>>> GetAllTraingById(int id) {//OK
-           return _mapper.Map<List<ExperienceDTO>>(await _context.Experience.Where(t => t.Role == ExperienceRole.TRAINING && t.UserId == id).ToListAsync());
+           return _mapper.Map<List<ExperienceDTO>>(await _context.Experience.Where(t => t.Role == ExperienceRole.TRAINING && t.UserId == id).Include(t => t.Enterprise).ToListAsync());
         }
 
          [HttpGet("getMissionById/{id}")]
         public async Task<ActionResult<IEnumerable<ExperienceDTO>>> GetAllMissionById(int id) {//OK
-           return _mapper.Map<List<ExperienceDTO>>(await _context.Experience.Where(t => t.Role == ExperienceRole.MISSION && t.UserId == id).ToListAsync());
+           return _mapper.Map<List<ExperienceDTO>>(await _context.Experience.Where(t => t.Role == ExperienceRole.MISSION && t.UserId == id).Include(t => t.Enterprise).ToListAsync());
         }
 
 

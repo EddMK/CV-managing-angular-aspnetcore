@@ -12,7 +12,7 @@ namespace backend.Models {
     [Key]
     public int Id { get; set; }
 
-    [ForeignKey(nameof(User))]
+    [ForeignKey(nameof(Experience))]
     public int ExperienceId { get; set; } 
     public Experience experience { get; set;}
 

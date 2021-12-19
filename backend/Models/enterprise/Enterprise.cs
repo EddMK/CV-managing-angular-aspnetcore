@@ -10,7 +10,11 @@ namespace backend.Models {
 
       [Key]
       public int IdEntreprise;
+
+      [Required]
       public string Name;
+
+      public Enterprise(){ }
 
       public IEnumerable<ValidationResult> Validate(ValidationContext validationContext) {
             var currContext = validationContext.GetService(typeof(MainContext)) as MainContext;

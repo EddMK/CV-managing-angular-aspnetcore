@@ -43,6 +43,7 @@ public class UsersController : ControllerBase
        .Include(u => u.experiences)
        .ToListAsync());
     }
+    [AllowAnonymous]
     [HttpGet("{id}")]
     public async Task<ActionResult<UserDTO>> GetOne(int id) {
       // Récupère en BD le membre dont le pseudo est passé en paramètre dans l'url
@@ -65,6 +66,7 @@ public class UsersController : ControllerBase
     public async Task<ActionResult<UserDTO>> PostUser(UserWithPasswordDTO user) {
     // Utilise le mapper pour convertir le DTO qu'on a reçu en une instance de Member
       var newuser = _mapper.Map<User>(user);
+      
       // Ajoute ce nouveau membre au contexte EF
        _context.Users.Add(newuser);
        // Sauve les changements
@@ -76,7 +78,7 @@ public class UsersController : ControllerBase
     // Renvoie une réponse ayant dans son body les données du nouveau membre (3ème paramètre)
     // et ayant dans ses headers une entrée 'Location' qui contient l'url associé à GetOne avec la bonne valeur 
     // pour le paramètre 'pseudo' de cet url
-    return CreatedAtAction(nameof(GetOne), new { pseudo = user.Pseudo }, _mapper.Map<UserDTO>(newuser));
+    return CreatedAtAction(nameof(GetOne), new { id = user.UserId }, _mapper.Map<UserDTO>(newuser));
     }
 
 

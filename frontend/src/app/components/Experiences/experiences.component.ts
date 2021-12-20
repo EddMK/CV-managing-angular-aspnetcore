@@ -37,12 +37,9 @@ export class ExperiencesComponent implements OnInit {
 
   trainings : Experience[] = [];
   missions : Experience[] = [];
-  
-  /*public Languages(id : number) {
-     return this.usingService.GetLanguagesById(id);
-  }*/
 
-  constructor(public experienceService :  ExperienceService, public usingService : UsingService){
+
+  constructor(public experienceService :  ExperienceService){
 
   }
 

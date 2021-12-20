@@ -75,7 +75,11 @@ namespace backend.Models
                new Using {Id =4,ExperienceId = 1, SkillId = 4},
                new Using {Id =5,ExperienceId = 1, SkillId = 5},
                new Using {Id =6,ExperienceId = 1, SkillId = 6},
-               new Using {Id =7, ExperienceId = 1, SkillId = 7}
+               new Using {Id =7, ExperienceId = 1, SkillId = 7},
+               new Using {Id =8,ExperienceId = 1, SkillId = 11},
+               new Using {Id =9,ExperienceId = 1, SkillId = 12},
+               new Using {Id =10,ExperienceId = 1, SkillId = 13},
+               new Using {Id =11, ExperienceId = 1, SkillId = 14}
             );
  
             modelBuilder.Entity<Category>().HasData(

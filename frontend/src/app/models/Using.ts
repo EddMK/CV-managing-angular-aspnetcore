@@ -18,13 +18,13 @@ export class Using {
 
         ExperienceId?: number;
 
-        //Experience?: Experience; 
+        Experience?: Experience; 
 
         SkillId?: number;
 
-        Skill?: Skill;
+        skill?: Skill;
 
         public get usingToString(){
-                return this.Skill?.name;
+                return this.skill?.name;
         }
 }

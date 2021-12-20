@@ -39,6 +39,18 @@ namespace prid_2122_g04.Controllers
             return _mapper.Map<List<UsingDto>>(await _context.Usings.Where(u => u.ExperienceId == id && u.skill.category.Name == "Language").Include(s => s.skill).ThenInclude(c => c.category).ToListAsync());
         }
 
+        [HttpGet("databases/{id}")]
+        public async Task<ActionResult<IEnumerable<UsingDto>>> GetDatabasesById(int id) {//OK
+            // Récupère une liste de tous les membres
+            return _mapper.Map<List<UsingDto>>(await _context.Usings.Where(u => u.ExperienceId == id && u.skill.category.Name == "Database").Include(s => s.skill).ThenInclude(c => c.category).ToListAsync());
+        }
+
+        [HttpGet("frameworks/{id}")]
+        public async Task<ActionResult<IEnumerable<UsingDto>>> GetFrameworksById(int id) {//OK
+            // Récupère une liste de tous les membres
+            return _mapper.Map<List<UsingDto>>(await _context.Usings.Where(u => u.ExperienceId == id && u.skill.category.Name == "Framework").Include(s => s.skill).ThenInclude(c => c.category).ToListAsync());
+        }
+
 
 
 

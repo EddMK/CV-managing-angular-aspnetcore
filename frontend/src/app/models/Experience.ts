@@ -18,7 +18,7 @@ export enum RoleExperience {
 
 export class Experience {
 
-    IdExperience?: number;
+    idExperience?: number;
     userId?: string;
     @Type(() => Date)
     @Transform(({ value }) => value ? moment(value) : value, { toClassOnly: true })

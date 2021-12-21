@@ -15,10 +15,24 @@ export class UsingService {
     constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
     GetLanguagesById(id : number): Observable<Using[]> {
-        return this.http.get<any[]>(`${this.baseUrl}api/usings/GetLanguagesById/` + id)
+        return this.http.get<any[]>(`${this.baseUrl}api/using/languages/` + id)
             .pipe(map(res => plainToClass(Using, res))
         );
     }
+
+    GetDatabasesById(id : number): Observable<Using[]> {
+        return this.http.get<any[]>(`${this.baseUrl}api/using/databases/` + id)
+            .pipe(map(res => plainToClass(Using, res))
+        );
+    }
+
+    GetFrameworksById(id : number): Observable<Using[]> {
+        return this.http.get<any[]>(`${this.baseUrl}api/using/frameworks/` + id)
+            .pipe(map(res => plainToClass(Using, res))
+        );
+    }
+
+
     
     
 

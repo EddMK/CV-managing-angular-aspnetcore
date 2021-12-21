@@ -21,6 +21,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule} from './shared.module'
 import { EditUserComponent } from '../components/edit/edit-user.component';
 import { ExperiencesComponent } from '../components/Experiences/experiences.component';
+import { UsinglistComponent } from '../components/usinglist/usinglist.component';
 
 
 
@@ -41,6 +42,7 @@ export function getBaseUrl() {
         CVComponent,
         TitleComponent,
         ExperiencesComponent,
+        UsinglistComponent,
 
         SkillsComponent,
         EditUserComponent

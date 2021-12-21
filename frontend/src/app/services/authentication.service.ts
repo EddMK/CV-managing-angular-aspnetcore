@@ -39,14 +39,6 @@ export class AuthenticationService {
             }));
     }
 
-    signup( firstName : string, lastName : string, email : string, birthDate : Date, title : string, password : string ) {
-        return this.http.post<any>(`${this.baseUrl}api/users/`, {firstName, lastName ,email, birthDate, title, password})
-            .pipe(map(user => {
-                console.log(user);
-                return user;
-            }));
-    }
-
     logout() {
         // remove user from local storage to log user out
         sessionStorage.removeItem('currentUser');

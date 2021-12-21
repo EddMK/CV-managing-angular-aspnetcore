@@ -1,6 +1,11 @@
 <form [formGroup]="signupForm"  (ngSubmit)="onSubmit()">
     <h1>Sign Up</h1>
     <mat-form-field>
+        <input #pseudo matInput placeholder="Pseudo" [formControl]="ctlPseudo" required appSetFocus> 
+        <mat-error class="field-error" *ngIf="ctlPseudo.hasError('required')">Required</mat-error>
+        <mat-error class="field-error" *ngIf="ctlPseudo.hasError('custom')">{{ctlPseudo.errors?.custom}}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
         <input #pseudo matInput placeholder="Last Name" [formControl]="ctlLastName" required appSetFocus> 
         <mat-error class="field-error" *ngIf="ctlLastName.hasError('required')">Required</mat-error>
         <mat-error class="field-error" *ngIf="ctlLastName.hasError('custom')">{{ctlLastName.errors?.custom}}</mat-error>

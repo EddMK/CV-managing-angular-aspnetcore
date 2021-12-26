@@ -82,26 +82,24 @@ public class UsersController : ControllerBase
     [AllowAnonymous]
     [HttpPost]
     public async Task<ActionResult<UserDTO>> PostUser(UserWithPasswordDTO user) {
-    // Utilise le mapper pour convertir le DTO qu'on a reçu en une instance de Member
-      Console.WriteLine("Arrrivé");
-      Console.WriteLine("user" + user.BirthDate);
-      //var newuser = _mapper.Map<Consultant>(user);
-      var newuser = new Consultant()
-            {Pseudo = user.Pseudo, Password = user.Password, Email= user.Email, 
-            FirstName= user.Firstname, LastName= user.Lastname, Title= user.title
-            ,BirthDate= user.BirthDate, Role = Role.CONSULTANT, UserId = 0};
-      // Ajoute ce nouveau membre au contexte EF
-       _context.Users.Add(newuser);
-       // Sauve les changements
-       var res = await _context.SaveChangesAsyncWithValidation();
-       if (!res.IsEmpty)
-          return BadRequest(res);
+        // Utilise le mapper pour convertir le DTO qu'on a reçu en une instance de Member
+        //var newuser = _mapper.Map<Consultant>(user);
+        var newuser = new Consultant()
+                {Pseudo = user.Pseudo, Password = user.Password, Email= user.Email, 
+                FirstName= user.Firstname, LastName= user.Lastname, Title= user.title
+                ,BirthDate= user.BirthDate, Role = Role.CONSULTANT, UserId = 0, managerID = 2};
+        // Ajoute ce nouveau membre au contexte EF
+        _context.Users.Add(newuser);
+        // Sauve les changements
+        var res = await _context.SaveChangesAsyncWithValidation();
+        if (!res.IsEmpty)
+            return BadRequest(res);
 
-    return null;
-    // Renvoie une réponse ayant dans son body les données du nouveau membre (3ème paramètre)
-    // et ayant dans ses headers une entrée 'Location' qui contient l'url associé à GetOne avec la bonne valeur 
-    // pour le paramètre 'pseudo' de cet url.
-    //return CreatedAtAction(nameof(GetOne), new { pseudo = user.Pseudo }, _mapper.Map<UserDTO>(newuser));
+        return null;
+        // Renvoie une réponse ayant dans son body les données du nouveau membre (3ème paramètre)
+        // et ayant dans ses headers une entrée 'Location' qui contient l'url associé à GetOne avec la bonne valeur 
+        // pour le paramètre 'pseudo' de cet url.
+        //return CreatedAtAction(nameof(GetOne), new { pseudo = user.Pseudo }, _mapper.Map<UserDTO>(newuser));
     }
 /*
     [AllowAnonymous]

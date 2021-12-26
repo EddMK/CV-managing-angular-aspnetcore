@@ -7,9 +7,10 @@ namespace backend.Models {
       
      [ForeignKey(nameof(Manager))]
     public int managerID { get; set; }
+    
     public Manager Manager { get; set; }
 
-     public Consultant(string pseudo, string password, string email, string firtsname, string lastname, String title, DateTime birthday, Role role, int userId, Manager Manager)
+     public Consultant(string pseudo, string password, string email, string firtsname, string lastname, String title, DateTime birthday, Role role, int userId, int managerID)
 
     : base(pseudo, password, email, firtsname, lastname, title, birthday, role, userId){
       this.Manager = Manager;

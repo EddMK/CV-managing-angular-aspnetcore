@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { AuthenticationService } from '../../services/authentication.service';
+import { UserService } from '../../services/user.service';
 import { User } from '../../models/User';
 
 
@@ -22,8 +23,10 @@ export class SignupComponent  implements OnInit{
     ctlTitle! : FormControl;
     ctlPassword!: FormControl;
     ctlConfirmPassword!: FormControl;
+    ctlPseudo! : FormControl;
 
     constructor(
+        private userService: UserService,
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
@@ -44,8 +47,10 @@ export class SignupComponent  implements OnInit{
         this.ctlTitle = this.formBuilder.control('', Validators.required);
         this.ctlPassword = this.formBuilder.control('', Validators.required);
         this.ctlConfirmPassword = this.formBuilder.control('', Validators.required);
+        this.ctlPseudo = this.formBuilder.control('', Validators.required);
 
         this.signupForm = this.formBuilder.group({
+            pseudo : this.ctlPseudo,
             lastname: this.ctlLastName,
             firstname: this.ctlFirstName,
             email: this.ctlEmail,
@@ -79,12 +84,14 @@ export class SignupComponent  implements OnInit{
         const user = new User(formObj);
         //console.log(user);
         
-        this.authenticationService.signup(this.f.firstname.value,
+        this.userService.signup(this.f.pseudo.value,this.f.firstname.value,
             this.f.lastname.value, this.f.email.value,this.f.birthDate.value, this.f.title.value, this.f.password.value )
             .subscribe(
                 // si signup est ok, on navigue vers la page demandée
                 data => {
-                    console.log("success !");
+                    //console.log("success !");
+                    this.authenticationService.login(this.f.email.value, this.f.password.value);
+                    //this.router.navigate([this.returnUrl]);
                 },
                 // en cas d'erreurs, on reste sur la page et on les affiche
                 error => {

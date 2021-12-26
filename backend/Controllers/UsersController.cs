@@ -34,32 +34,26 @@ public class UsersController : ControllerBase
         _mapper = mapper;
     }
     
-    [AllowAnonymous]
+    /*[AllowAnonymous]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<UserDTO>>> GetAll() {
-      
       return _mapper.Map<List<UserDTO>>(await _context.Users.Include(u => u.masterings)
        .ThenInclude(s => s.Skill)
        .ThenInclude(c => c.category)
        .Include(u => u.experiences)
        .ToListAsync());
-    }
+    }*/
+   
     [AllowAnonymous]
     [HttpGet("team/{id}")]
     public async Task<ActionResult<IEnumerable<UserDTO>>> GetTeam(int id) {
-      
-      return _mapper.Map<List<UserDTO>>(await _context.Consultants.Where(u => u.Role == Role.CONSULTANT && u.managerID == id).Include(u => u.masterings)
+      return _mapper.Map<List<UserDTO>>(await _context.Consultants.Where(u => u.managerID == id).Include(u => u.masterings)
        .ThenInclude(s => s.Skill)
        .ThenInclude(c => c.category)
        .Include(u => u.experiences)
        .ToListAsync());
     }
     
-
-
-
-
-
     [AllowAnonymous]
     [HttpGet("{id}")]
     public async Task<ActionResult<UserDTO>> GetOne(int id) {

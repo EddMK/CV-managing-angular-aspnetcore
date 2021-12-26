@@ -24,7 +24,7 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
 
     connectedUser : User | undefined;
 
-    displayedColumns: string[] = ['firstName','lastName', 'email', 'title', 'role', 'actions'];
+    displayedColumns: string[] = ['firstName','lastName', 'email', 'title', 'actions', 'cv', 'delete'];
     dataSource: MatTableDataSource<User> = new MatTableDataSource();
     filter: string = '';
     state: MatTableState;
@@ -98,6 +98,22 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
         if (this.dataSource.paginator)
             this.dataSource.paginator.firstPage();
     }
+
+   // console.log here to check some value
+   // remove consultant from consultant list 
+   unLink(user: User){
+     console.log("unlink " + user.firstname + "to the team")
+   }
+   // link a consultant without manager to your list
+   link(user: User){
+    console.log("link " + user.firstname + "to the team")
+   }
+   // check cv of your consultant
+   checkCV(user: User){
+    console.log("check " + user.firstname + "cv")
+   }
+
+
 
 
     // appelée quand on clique sur le bouton "edit" d'un membre

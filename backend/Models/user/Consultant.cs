@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backend.Models {
-  public class Consultant : User {
+  public class Consultant : User, IValidatableObject {
       
-     [ForeignKey(nameof(User))]
+     [ForeignKey(nameof(Manager))]
     public int managerID { get; set; }
     public Manager Manager { get; set; }
 
@@ -13,6 +13,7 @@ namespace backend.Models {
 
     : base(pseudo, password, email, firtsname, lastname, title, birthday, role, userId){
       this.Manager = Manager;
+      this.managerID = Manager.UserId;
       
     }
 

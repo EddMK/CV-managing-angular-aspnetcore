@@ -17,14 +17,16 @@ namespace backend.Models
         public MappingProfile(MainContext context) {
             _context = context;
 
-            CreateMap<User, UserDTO>().Include<Consultant, UserDTO>().Include<Manager, UserDTO>();
+            CreateMap<User, UserDTO>(); // Include<Consultant, UserDTO>().Include<Manager, UserDTO>(); 
             CreateMap<UserDTO, User>();
-            CreateMap<Consultant, UserDTO>().ForMember(o => o.Manager, m => m.MapFrom(x => x.Manager));
+            CreateMap<UserDTO, Consultant>();
+           CreateMap<Consultant, UserDTO>().ForMember(o => o.Manager, m => m.MapFrom(x => x.Manager));
+         
             CreateMap<Manager, UserDTO>().ForMember(o => o.consultants, m => m.MapFrom(x => x.consultants));
 
             CreateMap<User, UserWithPasswordDTO>();
             CreateMap<UserWithPasswordDTO, User>();
-            CreateMap<UserWithPasswordDTO, Consultant>().IncludeAllDerived();
+            CreateMap<UserWithPasswordDTO, Consultant>();
 
 
             CreateMap<Category, CategoryDto>();

@@ -9,7 +9,13 @@ namespace backend.Models
     public class MainContext : DbContext
     {
 
-         public DbSet<User> Users { get; set; }
+        public DbSet<User> Users { get; set; }
+
+        public DbSet<Consultant> Consultants { get; set; }
+
+
+        public DbSet<Manager> Managers { get; set; }
+
 
         public DbSet<Experience> Experience { get; set; }
 
@@ -31,7 +37,10 @@ namespace backend.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<User>().HasIndex(u => u.UserId).IsUnique();
+            modelBuilder.Entity<User>()
+               .HasIndex(u => u.UserId).IsUnique();
+
+    
             modelBuilder.Entity<Experience>().HasIndex(e => e.IdExperience).IsUnique();
             modelBuilder.Entity<Category>().HasIndex(c => c.categoryId).IsUnique();
             modelBuilder.Entity<Enterprise>().HasIndex(e => e.IdEntreprise).IsUnique();
@@ -45,13 +54,15 @@ namespace backend.Models
 
             modelBuilder.Entity<Manager>().HasData(
                 
-                new Manager {Pseudo = "ed", Password = "ed", Email="edouardkourieh@gmail.com", FirstName="Edouard", LastName="Kourieh" , Title="Product manager",  BirthDate=new DateTime(1995, 1, 2), Role = Role.MANAGER, UserId = 2}
+                new Manager {Pseudo = "ed", Password = "ed", Email="edouardkourieh@gmail.com", FirstName="Edouard", LastName="Kourieh" , Title="Product manager",  BirthDate=new DateTime(1995, 1, 2), Role = Role.MANAGER, UserId = 2},
+                 new Manager {Pseudo = "gil", Password = "gil", Email="gilfoy@gmail.com", FirstName="Betram", LastName="Gilfoy" , Title=" Technical manager",  BirthDate=new DateTime(1985, 7, 8), Role = Role.MANAGER, UserId = 7}
             );
 
             modelBuilder.Entity<Consultant>().HasData(
                 new Consultant {Pseudo = "dan", Password = "dan", Email="danielsoria@gmail.com", FirstName="Daniel", LastName="Calatayud Soria", Title= "Java developer", BirthDate=new DateTime(1989, 11, 26), Role = Role.CONSULTANT, UserId =1, managerID = 2},
                 new Consultant {Pseudo = "Jo", Password = "jo", Email="joaquim@gmail.com", FirstName="Joaquim", LastName="Munoz", Title="C++ developer" ,BirthDate=new DateTime(1989, 11, 26), Role = Role.CONSULTANT, UserId = 3, managerID = 2},
-                new Consultant {Pseudo = "leo", Password = "leo", Email="leonnie@gmail.com", FirstName="Leonnie", LastName="Bouchat", Title="java developer", BirthDate=new DateTime(1995, 1, 2), Role = Role.CONSULTANT, UserId = 4, managerID = 2}
+                new Consultant {Pseudo = "leo", Password = "leo", Email="leonnie@gmail.com", FirstName="Leonnie", LastName="Bouchat", Title="java developer", BirthDate=new DateTime(1995, 1, 2), Role = Role.CONSULTANT, UserId = 4, managerID = 2},
+                 new Consultant {Pseudo = "jen", Password = "jen", Email="jen@gmail.com", FirstName="jen", LastName="Kins", Title="python developer", BirthDate=new DateTime(1995, 1, 2), Role = Role.CONSULTANT, UserId = 5, managerID = 7}
             );
 
             modelBuilder.Entity<Training>().HasData(

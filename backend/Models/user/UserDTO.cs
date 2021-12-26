@@ -25,18 +25,26 @@ namespace backend.Models
 
        public string Token { get; set; }
 
+       public int managerID { get; set; }
+
+
        public UserDTO Manager {get; set; }
 
        public ICollection<MasteringDto> Masterings { get; set; }
 
        public ICollection<ExperienceDTO> Experiences { get; set; }
 
-        public ICollection<UserWithPasswordDTO> consultants { get; set; }
+        public ICollection<UserDTO> consultants { get; set; }
 
 
         
         
     }
+  
+
+
+
+
     public class UserWithPasswordDTO : UserDTO
     {
         public string Password { get; set; }

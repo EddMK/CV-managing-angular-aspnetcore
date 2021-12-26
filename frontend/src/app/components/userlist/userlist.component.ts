@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ElementRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, AfterViewInit, ElementRef, OnDestroy } from '@angular/core';
 import * as _ from 'lodash-es';
 import { User } from '../../models/User';
 import { UserService } from '../../services/user.service';
@@ -11,6 +11,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { plainToClass } from 'class-transformer';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { Console } from 'console';
 
 @Component({
     selector: 'app-userlist', // sélecteur utilisé pour un sous-composant
@@ -19,6 +21,9 @@ import { plainToClass } from 'class-transformer';
 })
 
 export class UserListComponent implements AfterViewInit, OnDestroy {
+
+    connectedUser : User | undefined;
+
     displayedColumns: string[] = ['firstName','lastName', 'email', 'title', 'role', 'actions'];
     dataSource: MatTableDataSource<User> = new MatTableDataSource();
     filter: string = '';
@@ -31,10 +36,18 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
         private userService: UserService,
         private stateService: StateService,
         public dialog: MatDialog,
-        public snackBar: MatSnackBar
+        public snackBar: MatSnackBar,
+        private authenticationService: AuthenticationService
+        
     ) {
         this.state = this.stateService.userListState;
+        this.connectedUser = this.currentUser
     }
+
+    get currentUser()  {
+        return this.authenticationService.currentUser;
+    }
+
 
     ngAfterViewInit(): void {
         // lie le datasource au sorter et au paginator
@@ -55,8 +68,16 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
     }
 
     refresh() {
-        this.userService.getAll().subscribe(users => {
+        this.userService.getTeam(this.connectedUser?.userId!).subscribe(users => {
             // assigne les données récupérées au datasource
+            /*var consultants :User[] = []*/
+            for(var i = 0; i < users.length; ++i){
+               console.log(users[i]);
+            }
+               /*
+            }*/
+            
+
             this.dataSource.data = users;
             // restaure l'état du datasource (tri et pagination) à partir du state
             this.state.restoreState(this.dataSource);

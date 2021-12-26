@@ -45,6 +45,22 @@ public class UsersController : ControllerBase
        .ToListAsync());
     }
     [AllowAnonymous]
+    [HttpGet("team/{id}")]
+    public async Task<ActionResult<IEnumerable<UserDTO>>> GetTeam(int id) {
+      
+      return _mapper.Map<List<UserDTO>>(await _context.Consultants.Where(u => u.Role == Role.CONSULTANT && u.managerID == id).Include(u => u.masterings)
+       .ThenInclude(s => s.Skill)
+       .ThenInclude(c => c.category)
+       .Include(u => u.experiences)
+       .ToListAsync());
+    }
+    
+
+
+
+
+
+    [AllowAnonymous]
     [HttpGet("{id}")]
     public async Task<ActionResult<UserDTO>> GetOne(int id) {
       // Récupère en BD le membre dont le pseudo est passé en paramètre dans l'url

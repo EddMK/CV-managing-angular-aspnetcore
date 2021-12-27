@@ -103,6 +103,7 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
    // remove consultant from consultant list 
    unLink(user: User){
      console.log("unlink " + user.firstname + "to the team")
+     this.userService.unLink(user);
    }
    // link a consultant without manager to your list
    link(user: User){

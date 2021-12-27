@@ -19,7 +19,7 @@ namespace backend.Models
 
             CreateMap<User, UserDTO>().Include<Consultant, UserDTO>().Include<Manager, UserDTO>(); 
             CreateMap<UserDTO, User>();
-            CreateMap<UserDTO, Consultant>().ForMember(o => o.Manager, m => m.MapFrom(x => x.Manager));
+            CreateMap<UserDTO, Consultant>().ForMember(o => o.managerID, m => m.MapFrom(x => x.managerID));
             CreateMap<Consultant, UserDTO>().ForMember(o => o.Manager, m => m.MapFrom(x => x.Manager));
          
             CreateMap<Manager, UserDTO>().ForMember(o => o.consultants, m => m.MapFrom(x => x.consultants));

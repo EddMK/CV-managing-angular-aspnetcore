@@ -32,6 +32,7 @@ export class User {
     token?:string;
     masterings: Mastering[] = [];
     manager?: User;
+    managerID?:number;
 
     get display(): string {
         return `${this.pseudo} (${this.birthDate ? this.age + ' years old' : 'age unknown'})`;

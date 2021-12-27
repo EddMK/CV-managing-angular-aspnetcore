@@ -72,4 +72,13 @@ export class UserService {
                 return user;
             }));
     }
+
+    unLink(u : User){
+        return this.http.put<any>(`${this.baseUrl}api/Users`, u)
+            .pipe(map(user => {
+                console.log(user);
+                return user;
+            }));
+    
+    }
 }

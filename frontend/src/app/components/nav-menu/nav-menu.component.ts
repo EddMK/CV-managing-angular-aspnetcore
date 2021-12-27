@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { User, Role } from '../../models/User';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Router } from '@angular/router';
+import { Console } from 'console';
 
 @Component({
     selector: 'app-nav-menu',
@@ -34,9 +35,9 @@ export class NavMenuComponent {
         return this.authenticationService.currentUser;
     }
 
-    
-    get isManager() : boolean | undefined {
-        return this.currentUser && this.currentUser.role === 'MANAGER';
+
+    get isManager() {
+        return this.currentUser?.role?.toString() === "MANAGER";
     }
 
     logout() {

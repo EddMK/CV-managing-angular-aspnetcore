@@ -176,7 +176,7 @@ public async Task<ActionResult<UserDTO>> Authenticate(UserWithPasswordDTO dto) {
         return BadRequest(new ValidationErrors().Add("Incorrect password", "Password"));
 
     var mapped = _mapper.Map<UserDTO>(user);
-    Console.WriteLine("mapped : " + mapped.UserId);
+    //Console.WriteLine("mapped : " + mapped.UserId);
     return Ok(mapped);
 }
 

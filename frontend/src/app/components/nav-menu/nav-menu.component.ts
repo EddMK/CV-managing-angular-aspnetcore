@@ -34,10 +34,10 @@ export class NavMenuComponent {
         return this.authenticationService.currentUser;
     }
 
-    /*
-    get isManager() {
-        return this.currentUser && this.currentUser.role === Role.Manager;
-    }*/
+    
+    get isManager() : boolean | undefined {
+        return this.currentUser && this.currentUser.role === 'MANAGER';
+    }
 
     logout() {
         this.authenticationService.logout();

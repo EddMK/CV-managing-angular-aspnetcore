@@ -28,7 +28,7 @@ export class User {
     @Transform(({ value }) => value ? moment(value) : value, { toClassOnly: true })
 
     birthDate?: Moment;
-    role?: Role;
+    role?: string;
     token?:string;
     masterings: Mastering[] = [];
     manager?: User;
@@ -43,6 +43,10 @@ export class User {
             var today = moment();
             return today.diff(this.birthDate, 'years');
     }
+
+ 
+
+    
 
   
 
@@ -60,9 +64,7 @@ export class User {
     } 
 
     
-    /*public get roleAsString(): string {
-        return Role[this.role];
-    }*/
+    
 
 
 

@@ -31,8 +31,8 @@ export class UserService {
         );
     }
 
-    public update(m: User): Observable<boolean> {
-        return this.http.put<User>(`${this.baseUrl}api/Users`, m).pipe(
+    public unLink(m: User): Observable<boolean> {
+        return this.http.put<User>(`${this.baseUrl}api/Users/unlink`, m).pipe(
             map(res => true),
             catchError(err => {
                 console.error(err);
@@ -40,6 +40,16 @@ export class UserService {
             })
         );
     }
+    /*public Link(m: User, id: number): Observable<boolean> {
+        console.log(id);
+        return this.http.put<User>(`${this.baseUrl}api/Users/link`, m, id).pipe(
+            map(res => true),
+            catchError(err => {
+                console.error(err);
+                return of(false);
+            })
+        );
+    }*/
 
     public delete(m: User): Observable<boolean> {
         return this.http.delete<boolean>(`${this.baseUrl}api/Users/${m.email}`).pipe(
@@ -73,12 +83,5 @@ export class UserService {
             }));
     }
 
-    unLink(u : User){
-        return this.http.put<any>(`${this.baseUrl}api/Users`, u)
-            .pipe(map(user => {
-                console.log(user);
-                return user;
-            }));
     
-    }
 }

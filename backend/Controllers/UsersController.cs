@@ -124,30 +124,37 @@ public class UsersController : ControllerBase
       return NoContent();
     }*/
     [AllowAnonymous]
-    [HttpPut]
+    [HttpPut("unlink")]
     public async Task<IActionResult> UnLink(UserDTO dto) {
-       // Récupère en BD le membre à mettre à jour
-       var user = await _context.Consultants.Include(u => u.masterings).SingleAsync(u => u.UserId == dto.UserId);
-       // Si aucun membre n'a été trouvé, renvoyer une erreur 404 Not Found
-       if (user == null){
-           return NotFound();
-       }
-       else {
-       Console.WriteLine(user.managerID);
-            // S'il n'y a pas de mot de passe dans le dto, on garde le mot de passe actuel
-       user.managerID = 0;
-
-        Console.WriteLine(user.managerID);
-       // Mappe les données reçues sur celles du membre en question
-       //_mapper.Map<UserDTO, Consultant>(dto, user);
-       // Sauve les changements
-       
-       await _context.SaveChangesAsyncWithValidation();
-       }
-       
-       // Retourne un statut 204 avec une réponse vide
-      return NoContent();
+      var consultant = await _context.Consultants.FindAsync(dto.UserId);
+            if (consultant == null){
+                return NotFound();
+            }
+            else {
+              consultant.managerID = null;
+              //_mapper.Map<UserDTO, Consultant>(dto, consultant);
+              await _context.SaveChangesAsyncWithValidation();
+            }
+            return NoContent();
     }
+    [AllowAnonymous]
+    
+    
+    [HttpPut("link")]
+    public async Task<IActionResult> Link(UserDTO dto, int managerID) {
+      var consultant = await _context.Consultants.FindAsync(dto.UserId);
+            if (consultant == null){
+                return NotFound();
+            }
+            else {
+              consultant.managerID = managerID;
+              //_mapper.Map<UserDTO, Consultant>(dto, consultant);
+              await _context.SaveChangesAsyncWithValidation();
+            }
+            return NoContent();
+    }
+
+
 
 
     [HttpDelete("{pseudo}")]

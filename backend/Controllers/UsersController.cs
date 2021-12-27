@@ -47,7 +47,7 @@ public class UsersController : ControllerBase
     [AllowAnonymous]
     [HttpGet("team/{id}")]
     public async Task<ActionResult<IEnumerable<UserDTO>>> GetTeam(int id) {
-      return _mapper.Map<List<UserDTO>>(await _context.Consultants.Where(u => u.managerID == id).Include(u => u.masterings)
+      return _mapper.Map<List<UserDTO>>(await _context.Consultants.Where(u => u.managerID == id || u.managerID == null).Include(u => u.masterings)
        .ThenInclude(s => s.Skill)
        .ThenInclude(c => c.category)
        .Include(u => u.experiences)

@@ -14,7 +14,8 @@ namespace backend.Models {
    public int skillId { get; set;}
    
    public string Name {get; set; }
-
+   
+  [ForeignKey(nameof(Category))]
    public int categoryId { get; set; }
 
    public Category category { get; set;}

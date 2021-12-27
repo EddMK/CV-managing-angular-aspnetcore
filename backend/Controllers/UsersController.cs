@@ -85,14 +85,7 @@ public class UsersController : ControllerBase
         // pour le paramètre 'pseudo' de cet url.
         //return CreatedAtAction(nameof(GetOne), new { pseudo = user.Pseudo }, _mapper.Map<UserDTO>(newuser));
     }
-/*
-    [AllowAnonymous]
-    [HttpPost("postuser")]
-    public async Task<ActionResult<UserDTO>> AddNewUser(UserWithPasswordDTO user) {
-        Console.WriteLine("Arrrivé");
-        return null;
-    }
-*/
+
     [HttpPut]
     public async Task<IActionResult> PutUser(UserWithPasswordDTO dto) {
        // Récupère en BD le membre à mettre à jour
@@ -140,7 +133,7 @@ public async Task<ActionResult<UserDTO>> Authenticate(UserWithPasswordDTO dto) {
         return BadRequest(new ValidationErrors().Add("Incorrect password", "Password"));
 
     var mapped = _mapper.Map<UserDTO>(user);
-    Console.WriteLine("mapped : " + mapped.UserId);
+    //Console.WriteLine("mapped : " + mapped.UserId);
     return Ok(mapped);
 }
 

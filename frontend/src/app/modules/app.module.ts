@@ -11,8 +11,9 @@ import { HomeComponent } from '../components/home/home.component';
 import { UserListComponent } from '../components/userlist/userlist.component';
 import { CVComponent } from '../components/CV/CV.component';
 import { TitleComponent } from '../components/title/title.component';
-import { SkillsComponent } from '../components/skills/skills.component';
+import { SkillListComponent } from '../components/skill-list/skill-list.component';
 //import { RestrictedComponent } from '../components/restricted/restricted.component';
+import {EditSkillComponent} from '../components/edit-skill/edit-skill.component';
 import { UnknownComponent } from '../components/unknown/unknown.component';
 import { JwtInterceptor } from '../interceptors/jwt.interceptor';
 import { LoginComponent } from '../components/login/login.component';
@@ -20,7 +21,8 @@ import { SignupComponent } from '../components/signup/signup.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule} from './shared.module'
 import { EditUserComponent } from '../components/edit/edit-user.component';
-import { ExperiencesComponent } from '../components/Experiences/experiences.component';
+import { ExperiencesComponent } from '../components/experiences/experiences.component';
+import { SkillsComponent } from '../components/skills/skills.component';
 import { UsinglistComponent } from '../components/usinglist/usinglist.component';
 
 
@@ -41,10 +43,11 @@ export function getBaseUrl() {
         //RestrictedComponent,
         CVComponent,
         TitleComponent,
+        SkillsComponent,
         ExperiencesComponent,
         UsinglistComponent,
-
-        SkillsComponent,
+        EditSkillComponent,
+        SkillListComponent,
         EditUserComponent
     
         
@@ -63,9 +66,9 @@ export function getBaseUrl() {
             { path: 'team', component: UserListComponent },
             { path: 'CV', component: CVComponent },
             { path: 'login', component: LoginComponent},
-            { path: 'signup', component: SignupComponent}
-            
-            
+            { path: 'signup', component: SignupComponent},
+            { path: 'skill-list', component: SkillListComponent}
+
         ]),
         BrowserAnimationsModule
     ],

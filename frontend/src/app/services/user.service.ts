@@ -15,6 +15,15 @@ export class UserService {
             .pipe(map(res => plainToClass(User, res))
         );
     }
+
+    getTeam(id : number): Observable<User[]> {
+        return this.http.get<any[]>(`${this.baseUrl}api/Users/team/` + id)
+            .pipe(map(res => plainToClass(User, res))
+        );
+    }
+
+
+
     getByEmail(email: string) {
         return this.http.get<User>(`${this.baseUrl}api/Users/${email}`).pipe(
             map(m => plainToClass(User, m)),
@@ -41,6 +50,10 @@ export class UserService {
             })
         );
     }
+
+    /*public unLink(u: User) : Observable<Boolean> {
+        return this.http.put<Boolean>()
+    }*/
 
     public add(m: User): Observable<boolean> {
         return this.http.post<User>(`${this.baseUrl}api/members`, m).pipe(

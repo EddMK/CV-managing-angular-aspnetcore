@@ -28,9 +28,10 @@ export class User {
     @Transform(({ value }) => value ? moment(value) : value, { toClassOnly: true })
 
     birthDate?: Moment;
-    role?: Role;
+    role?: string;
     token?:string;
     masterings: Mastering[] = [];
+    manager?: User;
 
     get display(): string {
         return `${this.pseudo} (${this.birthDate ? this.age + ' years old' : 'age unknown'})`;
@@ -43,6 +44,10 @@ export class User {
             return today.diff(this.birthDate, 'years');
     }
 
+ 
+
+    
+
   
 
    constructor(data: any) {
@@ -53,14 +58,13 @@ export class User {
             this.email = data.email;
             this.birthDate = data.birthDate;
             this.title = data.title;
-            this.password = data.password;       
+            this.password = data.password;  
+            this.manager = data.manager;     
         }
     } 
 
     
-    /*public get roleAsString(): string {
-        return Role[this.role];
-    }*/
+    
 
 
 

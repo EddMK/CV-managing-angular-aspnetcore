@@ -15,7 +15,7 @@
                         <a class="nav-link text-white" [routerLink]="['/skill-list']">Skills</a>
                     </li>
                     
-                    <li class="nav-item" [routerLinkActive]='["link-active"]'  *ngIf="currentUser">
+                    <li class="nav-item" [routerLinkActive]='["link-active"]'  *ngIf="isManager">
                         <a class="nav-link text-white" [routerLink]="['/team']">Team</a>
                     </li>
                     <li class="nav-item" [routerLinkActive]='["link-active"]'  *ngIf="currentUser">

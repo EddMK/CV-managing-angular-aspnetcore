@@ -9,7 +9,13 @@ namespace backend.Models
     public class MainContext : DbContext
     {
 
-         public DbSet<User> Users { get; set; }
+        public DbSet<User> Users { get; set; }
+
+        public DbSet<Consultant> Consultants { get; set; }
+
+
+        public DbSet<Manager> Managers { get; set; }
+
 
         public DbSet<Experience> Experience { get; set; }
 
@@ -31,7 +37,10 @@ namespace backend.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<User>().HasIndex(u => u.UserId).IsUnique();
+            modelBuilder.Entity<User>()
+               .HasIndex(u => u.UserId).IsUnique();
+
+    
             modelBuilder.Entity<Experience>().HasIndex(e => e.IdExperience).IsUnique();
             modelBuilder.Entity<Category>().HasIndex(c => c.categoryId).IsUnique();
             modelBuilder.Entity<Enterprise>().HasIndex(e => e.IdEntreprise).IsUnique();
@@ -45,18 +54,21 @@ namespace backend.Models
 
             modelBuilder.Entity<Manager>().HasData(
                 
-                new Manager {Pseudo = "ed", Password = "ed", Email="edouardkourieh@gmail.com", FirstName="Edouard", LastName="Kourieh" , Title="Product manager",  BirthDate=new DateTime(1995, 1, 2), Role = Role.MANAGER, UserId = 2}
+                new Manager {Pseudo = "ed", Password = "ed", Email="edouardkourieh@gmail.com", FirstName="Edouard", LastName="Kourieh" , Title="Product manager",  BirthDate=new DateTime(1995, 1, 2), Role = Role.MANAGER, UserId = 2},
+                 new Manager {Pseudo = "gil", Password = "gil", Email="gilfoy@gmail.com", FirstName="Betram", LastName="Gilfoy" , Title=" Technical manager",  BirthDate=new DateTime(1985, 7, 8), Role = Role.MANAGER, UserId = 7}
             );
 
             modelBuilder.Entity<Consultant>().HasData(
-                new Consultant {Pseudo = "dan", Password = "dan", Email="danielsoria@gmail.com", FirstName="Daniel", LastName="Calatayud Soria", Title= "Java developer", BirthDate=new DateTime(1989, 11, 26), Role = Role.CONSULTANT, UserId =1 ,managerID = 2},
-                new Consultant {Pseudo = "Jo", Password = "jo", Email="joaquim@gmail.com", FirstName="Joaquim", LastName="Munoz", Title="C++ developer" ,BirthDate=new DateTime(1989, 11, 26), Role = Role.CONSULTANT, UserId = 3 , managerID = 2},
-                new Consultant {Pseudo = "leo", Password = "leo", Email="leonnie@gmail.com", FirstName="Leonnie", LastName="Bouchat", Title="java developer", BirthDate=new DateTime(1995, 1, 2), Role = Role.CONSULTANT, UserId = 4 , managerID = 2}
+                new Consultant {Pseudo = "dan", Password = "dan", Email="danielsoria@gmail.com", FirstName="Daniel", LastName="Calatayud Soria", Title= "Java developer", BirthDate=new DateTime(1989, 11, 26), Role = Role.CONSULTANT, UserId =1, managerID = 2},
+                new Consultant {Pseudo = "Jo", Password = "jo", Email="joaquim@gmail.com", FirstName="Joaquim", LastName="Munoz", Title="C++ developer" ,BirthDate=new DateTime(1989, 11, 26), Role = Role.CONSULTANT, UserId = 3, managerID = 2},
+                new Consultant {Pseudo = "leo", Password = "leo", Email="leonnie@gmail.com", FirstName="Leonnie", LastName="Bouchat", Title="java developer", BirthDate=new DateTime(1995, 1, 2), Role = Role.CONSULTANT, UserId = 4, managerID = 7},
+                new Consultant {Pseudo = "jen", Password = "jen", Email="jen@gmail.com", FirstName="jen", LastName="Kins", Title="python developer", BirthDate=new DateTime(1995, 1, 2), Role = Role.CONSULTANT, UserId = 5}
             );
 
             modelBuilder.Entity<Training>().HasData(
                 new Training {IdExperience = 1, UserId = 1,Start = new DateTime(2019, 10, 15), Finish = new DateTime(2022, 06, 30), IdEnterprise = 1, Title = "Bachelore in computer science",Description ="Learning fundamentals of I.T and software development", Role = ExperienceRole.TRAINING, Grade = 90},
-                new Training {IdExperience = 2, UserId = 3, Start = new DateTime(2021, 02, 1), Finish = new DateTime(2021, 06, 30), IdEnterprise = 1, Title = "Bachelore in computer science",Description ="", Role = ExperienceRole.TRAINING, Grade = 77}
+                new Training {IdExperience = 2, UserId = 2, Start = new DateTime(2021, 02, 1), Finish = new DateTime(2021, 06, 30), IdEnterprise = 1, Title = "Bachelore in computer science",Description ="", Role = ExperienceRole.TRAINING, Grade = 77},
+                 new Training {IdExperience = 4, UserId = 7, Start = new DateTime(2010, 02, 1), Finish = new DateTime(2013, 06, 30), IdEnterprise = 3, Title = "Bachelore in computer science",Description ="Learning fundamentals of I.T and software development", Role = ExperienceRole.TRAINING, Grade = 95}
             );
 
             modelBuilder.Entity<Mission>().HasData(
@@ -65,10 +77,14 @@ namespace backend.Models
 
             modelBuilder.Entity<Enterprise>().HasData(
                new Enterprise { IdEntreprise = 1, Name = "Epfc"},
-               new Enterprise { IdEntreprise = 2, Name = "SPF justice - FOD justicie"}
+               new Enterprise { IdEntreprise = 2, Name = "SPF justice - FOD justicie"},
+               new Enterprise { IdEntreprise = 3, Name = "Stanford"}
+
             );
 
             modelBuilder.Entity<Using>().HasData(
+
+               // for epfc 
                new Using {Id =1, ExperienceId = 1, SkillId = 1},
                new Using {Id =2, ExperienceId = 1, SkillId = 2},
                new Using {Id =3, ExperienceId = 1, SkillId = 3},
@@ -79,7 +95,21 @@ namespace backend.Models
                new Using {Id =8,ExperienceId = 1, SkillId = 11},
                new Using {Id =9,ExperienceId = 1, SkillId = 12},
                new Using {Id =10,ExperienceId = 1, SkillId = 13},
-               new Using {Id =11, ExperienceId = 1, SkillId = 14}
+               new Using {Id =11, ExperienceId = 1, SkillId = 14},
+
+               // for stanford
+
+                 
+               new Using {Id =12, ExperienceId = 4, SkillId = 2},
+               new Using {Id =13, ExperienceId = 4, SkillId = 3},
+               new Using {Id =14,ExperienceId = 4, SkillId = 4},
+               new Using {Id =15,ExperienceId = 4, SkillId = 5},
+               new Using {Id =16,ExperienceId = 4, SkillId = 6},
+               new Using {Id =17, ExperienceId =4, SkillId = 7},
+               new Using {Id =18,ExperienceId = 4, SkillId = 11},
+               new Using {Id =19,ExperienceId = 4, SkillId = 12},
+               new Using {Id =20,ExperienceId = 4, SkillId = 13},
+               new Using {Id =21, ExperienceId = 4, SkillId = 14}
             );
  
             modelBuilder.Entity<Category>().HasData(
@@ -125,7 +155,23 @@ namespace backend.Models
                new Mastering { masteringId=8, userId=1, SkillId=11,  Level = Level.Advanced},
                new Mastering { masteringId=9, userId=1, SkillId=12,  Level = Level.Beginner},
                new Mastering { masteringId=10, userId=1, SkillId=13,  Level = Level.Advanced},
-               new Mastering { masteringId=11, userId=1, SkillId=14,  Level = Level.Intermediate}
+               new Mastering { masteringId=11, userId=1, SkillId=14,  Level = Level.Intermediate},
+
+               // for gilfoy
+
+                new Mastering { masteringId=12, userId=7, SkillId=1,  Level = Level.Advanced},
+               new Mastering { masteringId=13, userId=7, SkillId=2,  Level = Level.Intermediate},
+               new Mastering { masteringId=14, userId=7, SkillId=3,  Level = Level.Intermediate},
+               new Mastering { masteringId=15, userId=7, SkillId=4,  Level = Level.Beginner},
+               new Mastering { masteringId=16, userId=7, SkillId=5,  Level = Level.Advanced},
+               new Mastering { masteringId=17, userId=7, SkillId=6,  Level = Level.Advanced},
+               new Mastering { masteringId=18, userId=7, SkillId=10,  Level = Level.Intermediate},
+               new Mastering { masteringId=19, userId=7, SkillId=11,  Level = Level.Advanced},
+               new Mastering { masteringId=20, userId=7, SkillId=12,  Level = Level.Beginner},
+               new Mastering { masteringId=21, userId=7, SkillId=13,  Level = Level.Advanced},
+               new Mastering { masteringId=22, userId=7, SkillId=14,  Level = Level.Intermediate}
+
+
 
 
             );

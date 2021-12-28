@@ -40,16 +40,16 @@ export class UserService {
             })
         );
     }
-    /*public Link(m: User, id: number): Observable<boolean> {
+    public Link(m: User, id: number): Observable<boolean> {
         console.log(id);
-        return this.http.put<User>(`${this.baseUrl}api/Users/link`, m, id).pipe(
+        return this.http.put<User>(`${this.baseUrl}api/Users/link/${id}`, m).pipe(
             map(res => true),
             catchError(err => {
                 console.error(err);
                 return of(false);
             })
         );
-    }*/
+    }
 
     public delete(m: User): Observable<boolean> {
         return this.http.delete<boolean>(`${this.baseUrl}api/Users/${m.email}`).pipe(

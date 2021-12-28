@@ -111,9 +111,9 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
    // link a consultant without manager to your list
    link(user: User){
     console.log("link " + user.firstname + "to the team")
-    /*this.userService.Link(user, this.currentUser?.userId!).subscribe(res => {
+    this.userService.Link(user, this.currentUser?.userId!).subscribe(res => {
         this.refresh(); 
-     });*/
+     });
 
    }
    // check cv of your consultant

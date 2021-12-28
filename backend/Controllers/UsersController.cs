@@ -138,16 +138,14 @@ public class UsersController : ControllerBase
             return NoContent();
     }
     [AllowAnonymous]
-    
-    
-    [HttpPut("link")]
-    public async Task<IActionResult> Link(UserDTO dto, int managerID) {
+    [HttpPut("link/{id}")]
+    public async Task<IActionResult> Link([FromBody]UserDTO dto, int id) {
       var consultant = await _context.Consultants.FindAsync(dto.UserId);
             if (consultant == null){
                 return NotFound();
             }
             else {
-              consultant.managerID = managerID;
+              consultant.managerID = id;
               //_mapper.Map<UserDTO, Consultant>(dto, consultant);
               await _context.SaveChangesAsyncWithValidation();
             }

@@ -1,7 +1,18 @@
 <!-- <div *ngIf="isUserConnected"> -->
-<H1 class = "font-weight-bold" style='font-size: 30px; font-family:Segoe UI'>COMPETENCES</H1>
-
-
+<div style="display: inline-flex;">    
+<H1 class = "font-weight-bold" style='font-size: 30px; font-family:Segoe UI' (click)="onEditMode()">COMPETENCES</H1>
+<div *ngIf="isEditable"> 
+<button mat-icon-button class="ml-3">
+    <mat-icon>edit</mat-icon>
+</button>
+<button mat-icon-button>
+    <mat-icon>delete</mat-icon>
+</button>
+<button mat-icon-button>
+    <mat-icon>add</mat-icon>
+</button>
+</div>
+</div>
 <div class="row" >
     <div class="col-sm-12  d-inline" >
         <div *ngIf="masterings.length > 0">

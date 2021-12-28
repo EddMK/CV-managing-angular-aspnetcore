@@ -43,7 +43,7 @@ namespace backend.Models
     
             modelBuilder.Entity<Experience>().HasIndex(e => e.IdExperience).IsUnique();
             modelBuilder.Entity<Category>().HasIndex(c => c.categoryId).IsUnique();
-            modelBuilder.Entity<Enterprise>().HasIndex(e => e.IdEntreprise).IsUnique();
+            modelBuilder.Entity<Enterprise>().HasIndex(e => e.IdEnterprise).IsUnique();
             modelBuilder.Entity<Enterprise>().HasIndex(e => e.Name);
 
     
@@ -76,9 +76,9 @@ namespace backend.Models
             );
 
             modelBuilder.Entity<Enterprise>().HasData(
-               new Enterprise { IdEntreprise = 1, Name = "Epfc"},
-               new Enterprise { IdEntreprise = 2, Name = "SPF justice - FOD justicie"},
-               new Enterprise { IdEntreprise = 3, Name = "Stanford"}
+               new Enterprise { IdEnterprise = 1, Name = "Epfc"},
+               new Enterprise { IdEnterprise = 2, Name = "SPF justice - FOD justicie"},
+               new Enterprise { IdEnterprise = 3, Name = "Stanford"}
 
             );
 

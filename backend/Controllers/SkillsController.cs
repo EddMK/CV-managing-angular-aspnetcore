@@ -30,11 +30,11 @@ namespace prid_2122_g04.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<SkillDto>>> GetAll() {//OK
+        public async Task<ActionResult<IEnumerable<SkillDto>>> GetAll() {
             return _mapper.Map<List<SkillDto>>(await _context.Skills.Include(e => e.category).ToListAsync());
         }
 
-        [HttpGet("~/getOneById")]
+        [HttpGet("~/getSkillById")]
         public async Task<ActionResult<SkillDto>> GetOne(int id) {
         var skill = await _context.Skills.FindAsync(id);
         if (skill == null)

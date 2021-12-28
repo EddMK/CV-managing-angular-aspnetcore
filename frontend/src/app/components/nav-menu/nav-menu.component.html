@@ -14,6 +14,10 @@
                     <li class="nav-item" [routerLinkActive]='["link-active"]' *ngIf="isManager">
                         <a class="nav-link text-white" [routerLink]="['/skill-list']">Skills</a>
                     </li>
+
+                    <li class="nav-item" [routerLinkActive]='["link-active"]' *ngIf="isManager">
+                        <a class="nav-link text-white" [routerLink]="['/enterprise-list']">Enterprises</a>
+                    </li>
                     
                     <li class="nav-item" [routerLinkActive]='["link-active"]'  *ngIf="isManager">
                         <a class="nav-link text-white" [routerLink]="['/team']">Team</a>
@@ -28,7 +32,9 @@
                         </a>
                     </li>
                     <li class="nav-item" [routerLinkActive]='["link-active"]' *ngIf="!currentUser">
-                        <a class="nav-link text-white" [routerLink]="['/signup']">Sign Up</a>
+                        <a class="nav-link text-white" [routerLink]="['/signup']">
+                            <span class="material-icons">person_add_alt</span>
+                        </a>
                     </li>
                 
                     <li class="nav-item" [routerLinkActive]='["link-active"]' *ngIf="currentUser">

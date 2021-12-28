@@ -5,7 +5,7 @@ namespace backend.Models
 
     public class EnterpriseDto {
        
-       public int IdEntreprise { get; set; }
+       public int IdEnterprise { get; set; }
        public string Name { get; set; }
 
     }

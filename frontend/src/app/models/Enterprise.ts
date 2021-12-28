@@ -10,7 +10,7 @@ import 'reflect-metadata';
 
 export class Enterprise {
 
-    IdEnterprise?: number;
+    idEnterprise?: number;
     name?: string;
    
    

@@ -6,6 +6,7 @@ import { RestrictedComponent } from '../modules/restricted/restricted.component'
 import { LoginComponent } from '../components/login/login.component';
 import { SignupComponent } from '../components/signup/signup.component';
 import { SkillListComponent } from '../components/skill-list/skill-list.component';
+import { EnterpriseListComponent} from '../components/enterprise-list/enterprise-list.component';
 import { UnknownComponent } from '../components/unknown/unknown.component';
 import { AuthGuard } from '../services/auth.guard';
 import { CVComponent } from '../components/CV/CV.component';
@@ -37,6 +38,10 @@ const appRoutes: Routes = [
 {
   path: 'skillList',
   component: SkillListComponent
+},
+{
+  path: 'enterpriseList',
+  component: EnterpriseListComponent
 },
 { path: 'restricted', component: RestrictedComponent },
 { path: '**', component: UnknownComponent }

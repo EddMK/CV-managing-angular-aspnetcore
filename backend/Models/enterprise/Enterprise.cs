@@ -9,7 +9,7 @@ namespace backend.Models {
   public class Enterprise : IValidatableObject {
 
       [Key]
-      public int IdEntreprise;
+      public int IdEnterprise;
 
       [Required]
       public string Name;

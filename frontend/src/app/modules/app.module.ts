@@ -12,8 +12,10 @@ import { UserListComponent } from '../components/userlist/userlist.component';
 import { CVComponent } from '../components/CV/CV.component';
 import { TitleComponent } from '../components/title/title.component';
 import { SkillListComponent } from '../components/skill-list/skill-list.component';
+import { EnterpriseListComponent} from '../components/enterprise-list/enterprise-list.component';
 //import { RestrictedComponent } from '../components/restricted/restricted.component';
 import {EditSkillComponent} from '../components/edit-skill/edit-skill.component';
+import {EditEnterpriseComponent} from '../components/edit-enterprise/edit-enterprise.component';
 import { UnknownComponent } from '../components/unknown/unknown.component';
 import { JwtInterceptor } from '../interceptors/jwt.interceptor';
 import { LoginComponent } from '../components/login/login.component';
@@ -48,7 +50,9 @@ export function getBaseUrl() {
         ExperiencesComponent,
         UsinglistComponent,
         EditSkillComponent,
+        EditEnterpriseComponent,
         SkillListComponent,
+        EnterpriseListComponent,
         EditUserComponent
     
         
@@ -68,8 +72,8 @@ export function getBaseUrl() {
             { path: 'CV', component: CVComponent },
             { path: 'login', component: LoginComponent},
             { path: 'signup', component: SignupComponent},
-            { path: 'skill-list', component: SkillListComponent}
-
+            { path: 'skill-list', component: SkillListComponent},
+            { path: 'enterprise-list', component : EnterpriseListComponent}
         ]),
         BrowserAnimationsModule
     ],

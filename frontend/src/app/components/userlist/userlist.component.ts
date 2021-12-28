@@ -122,25 +122,6 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
    }
 
 
-
-
-    // appelée quand on clique sur le bouton "edit" d'un membre
-    /*edit(user: User) {
-        const dlg = this.dialog.open(EditUserComponent, { data: { user, isNew: false } });
-        dlg.beforeClosed().subscribe(res => {
-            if (res) {
-                _.assign(user, res);
-                res = plainToClass(User, res);
-                this.userService.update(res).subscribe(res => {
-                    if (!res) {
-                        this.snackBar.open(`There was an error at the server. The update has not been done! Please try again.`, 'Dismiss', { duration: 10000 });
-                        this.refresh();
-                    }
-                });
-            }
-        });
-    }*/
-
     // appelée quand on clique sur le bouton "delete" d'un membre
     delete(user: User) {
         const backup = this.dataSource.data;
@@ -153,24 +134,7 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
                 this.dataSource.data = backup;
         });
     }
-    /*
-    // appelée quand on clique sur le bouton "new user"
-    create() {
-        const user = new User(data : any);
-        const dlg = this.dialog.open(EditUserComponent, { data: { user, isNew: true } });
-        dlg.beforeClosed().subscribe(res => {
-            if (res) {
-                res = plainToClass(User, res);
-                this.dataSource.data = [...this.dataSource.data, res];
-                this.userService.add(res).subscribe(res => {
-                    if (!res) {
-                        this.snackBar.open(`There was an error at the server. The user has not been created! Please try again.`, 'Dismiss', { duration: 10000 });
-                        this.refresh();
-                    }
-                });
-            }
-        });
-    }*/
+   
    
     ngOnDestroy(): void {
         this.snackBar.dismiss();

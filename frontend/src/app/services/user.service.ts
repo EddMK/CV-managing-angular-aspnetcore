@@ -52,7 +52,7 @@ export class UserService {
     }
 
     public delete(m: User): Observable<boolean> {
-        return this.http.delete<boolean>(`${this.baseUrl}api/Users/${m.email}`).pipe(
+        return this.http.delete<boolean>(`${this.baseUrl}api/Users/${m.userId}`).pipe(
             map(res => true),
             catchError(err => {
                 console.error(err);

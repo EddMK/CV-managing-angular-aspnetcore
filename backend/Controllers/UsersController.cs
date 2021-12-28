@@ -154,8 +154,8 @@ public class UsersController : ControllerBase
 
 
 
-
-    [HttpDelete("{pseudo}")]
+    [AllowAnonymous]
+    [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteUser(int id) {
        // Récupère en BD le membre à supprimer
        var user = await _context.Users.FindAsync(id);

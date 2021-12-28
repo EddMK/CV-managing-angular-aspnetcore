@@ -19,7 +19,7 @@ namespace backend.Models
         public int UserId { get; set;}
         
         [Required(ErrorMessage = "Required")]
-        [MinLength(3, ErrorMessage = "Minimum 3 characters"), StringLength(10, ErrorMessage = "Maximum 10 characters"),]
+        [MinLength(2, ErrorMessage = "Minimum 2 characters"), StringLength(10, ErrorMessage = "Maximum 10 characters"),]
         public string Pseudo { get; set; }
 
         [Required(ErrorMessage = "Required")]

@@ -95,7 +95,15 @@ public class UsersController : ControllerBase
         // pour le paramètre 'pseudo' de cet url.
         //return CreatedAtAction(nameof(GetOne), new { pseudo = user.Pseudo }, _mapper.Map<UserDTO>(newuser));
     }
-
+/*
+    [AllowAnonymous]
+    [HttpPost("postuser")]
+    public async Task<ActionResult<UserDTO>> AddNewUser(UserWithPasswordDTO user) {
+        Console.WriteLine("Arrrivé");
+        return null;
+    }
+*/
+    /*
     [HttpPut]
     public async Task<IActionResult> PutUser(UserWithPasswordDTO dto) {
        // Récupère en BD le membre à mettre à jour
@@ -114,7 +122,39 @@ public class UsersController : ControllerBase
            return BadRequest(res);
        // Retourne un statut 204 avec une réponse vide
       return NoContent();
+    }*/
+    [AllowAnonymous]
+    [HttpPut("unlink")]
+    public async Task<IActionResult> UnLink(UserDTO dto) {
+      var consultant = await _context.Consultants.FindAsync(dto.UserId);
+            if (consultant == null){
+                return NotFound();
+            }
+            else {
+              consultant.managerID = null;
+              //_mapper.Map<UserDTO, Consultant>(dto, consultant);
+              await _context.SaveChangesAsyncWithValidation();
+            }
+            return NoContent();
     }
+    [AllowAnonymous]
+    
+    
+    [HttpPut("link")]
+    public async Task<IActionResult> Link(UserDTO dto, int managerID) {
+      var consultant = await _context.Consultants.FindAsync(dto.UserId);
+            if (consultant == null){
+                return NotFound();
+            }
+            else {
+              consultant.managerID = managerID;
+              //_mapper.Map<UserDTO, Consultant>(dto, consultant);
+              await _context.SaveChangesAsyncWithValidation();
+            }
+            return NoContent();
+    }
+
+
 
 
     [HttpDelete("{pseudo}")]

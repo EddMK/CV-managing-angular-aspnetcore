@@ -102,11 +102,19 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
    // console.log here to check some value
    // remove consultant from consultant list 
    unLink(user: User){
-     console.log("unlink " + user.firstname + "to the team")
+     console.log("unlink " + user.firstname + "to the team" + user.managerID)
+     
+     this.userService.unLink(user).subscribe(res => {
+        this.refresh(); 
+     });
    }
    // link a consultant without manager to your list
    link(user: User){
     console.log("link " + user.firstname + "to the team")
+    /*this.userService.Link(user, this.currentUser?.userId!).subscribe(res => {
+        this.refresh(); 
+     });*/
+
    }
    // check cv of your consultant
    checkCV(user: User){
@@ -117,7 +125,7 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
 
 
     // appelée quand on clique sur le bouton "edit" d'un membre
-    edit(user: User) {
+    /*edit(user: User) {
         const dlg = this.dialog.open(EditUserComponent, { data: { user, isNew: false } });
         dlg.beforeClosed().subscribe(res => {
             if (res) {
@@ -131,7 +139,7 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
                 });
             }
         });
-    }
+    }*/
 
     // appelée quand on clique sur le bouton "delete" d'un membre
     delete(user: User) {

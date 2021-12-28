@@ -23,9 +23,10 @@ import { SignupComponent } from '../components/signup/signup.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule} from './shared.module'
 import { EditUserComponent } from '../components/edit/edit-user.component';
-import { ExperiencesComponent } from '../components/experiences/experiences.component';
+
 import { SkillsComponent } from '../components/skills/skills.component';
 import { UsinglistComponent } from '../components/usinglist/usinglist.component';
+import { ExperiencesComponent } from '../components/Experiences/experiences.component';
 
 
 

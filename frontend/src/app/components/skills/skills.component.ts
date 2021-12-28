@@ -31,6 +31,19 @@ export class SkillsComponent  implements OnInit {
   
    }
 
+   isEditable :  boolean = false;
+
+   onEditMode() {
+     if(!this.isEditable){
+        this.isEditable = true;
+     }
+     else {
+       this.isEditable = false;
+     }
+   }
+
+
+
   
 
   ngOnInit(): void {

@@ -29,6 +29,7 @@ import { UsinglistComponent } from '../components/usinglist/usinglist.component'
 import { ExperiencesComponent } from '../components/Experiences/experiences.component';
 import { CVviewComponent } from '../components/CV-view/CV-view.component';
 import { EditTitleComponent } from '../components/edit-title/edit-title.component';
+import { EditCompetencesComponent } from '../components/edit-competences/edit-competences.component';
 
 
 
@@ -56,7 +57,7 @@ export function getBaseUrl() {
         EditEnterpriseComponent,
         SkillListComponent,
         EnterpriseListComponent,
-      
+        EditCompetencesComponent,
         EditTitleComponent
     
         

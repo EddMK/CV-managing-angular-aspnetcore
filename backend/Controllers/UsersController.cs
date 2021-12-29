@@ -109,10 +109,7 @@ public class UsersController : ControllerBase
        // Récupère en BD le membre à mettre à jour
        Console.WriteLine(dto.Email);
         var user = await _context.Users.Where(u => u.Email == dto.Email).FirstOrDefaultAsync();
-       
-       // Si aucun membre n'a été trouvé, renvoyer une erreur 404 Not Found
        if (user == null){
-         
            return NotFound();
        }
        else {

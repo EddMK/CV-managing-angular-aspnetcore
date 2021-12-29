@@ -2,7 +2,6 @@ import { Component, OnInit, Input, ViewChild, AfterViewInit, ElementRef, OnDestr
 import * as _ from 'lodash-es';
 import { User } from '../../models/User';
 import { UserService } from '../../services/user.service';
-import { EditUserComponent } from '../edit/edit-user.component';
 import { StateService } from 'src/app/services/state.service';
 import { MatTableState } from 'src/app/helpers/mattable.state';
 import { MatTableDataSource } from '@angular/material/table';
@@ -13,6 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { plainToClass } from 'class-transformer';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Console } from 'console';
+import { CVviewComponent } from '../CV-view/CV-view.component';
 
 @Component({
     selector: 'app-userlist', // sélecteur utilisé pour un sous-composant
@@ -119,6 +119,7 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
    // check cv of your consultant
    checkCV(user: User){
     console.log("check " + user.firstname + "cv")
+    new CVviewComponent(user);
    }
 
 

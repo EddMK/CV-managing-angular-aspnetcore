@@ -21,7 +21,13 @@ export class UserService {
             .pipe(map(res => plainToClass(User, res))
         );
     }
-
+    
+    getById(id: number) {
+        return this.http.get<User>(`${this.baseUrl}api/users/${id}`).pipe(
+            map(m => plainToClass(User, m)),
+            catchError(err => of(null))
+        );
+    }
 
 
     getByEmail(email: string) {
@@ -82,6 +88,21 @@ export class UserService {
                 return user;
             }));
     }
+
+
+
+    public update(u: User): Observable<boolean> {
+        console.log(u.email + " helllllllllllooooooooooo");
+        return this.http.put<User>(`${this.baseUrl}api/users`, u).pipe(
+            map(res => true),
+            catchError(err => {
+                console.error(err);
+                return of(false);
+            })
+        );
+    }
+
+  
 
     
 }

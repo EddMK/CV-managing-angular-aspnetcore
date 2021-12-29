@@ -2,7 +2,6 @@ import { Component, OnInit, Input, ViewChild, AfterViewInit, ElementRef, OnDestr
 import * as _ from 'lodash-es';
 import { User } from '../../models/User';
 import { UserService } from '../../services/user.service';
-import { EditUserComponent } from '../edit/edit-user.component';
 import { StateService } from 'src/app/services/state.service';
 import { MatTableState } from 'src/app/helpers/mattable.state';
 import { MatTableDataSource } from '@angular/material/table';
@@ -13,6 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { plainToClass } from 'class-transformer';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Console } from 'console';
+import { CVviewComponent } from '../CV-view/CV-view.component';
 
 @Component({
     selector: 'app-userlist', // sélecteur utilisé pour un sous-composant
@@ -111,35 +111,17 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
    // link a consultant without manager to your list
    link(user: User){
     console.log("link " + user.firstname + "to the team")
-    /*this.userService.Link(user, this.currentUser?.userId!).subscribe(res => {
+    this.userService.Link(user, this.currentUser?.userId!).subscribe(res => {
         this.refresh(); 
-     });*/
+     });
 
    }
    // check cv of your consultant
    checkCV(user: User){
     console.log("check " + user.firstname + "cv")
+    new CVviewComponent(user);
    }
 
-
-
-
-    // appelée quand on clique sur le bouton "edit" d'un membre
-    /*edit(user: User) {
-        const dlg = this.dialog.open(EditUserComponent, { data: { user, isNew: false } });
-        dlg.beforeClosed().subscribe(res => {
-            if (res) {
-                _.assign(user, res);
-                res = plainToClass(User, res);
-                this.userService.update(res).subscribe(res => {
-                    if (!res) {
-                        this.snackBar.open(`There was an error at the server. The update has not been done! Please try again.`, 'Dismiss', { duration: 10000 });
-                        this.refresh();
-                    }
-                });
-            }
-        });
-    }*/
 
     // appelée quand on clique sur le bouton "delete" d'un membre
     delete(user: User) {
@@ -153,24 +135,7 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
                 this.dataSource.data = backup;
         });
     }
-    /*
-    // appelée quand on clique sur le bouton "new user"
-    create() {
-        const user = new User(data : any);
-        const dlg = this.dialog.open(EditUserComponent, { data: { user, isNew: true } });
-        dlg.beforeClosed().subscribe(res => {
-            if (res) {
-                res = plainToClass(User, res);
-                this.dataSource.data = [...this.dataSource.data, res];
-                this.userService.add(res).subscribe(res => {
-                    if (!res) {
-                        this.snackBar.open(`There was an error at the server. The user has not been created! Please try again.`, 'Dismiss', { duration: 10000 });
-                        this.refresh();
-                    }
-                });
-            }
-        });
-    }*/
+   
    
     ngOnDestroy(): void {
         this.snackBar.dismiss();

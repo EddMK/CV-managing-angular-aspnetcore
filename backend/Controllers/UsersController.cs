@@ -103,26 +103,25 @@ public class UsersController : ControllerBase
         return null;
     }
 */
-    /*
+    [AllowAnonymous]
     [HttpPut]
-    public async Task<IActionResult> PutUser(UserWithPasswordDTO dto) {
+    public async Task<IActionResult> PutUser(UserDTO dto) {
        // Récupère en BD le membre à mettre à jour
-       var user = await _context.Users.Include(u => u.masterings).SingleAsync(u => u.UserId == dto.UserId);
-       // Si aucun membre n'a été trouvé, renvoyer une erreur 404 Not Found
-       if (user == null)
+       Console.WriteLine(dto.Email);
+        var user = await _context.Users.Where(u => u.Email == dto.Email).FirstOrDefaultAsync();
+       if (user == null){
            return NotFound();
-            // S'il n'y a pas de mot de passe dans le dto, on garde le mot de passe actuel
-    if (string.IsNullOrEmpty(dto.Password))
-        dto.Password = user.Password;
-       // Mappe les données reçues sur celles du membre en question
-       _mapper.Map<UserWithPasswordDTO, User>(dto, user);
-       // Sauve les changements
-       var res = await _context.SaveChangesAsyncWithValidation();
-       if (!res.IsEmpty)
-           return BadRequest(res);
+       }
+       else {
+           user.FirstName = dto.Firstname;
+           user.LastName = dto.Lastname;
+           user.Title = dto.title;
+          await _context.SaveChangesAsyncWithValidation();
+       }
+     
        // Retourne un statut 204 avec une réponse vide
       return NoContent();
-    }*/
+    }
     [AllowAnonymous]
     [HttpPut("unlink")]
     public async Task<IActionResult> UnLink(UserDTO dto) {
@@ -138,16 +137,14 @@ public class UsersController : ControllerBase
             return NoContent();
     }
     [AllowAnonymous]
-    
-    
-    [HttpPut("link")]
-    public async Task<IActionResult> Link(UserDTO dto, int managerID) {
+    [HttpPut("link/{id}")]
+    public async Task<IActionResult> Link([FromBody]UserDTO dto, int id) {
       var consultant = await _context.Consultants.FindAsync(dto.UserId);
             if (consultant == null){
                 return NotFound();
             }
             else {
-              consultant.managerID = managerID;
+              consultant.managerID = id;
               //_mapper.Map<UserDTO, Consultant>(dto, consultant);
               await _context.SaveChangesAsyncWithValidation();
             }
@@ -156,8 +153,8 @@ public class UsersController : ControllerBase
 
 
 
-
-    [HttpDelete("{pseudo}")]
+    [AllowAnonymous]
+    [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteUser(int id) {
        // Récupère en BD le membre à supprimer
        var user = await _context.Users.FindAsync(id);

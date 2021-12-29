@@ -8,28 +8,25 @@ import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import * as _ from 'lodash-es';
 import { User,  Role } from 'src/app/models/User';
-import { Mastering } from 'src/app/models/Mastering';
 import { Moment } from 'moment';
 import * as moment from 'moment';
 
 @Component({
-    selector: 'app-edit-user-mat',
-    templateUrl: './edit-user.component.html',
-    styleUrls: ['./edit-user.component.css']
+    selector: 'app-edit-title-mat',
+    templateUrl: './edit-title.component.html',
+    styleUrls: ['./edit-title.component.css']
 })
-export class EditUserComponent {
+export class EditTitleComponent {
     public frm!: FormGroup;
-    public frmMastering!: FormGroup; 
     public ctlFirstname!: FormControl;
     public ctlLastname!: FormControl;
     public ctlEmail!: FormControl;
-    public ctlPassword!: FormControl;
-    public ctlRole!: FormControl;
+    public ctlTitle!: FormControl;
     public isNew: boolean;
     public maxDate: Moment = moment().subtract(18, 'years');
-    public mastering!: Mastering[];
 
-    constructor(public dialogRef: MatDialogRef<EditUserComponent>,
+
+    constructor(public dialogRef: MatDialogRef<EditTitleComponent>,
         @Inject(MAT_DIALOG_DATA) public data: { user: User; isNew: boolean; },
         private fb: FormBuilder,
         private userService: UserService
@@ -38,15 +35,16 @@ export class EditUserComponent {
             Validators.required,
             Validators.minLength(7),
         ], [this.EmailUsed()]);
-        this.ctlPassword = this.fb.control('', data.isNew ? [Validators.required, Validators.minLength(3)] : []);
         this.ctlFirstname = this.fb.control(null, [Validators.minLength(3)]);
         this.ctlLastname = this.fb.control(null, [Validators.minLength(3)]);
-        this.ctlRole = this.fb.control(Role.Consultant, []);
+        this.ctlTitle = this.fb.control(null, [Validators.minLength(3)]);
+    
         this.frm = this.fb.group({
-            password: this.ctlPassword,
-            firstName: this.ctlFirstname,
-            lastName: this.ctlLastname,
-            role: this.ctlRole
+            firstname: this.ctlFirstname,
+            lastname: this.ctlLastname,
+            email: this.ctlEmail,
+            title: this.ctlTitle
+          
         });
 
         this.isNew = data.isNew;
@@ -84,7 +82,7 @@ export class EditUserComponent {
             });
         };
     }
-
+    
     onNoClick(): void {
         this.dialogRef.close();
     }

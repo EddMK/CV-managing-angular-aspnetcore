@@ -1,11 +1,14 @@
 <div *ngIf="connectedUser">
-<h1 class="text-center font-weight-bold " style='font-size: 30px; font-family:Helvetica'> {{connectedUser.firstname}}      {{connectedUser.lastname}} </h1>
+
+  
+ <h1 class="text-center font-weight-bold " style='font-size: 30px; font-family:Helvetica' (click)="edit(connectedUser)"> {{connectedUser.firstname}}      {{connectedUser.lastname}} </h1>
+
 
 <h2 class="text-center">{{connectedUser.title}}</h2>
 <h2 class="text-center">{{connectedUser.email}}</h2>
 <h2 class="text-center">{{connectedUser.birthDate?.format('DD/MM/YYYY')}}</h2>
 
-
+ 
 </div>
 
 

@@ -21,7 +21,13 @@ export class UserService {
             .pipe(map(res => plainToClass(User, res))
         );
     }
-
+    
+    getById(id: number) {
+        return this.http.get<User>(`${this.baseUrl}api/users/${id}`).pipe(
+            map(m => plainToClass(User, m)),
+            catchError(err => of(null))
+        );
+    }
 
 
     getByEmail(email: string) {
@@ -40,19 +46,19 @@ export class UserService {
             })
         );
     }
-    /*public Link(m: User, id: number): Observable<boolean> {
+    public Link(m: User, id: number): Observable<boolean> {
         console.log(id);
-        return this.http.put<User>(`${this.baseUrl}api/Users/link`, m, id).pipe(
+        return this.http.put<User>(`${this.baseUrl}api/Users/link/${id}`, m).pipe(
             map(res => true),
             catchError(err => {
                 console.error(err);
                 return of(false);
             })
         );
-    }*/
+    }
 
     public delete(m: User): Observable<boolean> {
-        return this.http.delete<boolean>(`${this.baseUrl}api/Users/${m.email}`).pipe(
+        return this.http.delete<boolean>(`${this.baseUrl}api/Users/${m.userId}`).pipe(
             map(res => true),
             catchError(err => {
                 console.error(err);
@@ -82,6 +88,21 @@ export class UserService {
                 return user;
             }));
     }
+
+
+
+    public update(u: User): Observable<boolean> {
+        console.log(u.email + " helllllllllllooooooooooo");
+        return this.http.put<User>(`${this.baseUrl}api/users`, u).pipe(
+            map(res => true),
+            catchError(err => {
+                console.error(err);
+                return of(false);
+            })
+        );
+    }
+
+  
 
     
 }

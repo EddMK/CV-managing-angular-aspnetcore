@@ -23,10 +23,12 @@ import { LoginComponent } from '../components/login/login.component';
 import { SignupComponent } from '../components/signup/signup.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule} from './shared.module';
-import { EditUserComponent } from '../components/edit/edit-user.component';
 import { SkillsComponent } from '../components/skills/skills.component';
 import { UsinglistComponent } from '../components/usinglist/usinglist.component';
 import { ExperiencesComponent } from '../components/experiences/experiences.component';
+import { CVviewComponent } from '../components/CV-view/CV-view.component';
+import { EditTitleComponent } from '../components/edit-title/edit-title.component';
+import { EditCompetencesComponent } from '../components/edit-competences/edit-competences.component';
 
 
 
@@ -45,6 +47,7 @@ export function getBaseUrl() {
         UnknownComponent,
         //RestrictedComponent,
         CVComponent,
+        CVviewComponent,
         TitleComponent,
         SkillsComponent,
         ExperiencesComponent,
@@ -54,12 +57,13 @@ export function getBaseUrl() {
         EditEnterpriseComponent,
         SkillListComponent,
         EnterpriseListComponent,
-        EditUserComponent
+        EditCompetencesComponent,
+        EditTitleComponent,
     
         
     ],
     entryComponents: [
-        EditUserComponent
+       
     ],
     imports: [
         BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -71,6 +75,7 @@ export function getBaseUrl() {
             { path: '', component: HomeComponent, pathMatch: 'full' },
             { path: 'team', component: UserListComponent },
             { path: 'CV', component: CVComponent },
+            { path: 'CV-view', component: CVviewComponent},
             { path: 'login', component: LoginComponent},
             { path: 'signup', component: SignupComponent},
             { path: 'skill-list', component: SkillListComponent},

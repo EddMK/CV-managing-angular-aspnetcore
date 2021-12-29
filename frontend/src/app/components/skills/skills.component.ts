@@ -20,7 +20,7 @@ export class SkillsComponent  implements OnInit {
   @Input() public set connectedUser(user: User | undefined) {
     
       if (user != undefined) {
-        console.log("user : " + user?.firstname + ", " + user?.userId + " , " + user?.managerID);
+        console.log("user : " + user?.firstname + ", " + user?.userId + " , " + user?.manager);
         this.masteringService.getAllById(user?.userId!).subscribe(m => {
           this.masterings = m;
         });

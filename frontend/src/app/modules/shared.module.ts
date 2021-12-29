@@ -16,6 +16,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import {MatChipsModule} from '@angular/material/chips';
 
 
 @NgModule({
@@ -24,12 +25,14 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
         MatTableModule, MatPaginatorModule, MatSortModule, MatIconModule,
         MatSlideToggleModule, MatDialogModule, MatSnackBarModule, MatTabsModule,
         MatSelectModule, MatCardModule, MatMomentDateModule, MatDatepickerModule,
+        MatChipsModule
     ],
     exports: [
         MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule,
         MatTableModule, MatPaginatorModule, MatSortModule, MatIconModule,
         MatSlideToggleModule, MatDialogModule, MatSnackBarModule, MatTabsModule,
         MatSelectModule, MatCardModule, MatMomentDateModule, MatDatepickerModule, 
+        MatChipsModule
     ],
 })
 

@@ -2,9 +2,21 @@
 
 <H1 class = "font-weight-bold mt-sm-2" style='font-size: 30px; font-family:Segoe UI'>TRAININGS</H1>
 <div *ngIf = "trainings.length > 0" >
-   <div *ngFor="let training of trainings">
+   <div *ngFor="let training of trainings"  (click)="onEditTraining()">
     
-      <p> {{ training.start?.format('DD/MM/YYYY')}}   :    {{ training.finish?.format('DD/MM/YYYY')}}  : <span class="font-weight-bold ml-3">  {{ training.enterpriseToString }} - {{ training.title}} </span></p>
+      <p> {{ training.start?.format('DD/MM/YYYY')}}   :    {{ training.finish?.format('DD/MM/YYYY')}}  : <span class="font-weight-bold ml-3">  {{ training.enterpriseToString }} - {{ training.title}} </span>
+        <span *ngIf="isEditableTraining"> 
+          <button mat-icon-button class="ml-3">
+              <mat-icon (click)="editTraining(training)">edit</mat-icon>
+          </button>
+          <button mat-icon-button>
+              <mat-icon>delete</mat-icon>
+          </button>
+          <button mat-icon-button>
+              <mat-icon>add</mat-icon>
+          </button>
+        </span>
+      </p>
       
       <p style="font-style: italic;"> {{ training.description }}   </p>
       <p>   final note {{training.grade }}  % </p>
@@ -17,10 +29,22 @@
 <H1 class = "font-weight-bold mt-sm-2" style='font-size: 30px; font-family:Segoe UI'>MISSIONS</H1>
 
 <div *ngIf = "missions.length > 0" >
-  <div *ngFor="let mission of missions">
+  <div *ngFor="let mission of missions"  (click)="onEditMission()">
 
     
-      <p> {{ mission.start?.format('DD/MM/YYYY')}}   :    {{ mission.finish?.format('DD/MM/YYYY')}}    <span class="font-weight-bold ml-3">  {{ mission.enterpriseToString }} - {{ mission.title}} </span></p>
+      <p> {{ mission.start?.format('DD/MM/YYYY')}}   :    {{ mission.finish?.format('DD/MM/YYYY')}}    <span class="font-weight-bold ml-3">  {{ mission.enterpriseToString }} - {{ mission.title}} </span>
+        <span *ngIf="isEditableMission"> 
+          <button mat-icon-button class="ml-3">
+              <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button>
+              <mat-icon>delete</mat-icon>
+          </button>
+          <button mat-icon-button>
+              <mat-icon>add</mat-icon>
+          </button>
+        </span>
+      </p>
 
       <p style="font-style: italic;"> {{ mission.description }}  </p>
       <app-usinglist [IdExperience] = "mission"></app-usinglist>

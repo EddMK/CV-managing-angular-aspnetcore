@@ -6,6 +6,9 @@ import { TitleComponent } from '../title/title.component';
 import { ExperienceService } from 'src/app/services/experience.service';
 import { Using } from 'src/app/models/Using';
 import { UsingService } from 'src/app/services/using.service';
+import { MatDialog } from '@angular/material/dialog';
+import { EditTrainingComponent } from '../edit-training/edit-training.component';
+
 
 
 @Component({
@@ -14,7 +17,7 @@ import { UsingService } from 'src/app/services/using.service';
   styleUrls: [ './experiences.component.css']
 })
 export class ExperiencesComponent implements OnInit {
-  
+
   @Input() public set connectedUser(user: User | undefined) {
     
     if (user != undefined) {
@@ -30,16 +33,47 @@ export class ExperiencesComponent implements OnInit {
     }
 }
 
-
   ngOnInit(): void {
     
   }
 
   trainings : Experience[] = [];
   missions : Experience[] = [];
+  isEditableTraining :  boolean = false;
 
+  onEditTraining() {
+    console.log("TOUCHE TRAINING !");
+    if(!this.isEditableTraining){
+       this.isEditableTraining = true;
+    }
+    else {
+      this.isEditableTraining = false;
+    }
+  }
 
-  constructor(public experienceService :  ExperienceService){
+  isEditableMission :  boolean = false;
+
+  onEditMission() {
+    console.log("TOUCHE MISSION!");
+    if(!this.isEditableMission){
+       this.isEditableMission = true;
+    }
+    else {
+      this.isEditableMission = false;
+    }
+  }
+
+  editTraining(training : Experience):void{
+    console.log("edit training");
+    const dlg = this.dialog.open(EditTrainingComponent, { data: { training, isNew: false }, height : '150%', width : '50%' });
+    dlg.beforeClosed().subscribe(res => {
+        if (res) {
+        }
+    });
+  
+  }
+
+  constructor(public experienceService :  ExperienceService, public dialog: MatDialog){
 
   }
 

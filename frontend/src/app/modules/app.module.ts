@@ -16,17 +16,17 @@ import { EnterpriseListComponent} from '../components/enterprise-list/enterprise
 //import { RestrictedComponent } from '../components/restricted/restricted.component';
 import {EditSkillComponent} from '../components/edit-skill/edit-skill.component';
 import {EditEnterpriseComponent} from '../components/edit-enterprise/edit-enterprise.component';
+import {EditTrainingComponent } from '../components/edit-training/edit-training.component';
 import { UnknownComponent } from '../components/unknown/unknown.component';
 import { JwtInterceptor } from '../interceptors/jwt.interceptor';
 import { LoginComponent } from '../components/login/login.component';
 import { SignupComponent } from '../components/signup/signup.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SharedModule} from './shared.module'
+import { SharedModule} from './shared.module';
 import { EditUserComponent } from '../components/edit/edit-user.component';
-
 import { SkillsComponent } from '../components/skills/skills.component';
 import { UsinglistComponent } from '../components/usinglist/usinglist.component';
-import { ExperiencesComponent } from '../components/Experiences/experiences.component';
+import { ExperiencesComponent } from '../components/experiences/experiences.component';
 
 
 
@@ -50,6 +50,7 @@ export function getBaseUrl() {
         ExperiencesComponent,
         UsinglistComponent,
         EditSkillComponent,
+        EditTrainingComponent,
         EditEnterpriseComponent,
         SkillListComponent,
         EnterpriseListComponent,

@@ -1,0 +1,81 @@
+<form id="frm" class="form" [formGroup]="frm" novalidate>
+    <!--<h1 class="header">{{(!isNew ? 'Edit existing' : 'Add a new') + ' skill'}}</h1>-->
+    <div class="form">
+        <mat-form-field>
+            <input matInput placeholder="Start" [formControl]="ctlStart" required >
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Finish" [formControl]="ctlFinish" required >
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+            <input matInput placeholder="Enterprise" [formControl]="ctlEnterprise" required >
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Title" [formControl]="ctlTitle" required >
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+            <input matInput placeholder="Description" [formControl]="ctlDescription" required >
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+            <input matInput placeholder="Grade" [formControl]="ctlGrade" required >
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+            <mat-chip-list #langList formControlName="languages">
+                <mat-chip *ngFor="let language of getLanguages" 
+                                [selectable]="selectable"
+                                [removable]="removable" 
+                                (removed) = "removeLanguage(language)">
+                    {{language}}
+                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                </mat-chip>
+                <input matInput placeholder="Languages"
+                                [matChipInputFor]="langList"
+                                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                [matChipInputAddOnBlur]="addOnBlur"
+                                (matChipInputTokenEnd)="addLanguage($event)">
+            </mat-chip-list>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+            <mat-chip-list #dataList formControlName="databases">
+                <mat-chip *ngFor="let database of getDatabases" 
+                                [selectable]="selectable"
+                                [removable]="removable" 
+                                (removed) = "removeDatabase(database)">
+                    {{database}}
+                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                </mat-chip>
+                <input matInput placeholder="Databases"
+                                [matChipInputFor]="dataList"
+                                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                [matChipInputAddOnBlur]="addOnBlur"
+                                (matChipInputTokenEnd)="addDatabase($event)">
+            </mat-chip-list>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+            <mat-chip-list #frameList formControlName="frameworks">
+                <mat-chip *ngFor="let framework of getFrameworks" 
+                                [selectable]="selectable"
+                                [removable]="removable" 
+                                (removed) = "removeFramework(framework)">
+                    {{framework}}
+                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                </mat-chip>
+                <input matInput placeholder="Frameworks"
+                                [matChipInputFor]="frameList"
+                                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                [matChipInputAddOnBlur]="addOnBlur"
+                                (matChipInputTokenEnd)="addFramework($event)">
+            </mat-chip-list>
+        </mat-form-field>
+    </div>
+    <div class="footer">
+        <button type="submit" mat-button form="frm" [disabled]="frm.pristine || frm.invalid || frm.pending" (click)="update()">{{!isNew ? 'Update' : 'Add'}}</button>
+        <button type="reset" mat-button (click)="cancel()">Cancel</button>
+    </div>
+</form>

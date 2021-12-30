@@ -24,7 +24,7 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
 
     connectedUser : User | undefined;
 
-    displayedColumns: string[] = ['firstName','lastName', 'email', 'title', 'actions', 'cv', 'delete'];
+    displayedColumns: string[] = ['firstName','lastName', 'email', 'title', 'check', 'actions', 'cv', 'delete'];
     dataSource: MatTableDataSource<User> = new MatTableDataSource();
     filter: string = '';
     state: MatTableState;

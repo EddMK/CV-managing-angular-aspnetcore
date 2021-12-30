@@ -6,18 +6,18 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-sm-12">
-        <h3>Consultants from your team and the one with no managers :</h3>
+    <!--<h2 class="ml-3" >   Consultants from your team and the one with no managers : the next actions allow you to manage your team</h2> -->
+    <div class="col-sm-12" style="display: inline-flex;">
+       
+        <mat-icon>person_add</mat-icon><p class="ml-2 mr-2">:  add consultant  </p>
+        <mat-icon>person_remove</mat-icon><p class="ml-2 mr-2">:   remove consultant </p>
+        <mat-icon>content_paste_search</mat-icon><p class="ml-2 mr-2">:  check consultant's cv (click anywhere on the cv to go back)  </p>
+        <mat-icon >done_outline</mat-icon><p class="ml-2 mr-2">:  team member  </p>
     </div>
 </div>
 
 <div class="row">
     <div class="col-sm-12">
-        <!-- <ul *ngIf="members.length > 0">
-            <li *ngFor="let member of members">{{ member.display }}</li>
-            
-        </ul>
-        <p *ngIf="members.length == 0">No members found</p> -->
 
         <mat-form-field>
             <input matInput (keyup)="filterChanged($event)" [value]="filter" placeholder="Filter" appSetFocus>
@@ -44,9 +44,17 @@
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Title </th>
                     <td mat-cell *matCellDef="let row"> {{row.title }} </td>
                 </ng-container>
-                <ng-container matColumnDef="role">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Role </th>
-                    <td mat-cell *matCellDef="let row"> {{row.role }} </td>
+                <ng-container matColumnDef="check">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> member </th>
+                    
+                    <td mat-cell *matCellDef="let row"> 
+                        <div *ngIf="row.managerID != 0" >
+                        <button mat-icon-button tabindex="-1">
+                            <mat-icon >done_outline</mat-icon>
+                        </button>
+                      </div>
+                    </td>
+
                 </ng-container>
                
                 <ng-container matColumnDef="actions">

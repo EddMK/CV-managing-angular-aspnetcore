@@ -25,10 +25,14 @@ export class SkillsComponent  implements OnInit {
         this.masteringService.getAllById(user?.userId!).subscribe(m => {
           this.masterings = m;
         });
+        if(user == this.currentUser){
+          this.isUserConnected = true;
+        }
       }
   }
-
-
+   
+   isUserConnected : boolean = false;
+   
    masterings : Mastering[] = [];
    
    constructor(public masteringService : MasteringService, public dialog: MatDialog, public snackBar: MatSnackBar,  private authenticationService: AuthenticationService){
@@ -40,9 +44,8 @@ export class SkillsComponent  implements OnInit {
    get currentUser()  {
     return this.authenticationService.currentUser;
    }
-   isUserConnected() : boolean {
-    return this.connectedUser?.userId == this.currentUser?.userId
-   }
+
+  
 
    onEditMode() {
      if(!this.isEditable){
@@ -54,7 +57,7 @@ export class SkillsComponent  implements OnInit {
    }
 
    edit(masterings : Mastering[]){
-    if(this.isUserConnected()){
+    if(this.isUserConnected){
     const dlg = this.dialog.open(EditCompetencesComponent, { data: { masterings,  isNew: false } });
     console.log(masterings);
     /*dlg.beforeClosed().subscribe(res => {

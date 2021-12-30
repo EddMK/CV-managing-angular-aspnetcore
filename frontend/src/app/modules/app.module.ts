@@ -26,7 +26,7 @@ import { SharedModule} from './shared.module';
 import { SkillsComponent } from '../components/skills/skills.component';
 import { UsinglistComponent } from '../components/usinglist/usinglist.component';
 import { ExperiencesComponent } from '../components/experiences/experiences.component';
-import { CVviewComponent } from '../components/CV-view/CV-view.component';
+
 import { EditTitleComponent } from '../components/edit-title/edit-title.component';
 import { EditCompetencesComponent } from '../components/edit-competences/edit-competences.component';
 
@@ -47,7 +47,7 @@ export function getBaseUrl() {
         UnknownComponent,
         //RestrictedComponent,
         CVComponent,
-        CVviewComponent,
+    
         TitleComponent,
         SkillsComponent,
         ExperiencesComponent,
@@ -75,7 +75,6 @@ export function getBaseUrl() {
             { path: '', component: HomeComponent, pathMatch: 'full' },
             { path: 'team', component: UserListComponent },
             { path: 'CV', component: CVComponent },
-            { path: 'CV-view', component: CVviewComponent},
             { path: 'login', component: LoginComponent},
             { path: 'signup', component: SignupComponent},
             { path: 'skill-list', component: SkillListComponent},

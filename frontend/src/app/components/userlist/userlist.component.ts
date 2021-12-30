@@ -12,7 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { plainToClass } from 'class-transformer';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Console } from 'console';
-import { CVviewComponent } from '../CV-view/CV-view.component';
+
 
 @Component({
     selector: 'app-userlist', // sélecteur utilisé pour un sous-composant

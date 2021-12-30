@@ -30,6 +30,9 @@ export class ExperiencesComponent implements OnInit {
       this.experienceService.GetAllMissionById(user?.userId!).subscribe(t => {
         this.missions = t;
       });
+      if(user == this.currentUser){
+        this.isUserConnected = true;
+      }
 
     }
 }
@@ -41,6 +44,8 @@ export class ExperiencesComponent implements OnInit {
   trainings : Experience[] = [];
   missions : Experience[] = [];
   isEditableTraining :  boolean = false;
+  isUserConnected : boolean = false;
+   
 
   onEditTraining() {
     console.log("TOUCHE TRAINING !");
@@ -65,7 +70,7 @@ export class ExperiencesComponent implements OnInit {
   }
 
   editTraining(training : Experience):void{
-    if(this.isUserConnected()){
+    if(this.isUserConnected){
     console.log("edit training");
     const dlg = this.dialog.open(EditTrainingComponent, { data: { training, isNew: false }, height : '150%', width : '50%' });
     dlg.beforeClosed().subscribe(res => {
@@ -82,9 +87,7 @@ export class ExperiencesComponent implements OnInit {
   get currentUser()  {
     return this.authenticationService.currentUser;
   }
-  isUserConnected() : boolean {
-    return this.connectedUser?.userId == this.currentUser?.userId
-  }
+  
 
 
 

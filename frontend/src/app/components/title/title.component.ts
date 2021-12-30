@@ -38,7 +38,7 @@ export class TitleComponent implements OnInit {
     return this.authenticationService.currentUser;
   }
   isUserConnected() : boolean {
-    return this.connectedUser?.userId == this.currentUser?.userId
+    return this.connectedUser == this.currentUser;
   }
 
 

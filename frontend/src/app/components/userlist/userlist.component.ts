@@ -29,6 +29,9 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
     filter: string = '';
     state: MatTableState;
 
+    isCvChecked : boolean;
+    selectedUser : User | undefined;
+
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
 
@@ -42,10 +45,15 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
     ) {
         this.state = this.stateService.userListState;
         this.connectedUser = this.currentUser
+        this.isCvChecked = false;
     }
 
     get currentUser()  {
         return this.authenticationService.currentUser;
+    }
+
+     cvAuthor(user : User) : void{
+       this.selectedUser = user;
     }
 
 
@@ -119,7 +127,9 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
    // check cv of your consultant
    checkCV(user: User){
     console.log("check " + user.firstname + "cv")
-    new CVviewComponent(user);
+    this.cvAuthor(user);
+    this.isCvChecked = true;
+     
    }
 
 

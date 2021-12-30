@@ -24,7 +24,7 @@ export class EditCompetencesComponent {
     public ctlCategory!: FormControl;
     public ctlLevel!: FormControl;
     public isNew: boolean;
-    public mastering: Mastering[];
+    public masterings: Mastering[];
 
    
 
@@ -46,7 +46,7 @@ export class EditCompetencesComponent {
         });
 
         this.isNew = data.isNew;
-        this.mastering = data.mastering;
+        this.masterings = data.mastering;
         this.frm.patchValue(data.mastering);
     }
 

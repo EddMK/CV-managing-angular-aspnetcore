@@ -1,5 +1,5 @@
 
-
+<div *ngIf = "!isCvChecked">
 <div class="row">
     <div class="col-sm-12">
         <h1>Team</h1>
@@ -91,6 +91,8 @@
         </div>
     </div>
 </div>
+
+</div>
 <!--
 <div class="row mt-3">
     <div class="col-12">
@@ -98,3 +100,10 @@
     </div>
 </div>
 -->
+
+<div *ngIf="isCvChecked">
+<app-title [connectedUser] = "selectedUser"></app-title>
+<app-skills [connectedUser] = "selectedUser"></app-skills>
+<app-experiences [connectedUser] = "selectedUser"></app-experiences>
+</div>
+

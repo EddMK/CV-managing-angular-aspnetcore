@@ -132,6 +132,10 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
      
    }
 
+   returnOnClick(){
+       this.isCvChecked = false;
+   }
+
 
     // appelée quand on clique sur le bouton "delete" d'un membre
     delete(user: User) {

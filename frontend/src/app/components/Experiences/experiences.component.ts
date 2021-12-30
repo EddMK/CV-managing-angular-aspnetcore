@@ -8,6 +8,7 @@ import { Using } from 'src/app/models/Using';
 import { UsingService } from 'src/app/services/using.service';
 import { MatDialog } from '@angular/material/dialog';
 import { EditTrainingComponent } from '../edit-training/edit-training.component';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 
 
@@ -64,17 +65,25 @@ export class ExperiencesComponent implements OnInit {
   }
 
   editTraining(training : Experience):void{
+    if(this.isUserConnected()){
     console.log("edit training");
     const dlg = this.dialog.open(EditTrainingComponent, { data: { training, isNew: false }, height : '150%', width : '50%' });
     dlg.beforeClosed().subscribe(res => {
         if (res) {
         }
     });
-  
+  }
   }
 
-  constructor(public experienceService :  ExperienceService, public dialog: MatDialog){
+  constructor(public experienceService :  ExperienceService, public dialog: MatDialog, private authenticationService: AuthenticationService){
 
+  }
+
+  get currentUser()  {
+    return this.authenticationService.currentUser;
+  }
+  isUserConnected() : boolean {
+    return this.connectedUser?.userId == this.currentUser?.userId
   }
 
 

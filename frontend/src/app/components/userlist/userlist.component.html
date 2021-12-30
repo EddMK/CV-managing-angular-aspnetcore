@@ -100,10 +100,11 @@
     </div>
 </div>
 -->
-
-<div *ngIf="isCvChecked">
-<app-title [connectedUser] = "selectedUser"></app-title>
-<app-skills [connectedUser] = "selectedUser"></app-skills>
-<app-experiences [connectedUser] = "selectedUser"></app-experiences>
+<div (click)="returnOnClick()">
+ <div *ngIf="isCvChecked">
+   <app-title [connectedUser] = "selectedUser"></app-title>
+   <app-skills [connectedUser] = "selectedUser"></app-skills>
+   <app-experiences [connectedUser] = "selectedUser"></app-experiences>
+ </div>
 </div>
 

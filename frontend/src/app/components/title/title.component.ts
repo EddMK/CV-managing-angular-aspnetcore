@@ -22,27 +22,28 @@ export class TitleComponent implements OnInit {
   
   @Input() public connectedUser! : User | undefined
 
-  ngOnInit(): void {
-     
-  }
-
-  constructor(public dialog: MatDialog, public userService : UserService,  private stateService: StateService, public snackBar: MatSnackBar){
-
-  }
 
   isEditable :  boolean = false;
 
-   onEditMode() {
-     if(!this.isEditable){
-        this.isEditable = true;
-     }
-     else {
-       this.isEditable = false;
-     }
-   }
+  ngOnInit(): void {
+       
+  }
+
+  constructor(public dialog: MatDialog, public userService : UserService,  
+    private stateService: StateService, public snackBar: MatSnackBar, private authenticationService: AuthenticationService){
+    
+  }
+   
+  get currentUser()  {
+    return this.authenticationService.currentUser;
+  }
+  isUserConnected() : boolean {
+    return this.connectedUser?.userId == this.currentUser?.userId
+  }
 
 
    edit(user : User){
+    if(this.isUserConnected()){
     const dlg = this.dialog.open(EditTitleComponent, { data: { user,  isNew: false } });
     console.log(user.firstname + " " + user.userId);
     dlg.beforeClosed().subscribe(res => {
@@ -59,7 +60,8 @@ export class TitleComponent implements OnInit {
               }
           });
       }
-  });
+     });
+    }
    }
 
    

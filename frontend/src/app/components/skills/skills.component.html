@@ -7,9 +7,9 @@
     <div class="col-sm-12  d-inline" >
         <div *ngIf="masterings.length > 0">
             <p class="categories">Language :</p>
-            <div *ngFor="let mastering of masterings" Style="display: inline-flex">
+            <div *ngFor="let mastering of masterings; let last = last" Style="display: inline-flex">
                 <p *ngIf="mastering.categoryToString === 'Language'" >
-                    {{ mastering.skilltoString}}  : {{ mastering.level}}   , 
+                    {{ mastering.skilltoString}}  : {{ mastering.level}}    {{ !last? ',' : '' }}
                 </p>
             </div>
             <p class="categories">Database :</p>

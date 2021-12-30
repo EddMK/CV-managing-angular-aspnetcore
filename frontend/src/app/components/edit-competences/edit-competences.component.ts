@@ -29,7 +29,7 @@ export class EditCompetencesComponent {
    
 
     constructor(public dialogRef: MatDialogRef<EditCompetencesComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: { mastering: Mastering[]; isNew: boolean; },
+        @Inject(MAT_DIALOG_DATA) public data: { masterings: Mastering[]; isNew: boolean; },
         private fb: FormBuilder,
         private masteringService: MasteringService
     ) {
@@ -46,8 +46,10 @@ export class EditCompetencesComponent {
         });
 
         this.isNew = data.isNew;
-        this.masterings = data.mastering;
-        this.frm.patchValue(data.mastering);
+        this.masterings = data.masterings;
+        console.log(this.masterings);
+        console.log(data);
+        this.frm.patchValue(data.masterings);
     }
 
     // Validateur bidon qui vérifie que la valeur est différente

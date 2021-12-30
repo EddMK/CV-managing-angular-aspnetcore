@@ -2,10 +2,10 @@
 
 <form id="frm" class="form" [formGroup]="frm" novalidate>
    
-    <div class="form">
+    <div class="form" *ngFor="let m of masterings">
       
         <mat-form-field>
-            <input matInput placeholder="Skill" [formControl]="ctlSkill" >
+            <input matInput placeholder="Skill" [formControl]="ctlSkill" [value]="m.skill">
            <!--<mat-error class="field-error" *ngIf="ctlEmail.hasError('required')">Required</mat-error>
             <mat-error class="field-error" *ngIf="ctlEmail.hasError('minlength')">Minimum length is {{ctlEmail.errors?.minlength?.requiredLength}}</mat-error>
             <mat-error class="field-error" *ngIf="ctlEmail.hasError('emailUsed')">Email already in use</mat-error> -->
@@ -20,8 +20,6 @@
            <!-- <mat-error class="field-error" *ngIf="ctlLastname.hasError('minlength')">Minimum length is {{ctlLastname.errors?.minlength?.requiredLength}}</mat-error> -->
         </mat-form-field>
         
-   
-   
     </div>
 
   

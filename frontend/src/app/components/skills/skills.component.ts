@@ -7,6 +7,7 @@ import { isDefined } from '@angular/compiler/src/util';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { EditCompetencesComponent } from '../edit-competences/edit-competences.component';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 
 
@@ -30,11 +31,18 @@ export class SkillsComponent  implements OnInit {
 
    masterings : Mastering[] = [];
    
-   constructor(public masteringService : MasteringService, public dialog: MatDialog, public snackBar: MatSnackBar){
+   constructor(public masteringService : MasteringService, public dialog: MatDialog, public snackBar: MatSnackBar,  private authenticationService: AuthenticationService){
   
    }
 
    isEditable :  boolean = false;
+
+   get currentUser()  {
+    return this.authenticationService.currentUser;
+   }
+   isUserConnected() : boolean {
+    return this.connectedUser?.userId == this.currentUser?.userId
+   }
 
    onEditMode() {
      if(!this.isEditable){
@@ -46,8 +54,9 @@ export class SkillsComponent  implements OnInit {
    }
 
    edit(masterings : Mastering[]){
+    if(this.isUserConnected()){
     const dlg = this.dialog.open(EditCompetencesComponent, { data: { masterings,  isNew: false } });
-    console.log(masterings.length);
+    console.log(masterings);
     /*dlg.beforeClosed().subscribe(res => {
       if (res) {
          console.log(res);
@@ -63,6 +72,7 @@ export class SkillsComponent  implements OnInit {
           });
       }
   });*/
+     } 
    }
 
 

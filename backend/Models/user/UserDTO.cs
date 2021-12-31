@@ -24,7 +24,10 @@ namespace backend.Models
 
         public string about { get; set; }
 
+        public string PicturePath { get; set; }
+
        public string Token { get; set; }
+    
 
        public int managerID { get; set; }
 

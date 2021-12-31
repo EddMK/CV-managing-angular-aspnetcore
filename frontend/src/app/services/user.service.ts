@@ -8,6 +8,7 @@ import { plainToClass } from 'class-transformer';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
+   
     constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
     getAll(): Observable<User[]> {
@@ -101,6 +102,41 @@ export class UserService {
             })
         );
     }
+
+    public uploadPicture(email: string, file: File): Observable<string | undefined> {
+        console.log(file);
+        const formData = new FormData();
+        formData.append('email', email);
+        formData.append('picture', file);
+        return this.http.post<string>(`${this.baseUrl}api/users/upload`, formData).pipe(
+            catchError(err => {
+                console.error(err);
+                return of(undefined);
+            })
+        );
+    }
+    
+    public confirmPicture(email: string, path?: string): Observable<string | undefined> {
+        return this.http.post<string>(`${this.baseUrl}api/users/confirm`, { email: email, picturePath: path }).pipe(
+            catchError(err => {
+                console.error(err);
+                return of(undefined);
+            })
+        );
+    }
+    
+    public cancelPicture(path?: string): Observable<string | undefined> {
+        return this.http.post<string>(`${this.baseUrl}api/users/cancel`, { picturePath: path }).pipe(
+            catchError(err => {
+                console.error(err);
+                return of(undefined);
+            })
+        );
+    }
+    
+
+
+    
 
   
 

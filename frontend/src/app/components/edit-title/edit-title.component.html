@@ -1,12 +1,7 @@
 <form id="frm" class="form" [formGroup]="frm" novalidate>
    
     <div class="form">
-        <mat-form-field>
-            <input matInput placeholder="Email" [formControl]="ctlEmail" >
-           <!--<mat-error class="field-error" *ngIf="ctlEmail.hasError('required')">Required</mat-error>
-            <mat-error class="field-error" *ngIf="ctlEmail.hasError('minlength')">Minimum length is {{ctlEmail.errors?.minlength?.requiredLength}}</mat-error>
-            <mat-error class="field-error" *ngIf="ctlEmail.hasError('emailUsed')">Email already in use</mat-error> -->
-        </mat-form-field>
+      
     
         <mat-form-field>
             <input matInput placeholder="First Name" [formControl]="ctlFirstname">
@@ -20,9 +15,17 @@
             <input matInput placeholder="Title" [formControl]="ctlTitle">
            <!-- <mat-error class="field-error" *ngIf="ctlLastname.hasError('minlength')">Minimum length is {{ctlLastname.errors?.minlength?.requiredLength}}</mat-error> -->
         </mat-form-field>
-
-     
-     
+        <br>
+        <mat-form-field style="width: 300px; height: auto;">
+            <textarea matInput placeholder="About" [formControl]="ctlAbout"></textarea>
+           <!-- <mat-error class="field-error" *ngIf="ctlLastname.hasError('minlength')">Minimum length is {{ctlLastname.errors?.minlength?.requiredLength}}</mat-error> -->
+        </mat-form-field>
+        <mat-tab label="Picture">
+            <div class="picture-container">
+                <img class="img-responsive" [src]="picturePath" width="200px">
+                <input type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".png,.jpg,.gif">
+            </div>
+        </mat-tab>
     </div>
   
     <div class="footer">

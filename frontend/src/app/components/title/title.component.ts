@@ -15,7 +15,7 @@ import * as _ from 'lodash';
 @Component({
   selector: 'app-title',
   templateUrl: './title.component.html',
-  styles: [
+  styleUrls: [ './title.component.css'
   ]
 })
 export class TitleComponent implements OnInit {

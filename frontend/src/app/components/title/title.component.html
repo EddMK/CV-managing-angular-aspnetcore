@@ -1,6 +1,10 @@
 <div *ngIf="connectedUser">
 
   
+<!--<div class="profile">
+    <img src="./src/backend/wwwroot/uploads/unknown-user.jpg" >
+    </div>
+-->
  <h1 class="text-center font-weight-bold " style='font-size: 30px; font-family:Helvetica' (click)="edit(connectedUser)"> {{connectedUser.firstname}}      {{connectedUser.lastname}} </h1>
 
 
@@ -9,9 +13,10 @@
 <h2 class="text-center">{{connectedUser.birthDate?.format('DD/MM/YYYY')}}</h2>
 
 
+<div *ngIf="connectedUser.about?.length! > 0">
 <H1 class = "font-weight-bold" style='font-size: 30px; font-family:Segoe UI'>ABOUT</H1>
 <p style="font-size: large;">{{ connectedUser.about}} </p>
-
+</div>
  
 </div>
 

@@ -16,4 +16,9 @@
      <ProjectReference Include="..\PRID_Framework\PRID_Framework.csproj" /> 
   </ItemGroup>
 
+  
+  <ItemGroup>
+      <Content Update="wwwroot\**\*" Watch="false" />
+  </ItemGroup>
+
 </Project>

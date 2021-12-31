@@ -5,18 +5,18 @@
     <div class="form" *ngFor="let m of masterings">
       
         <mat-form-field>
-            <input matInput placeholder="Skill" [formControl]="ctlSkill" [value]="m.skill">
+            <input matInput placeholder="Skill"  [value]="m.skill?.name">
            <!--<mat-error class="field-error" *ngIf="ctlEmail.hasError('required')">Required</mat-error>
             <mat-error class="field-error" *ngIf="ctlEmail.hasError('minlength')">Minimum length is {{ctlEmail.errors?.minlength?.requiredLength}}</mat-error>
             <mat-error class="field-error" *ngIf="ctlEmail.hasError('emailUsed')">Email already in use</mat-error> -->
         </mat-form-field>
     
         <mat-form-field>
-            <input matInput placeholder="Category" [formControl]="ctlCategory">
+            <input matInput placeholder="Category" [value]="m.skill?.category?.name">
             <!--<mat-error class="field-error" *ngIf="ctlFirstname.hasError('minlength')">Minimum length is {{ctlFirstname.errors?.minlength?.requiredLength}}</mat-error> -->
         </mat-form-field>
         <mat-form-field>
-            <input matInput placeholder="Level" [formControl]="ctlLevel">
+            <input matInput placeholder="Level" [value]="m.level">
            <!-- <mat-error class="field-error" *ngIf="ctlLastname.hasError('minlength')">Minimum length is {{ctlLastname.errors?.minlength?.requiredLength}}</mat-error> -->
         </mat-form-field>
         

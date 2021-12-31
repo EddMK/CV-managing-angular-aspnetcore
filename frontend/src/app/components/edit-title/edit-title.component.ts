@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
 import { UserService } from '../../services/user.service';
@@ -16,14 +16,18 @@ import * as moment from 'moment';
     templateUrl: './edit-title.component.html',
     styleUrls: ['./edit-title.component.css']
 })
-export class EditTitleComponent {
+export class EditTitleComponent implements OnDestroy{
     public frm!: FormGroup;
     public ctlFirstname!: FormControl;
     public ctlLastname!: FormControl;
     public ctlEmail!: FormControl;
     public ctlTitle!: FormControl;
+    public ctlAbout!: FormControl;
     public isNew: boolean;
     public maxDate: Moment = moment().subtract(18, 'years');
+    private tempPicturePath?: string; 
+    private pictureChanged: boolean; 
+
 
 
     constructor(public dialogRef: MatDialogRef<EditTitleComponent>,
@@ -38,18 +42,23 @@ export class EditTitleComponent {
         this.ctlFirstname = this.fb.control(null, [Validators.minLength(3)]);
         this.ctlLastname = this.fb.control(null, [Validators.minLength(3)]);
         this.ctlTitle = this.fb.control(null, [Validators.minLength(3)]);
+        this.ctlAbout = this.fb.control(null, [Validators.minLength(3)]);
+
     
         this.frm = this.fb.group({
             firstname: this.ctlFirstname,
             lastname: this.ctlLastname,
             email: this.ctlEmail,
-            title: this.ctlTitle
+            title: this.ctlTitle,
+            about: this.ctlAbout
           
         });
-
+        this.tempPicturePath = data.user.picturePath; 
+        this.pictureChanged = false; 
         this.isNew = data.isNew;
         this.frm.patchValue(data.user);
     }
+  
 
     // Validateur bidon qui vérifie que la valeur est différente
     forbiddenValue(val: string): any {
@@ -89,9 +98,44 @@ export class EditTitleComponent {
 
     update() {
         this.dialogRef.close(this.frm.value);
+        const data = this.frm.value; 
+        data.picturePath = this.tempPicturePath; 
+        if (this.pictureChanged) { 
+            this.userService.confirmPicture(data.pseudo, this.tempPicturePath).subscribe(); 
+            data.picturePath = 'uploads/' + data.pseudo + '.jpg'; 
+            this.pictureChanged = false; 
+        } 
     }
 
     cancel() {
         this.dialogRef.close();
+        const data = this.frm.value; 
+        if (this.pictureChanged) { 
+            this.userService.cancelPicture(this.tempPicturePath).subscribe(); 
+        } 
     }
+    fileChange(event: Event) { 
+        const fileList: FileList | null = (event.target as HTMLInputElement).files; 
+        if (fileList && fileList.length > 0) { 
+            const file = fileList[0]; 
+            this.userService.uploadPicture(this.frm.value.pseudo || 'empty', file).subscribe(path => { 
+                console.log(path); 
+                this.cancelTempPicture(); 
+                this.tempPicturePath = path; 
+                this.pictureChanged = true; 
+                this.frm.markAsDirty(); 
+            }); 
+        } 
+    } 
+    cancelTempPicture() {
+        throw new Error('Method not implemented.');
+    }
+
+    get picturePath(): string { 
+        return this.tempPicturePath && this.tempPicturePath !== '' ? this.tempPicturePath : 'uploads/unknown-user.jpg'; 
+    } 
+
+    ngOnDestroy(): void { 
+        this.cancelTempPicture(); 
+    } 
 }

@@ -14,6 +14,11 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authorization;
 using backend.Helpers;
 using System.Diagnostics;
+using System.IO;
+using Microsoft.AspNetCore.Http;
+using System.Text.Json;
+
+
 
 
 [Authorize]
@@ -116,6 +121,10 @@ public class UsersController : ControllerBase
            user.FirstName = dto.Firstname;
            user.LastName = dto.Lastname;
            user.Title = dto.title;
+           user.About = dto.about;
+          if (!string.IsNullOrWhiteSpace(dto.PicturePath)){
+              user.PicturePath = dto.PicturePath + "?" + DateTime.Now.Ticks;
+          }
           await _context.SaveChangesAsyncWithValidation();
        }
      
@@ -212,6 +221,44 @@ private async Task<User> Authenticate(string email, string password) {
 
     return user;
 }
+
+[HttpPost("upload")]
+public async Task<IActionResult> Upload([FromForm] string email, [FromForm] IFormFile picture) {
+    if (picture != null && picture.Length > 0) {
+        var fileName = email + "-" + DateTime.Now.ToString("yyyyMMddHHmmssff") + ".jpg";
+        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", fileName);
+        using (var stream = new FileStream(filePath, FileMode.Create)) {
+            await picture.CopyToAsync(stream);
+        }
+        string path = "\"" + JsonEncodedText.Encode("uploads" + Path.DirectorySeparatorChar + fileName) + "\"";
+        return Ok(path);
+    }
+    return Ok();
+}
+
+[HttpPost("cancel")]
+public IActionResult Cancel([FromBody] JsonElement data) {
+    string picturePath = data.GetProperty("picturePath").ToString();
+    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", picturePath);
+    if (System.IO.File.Exists(path))
+        System.IO.File.Delete(path);
+    return Ok();
+}
+
+[HttpPost("confirm")]
+public IActionResult Confirm([FromBody] JsonElement data) {
+    string pseudo = data.GetProperty("pseudo").ToString();
+    string picturePath = data.GetProperty("picturePath").ToString();
+    string newPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", pseudo + ".jpg");
+    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", picturePath);
+    if (System.IO.File.Exists(path)) {
+        if (System.IO.File.Exists(newPath))
+            System.IO.File.Delete(newPath);
+        System.IO.File.Move(path, newPath);
+    }
+    return Ok();
+}
+
 
 
 

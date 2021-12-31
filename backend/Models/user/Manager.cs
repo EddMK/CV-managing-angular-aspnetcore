@@ -7,9 +7,9 @@ namespace backend.Models {
        
     public ICollection<Consultant> consultants { get; set; } = new HashSet<Consultant>();
 
-    public Manager(string pseudo, string password, string email, string firtsname, string lastname, string title, DateTime birthday, Role role, int userId)
+    public Manager(string password, string email, string firtsname, string lastname, string title, DateTime birthday, Role role, string about,int userId)
 
-    : base(pseudo, password, email, firtsname, lastname, title, birthday, role, userId){
+    : base(password, email, firtsname, lastname, title, birthday, role, about, userId){
     
     }
 

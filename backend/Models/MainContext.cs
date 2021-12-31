@@ -29,6 +29,9 @@ namespace backend.Models
 
         public DbSet<Enterprise> Enterprises {get; set; }
 
+        public String about1 = "A few years ago I decided to do a complete switch and left my job as a tram driver to pursue a bachelor degree in computer science. "+
+           "I see programming as a virtual lego game where you can build whatever your imagination allows you to." ;
+
     
         public MainContext(DbContextOptions<MainContext> options)
             : base(options) {
@@ -54,15 +57,15 @@ namespace backend.Models
 
             modelBuilder.Entity<Manager>().HasData(
                 
-                new Manager {Pseudo = "ed", Password = "ed", Email="edouardkourieh@gmail.com", FirstName="Edouard", LastName="Kourieh" , Title="Product manager",  BirthDate=new DateTime(1995, 1, 2), Role = Role.MANAGER, UserId = 2},
-                 new Manager {Pseudo = "gil", Password = "gil", Email="gilfoy@gmail.com", FirstName="Betram", LastName="Gilfoy" , Title=" Technical manager",  BirthDate=new DateTime(1985, 7, 8), Role = Role.MANAGER, UserId = 7}
+                new Manager {Password = "ed", Email="edouardkourieh@gmail.com", FirstName="Edouard", LastName="Kourieh" , Title="Product manager",  BirthDate=new DateTime(1995, 1, 2), Role = Role.MANAGER, UserId = 2},
+                 new Manager {Password = "gil", Email="gilfoy@gmail.com", FirstName="Betram", LastName="Gilfoy" , Title=" Technical manager",  BirthDate=new DateTime(1985, 7, 8), Role = Role.MANAGER, UserId = 7}
             );
 
-            modelBuilder.Entity<Consultant>().HasData(
-                new Consultant {Pseudo = "dan", Password = "dan", Email="danielsoria@gmail.com", FirstName="Daniel", LastName="Calatayud Soria", Title= "Java developer", BirthDate=new DateTime(1989, 11, 26), Role = Role.CONSULTANT, UserId =1, managerID = 2},
-                new Consultant {Pseudo = "Jo", Password = "joa", Email="joaquim@gmail.com", FirstName="Joaquim", LastName="Munoz", Title="C++ developer" ,BirthDate=new DateTime(1989, 11, 26), Role = Role.CONSULTANT, UserId = 3, managerID = 2},
-                new Consultant {Pseudo = "leo", Password = "leo", Email="leonnie@gmail.com", FirstName="Leonnie", LastName="Bouchat", Title="java developer", BirthDate=new DateTime(1995, 1, 2), Role = Role.CONSULTANT, UserId = 4, managerID = 7},
-                new Consultant {Pseudo = "jen", Password = "jen", Email="jen@gmail.com", FirstName="jen", LastName="Kins", Title="python developer", BirthDate=new DateTime(1995, 1, 2), Role = Role.CONSULTANT, UserId = 5}
+            modelBuilder.Entity<Consultant>().HasData( 
+                new Consultant {Password = "dan", Email="danielsoria@gmail.com", FirstName="Daniel", LastName="Calatayud Soria", Title= "Java developer", BirthDate=new DateTime(1989, 11, 26), Role = Role.CONSULTANT, About = about1 ,UserId =1, managerID = 2},
+                new Consultant {Password = "joa", Email="joaquim@gmail.com", FirstName="Joaquim", LastName="Munoz", Title="C++ developer" ,BirthDate=new DateTime(1989, 11, 26), Role = Role.CONSULTANT, UserId = 3, managerID = 2},
+                new Consultant {Password = "leo", Email="leonnie@gmail.com", FirstName="Leonnie", LastName="Bouchat", Title="java developer", BirthDate=new DateTime(1995, 1, 2), Role = Role.CONSULTANT, UserId = 4, managerID = 7},
+                new Consultant {Password = "jen", Email="jen@gmail.com", FirstName="jen", LastName="Kins", Title="python developer", BirthDate=new DateTime(1995, 1, 2), Role = Role.CONSULTANT, UserId = 5}
             );
 
             modelBuilder.Entity<Training>().HasData(
@@ -176,8 +179,12 @@ namespace backend.Models
 
             );
 
+          // strings for the abouts
+            
+           
 
 
+    
 
             
             

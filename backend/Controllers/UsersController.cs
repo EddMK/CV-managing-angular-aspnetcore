@@ -79,7 +79,7 @@ public class UsersController : ControllerBase
         // Utilise le mapper pour convertir le DTO qu'on a reçu en une instance de Member
         //var newuser = _mapper.Map<Consultant>(user);
         var newuser = new Consultant()
-                {Pseudo = user.Pseudo, Password = user.Password, Email= user.Email, 
+                {Password = user.Password, Email= user.Email, 
                 FirstName= user.Firstname, LastName= user.Lastname, Title= user.title
                 ,BirthDate= user.BirthDate, Role = Role.CONSULTANT, UserId = 0, managerID = 2};
         // Ajoute ce nouveau membre au contexte EF

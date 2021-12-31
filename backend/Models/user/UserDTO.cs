@@ -9,7 +9,6 @@ namespace backend.Models
 
         public int UserId { get; set; }
        
-        public string Pseudo { get; set; }
 
         public string Firstname { get; set; }
         
@@ -22,6 +21,8 @@ namespace backend.Models
         public DateTime BirthDate { get; set; }
 
         public string Role { get; set; }
+
+        public string about { get; set; }
 
        public string Token { get; set; }
 

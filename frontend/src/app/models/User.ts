@@ -29,6 +29,7 @@ export class User {
 
     birthDate?: Moment;
     role?: string;
+    about?: string;
     token?:string;
     masterings: Mastering[] = [];
     manager?: User;

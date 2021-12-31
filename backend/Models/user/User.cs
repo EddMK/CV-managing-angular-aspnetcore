@@ -18,9 +18,7 @@ namespace backend.Models
         [Key]
         public int UserId { get; set;}
         
-        [Required(ErrorMessage = "Required")]
-        [MinLength(2, ErrorMessage = "Minimum 2 characters"), StringLength(10, ErrorMessage = "Maximum 10 characters"),]
-        public string Pseudo { get; set; }
+        
 
         [Required(ErrorMessage = "Required")]
         [MinLength(3, ErrorMessage = "Minimum 3 characters"), StringLength(10, ErrorMessage = "Maximum 10 characters") ]
@@ -41,6 +39,8 @@ namespace backend.Models
 
         public Role Role { get; set;}
 
+        public string About { get; set; }
+
         [NotMapped]
         public string Token { get; set; }
 
@@ -50,14 +50,14 @@ namespace backend.Models
        public ICollection<Experience> experiences { get; set; } = new HashSet<Experience>();
 
     
-        public User(string pseudo, string password, string email, string firtsname, string lastname, string title, DateTime birthday, Role role, int userId = 0){
-            this.Pseudo = pseudo;
+        public User(string password, string email, string firtsname, string lastname, string title, DateTime birthday, Role role, string about, int userId = 0){
             this.Password = password;
             this.Email = email;
             this.FirstName = firtsname;
             this.LastName = lastname;
             this.BirthDate = birthday;
             this.Role = role;
+            this.About = about;
             this.Title = Title;
             this.UserId = userId;
           
@@ -77,23 +77,21 @@ namespace backend.Models
         }
 
         
-        public bool CheckPseudoUnicity(MainContext context) {
-          
-            return context.Entry(this).State == EntityState.Modified || context.Users.AsNoTracking().Count(u => u.Pseudo == Pseudo) == 0;
-        }
-        public bool isPseudoValid(){
+       
+        /*
+         public bool isPseudoValid(){
             return !Pseudo.Contains('_') && Char.IsLetter(Pseudo[0]);
-        }
-
+        }*/
+    
         private bool CheckLastNameUnicity(MainContext context) {
             if (string.IsNullOrEmpty(LastName)) 
                 return true;
-            return context.Users.Count(u => u.Pseudo != Pseudo && u.LastName == LastName) == 0;
+            return context.Users.Count(u => u.LastName == LastName) == 0;
         }
         private bool CheckFirstNameUnicity(MainContext context){
              if (string.IsNullOrEmpty(LastName)) 
                 return true;
-            return context.Users.Count(u => u.Pseudo != Pseudo && u.LastName == LastName) == 0;
+            return context.Users.Count(u => u.LastName == LastName) == 0;
         }
 
         public bool CheckFullNameUnicity(MainContext context){
@@ -103,11 +101,6 @@ namespace backend.Models
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext) {
             var currContext = validationContext.GetService(typeof(MainContext)) as MainContext;
             Debug.Assert(currContext != null);
-            
-            if (!CheckPseudoUnicity(currContext))
-                yield return new ValidationResult("The Pseudo of a user must be unique", new[] { nameof(Pseudo) });
-            if(!isPseudoValid())
-                yield return new ValidationResult("The Pseudo can't contain an underscore and the first character should be a letter", new[] { nameof(Pseudo) });
             
             if (!CheckFullNameUnicity(currContext))
                  yield return new ValidationResult("The combinaison of a firstname and fullname should be unique", new[] { nameof(LastName) });

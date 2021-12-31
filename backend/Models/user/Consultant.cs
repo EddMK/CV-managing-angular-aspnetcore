@@ -11,9 +11,9 @@ namespace backend.Models {
       
     public Manager Manager { get; set; }
 
-     public Consultant(string pseudo, string password, string email, string firtsname, string lastname, String title, DateTime birthday, Role role, int userId, int managerID)
+     public Consultant(string password, string email, string firtsname, string lastname, String title, DateTime birthday, Role role, string about, int userId, int managerID)
 
-    : base(pseudo, password, email, firtsname, lastname, title, birthday, role, userId){
+    : base(password, email, firtsname, lastname, title, birthday, role, about, userId){
       this.Manager = Manager;
       this.managerID = Manager.UserId;
       

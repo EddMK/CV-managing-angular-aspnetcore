@@ -12,6 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { plainToClass } from 'class-transformer';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Console } from 'console';
+import { ConfirmService } from 'src/app/services/confirm.service';
 
 
 @Component({
@@ -40,7 +41,8 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
         private stateService: StateService,
         public dialog: MatDialog,
         public snackBar: MatSnackBar,
-        private authenticationService: AuthenticationService
+        private authenticationService: AuthenticationService,
+        private confirmService: ConfirmService
         
     ) {
         this.state = this.stateService.userListState;
@@ -139,6 +141,20 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
 
     // appelée quand on clique sur le bouton "delete" d'un membre
     delete(user: User) {
+        var dialog = this.confirmService.confirmDialog({title: 'Confirm delete' ,
+         message: 'Are you sure you want to delete this consultant? If you do so all the masterings and experiences related will be also deleted', 
+         confirmText: 'Confirm', 
+         canceltext: 'Cancel'});
+        dialog.subscribe(res => {
+            if(res){
+                this.userService.delete(user).subscribe(res => {
+                    this.refresh(); 
+                 });
+                
+            }
+        })
+        
+                        /*
         const backup = this.dataSource.data;
         this.dataSource.data = _.filter(this.dataSource.data, u => u.email !== user.email);
         const snackBarRef = this.snackBar.open(`User '${user.email}' will be deleted`, 'Undo', { duration: 10000 });
@@ -147,7 +163,7 @@ export class UserListComponent implements AfterViewInit, OnDestroy {
                 this.userService.delete(user).subscribe();
             else
                 this.dataSource.data = backup;
-        });
+        });*/
     }
    
    

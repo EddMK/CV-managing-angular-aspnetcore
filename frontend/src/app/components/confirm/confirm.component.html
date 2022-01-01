@@ -1,0 +1,19 @@
+<div style="text-align: center;">
+<mat-icon>delete</mat-icon>
+</div>
+
+<div class="text-center text-lg text-danger">
+    <h2 mat-dialog-title>{{data?.title}}</h2>
+    
+  
+</div>
+
+<div mat-dialog-content >
+   <h3 class="mb-2 text-center text-lg  "> {{data?.message}} </h3>
+</div>
+
+<div mat-dialog-actions class="mb-3">
+   <button class="btn btn-outline-secondary btn-lg ml-5" mar-raised-button [mat-dialog-close]="false">{{data?.canceltext}}</button>
+   <button class="btn btn-outline-danger btn-lg ml-5 " mar-raised-button  [mat-dialog-close]="true">{{data?.confirmText}}</button>
+
+</div>

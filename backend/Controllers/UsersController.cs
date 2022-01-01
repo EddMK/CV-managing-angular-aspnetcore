@@ -123,7 +123,7 @@ public class UsersController : ControllerBase
            user.Title = dto.title;
            user.About = dto.about;
          
-          await _context.SaveChangesAsyncWithValidation();
+          _context.SaveChanges();
        }
      
        // Retourne un statut 204 avec une réponse vide

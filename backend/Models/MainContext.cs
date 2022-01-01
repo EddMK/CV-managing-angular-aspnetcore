@@ -57,15 +57,15 @@ namespace backend.Models
 
             modelBuilder.Entity<Manager>().HasData(
                 
-                new Manager {Password = "ed", Email="edouardkourieh@gmail.com", FirstName="Edouard", LastName="Kourieh" , Title="Product manager",  BirthDate=new DateTime(1995, 1, 2), Role = Role.MANAGER, UserId = 2},
-                 new Manager {Password = "gil", Email="gilfoy@gmail.com", FirstName="Betram", LastName="Gilfoy" , Title=" Technical manager",  BirthDate=new DateTime(1985, 7, 8), Role = Role.MANAGER, UserId = 7}
+                new Manager {Password = "ed", Email="edouardkourieh@gmail.com", FirstName="Edouard", LastName="Kourieh" , Title="Product manager",  BirthDate=new DateTime(1995, 1, 2), Role = Role.MANAGER, About="",UserId = 2},
+                 new Manager {Password = "gil", Email="gilfoy@gmail.com", FirstName="Betram", LastName="Gilfoy" , Title=" Technical manager",  BirthDate=new DateTime(1985, 7, 8), Role = Role.MANAGER,About="", UserId = 7}
             );
 
             modelBuilder.Entity<Consultant>().HasData( 
-                new Consultant {Password = "dan", Email="danielsoria@gmail.com", FirstName="Daniel", LastName="Calatayud Soria", Title= "Java developer", BirthDate=new DateTime(1989, 11, 26), Role = Role.CONSULTANT, About = about1 ,UserId =1, managerID = 2},
-                new Consultant {Password = "joa", Email="joaquim@gmail.com", FirstName="Joaquim", LastName="Munoz", Title="C++ developer" ,BirthDate=new DateTime(1989, 11, 26), Role = Role.CONSULTANT, UserId = 3, managerID = 2},
-                new Consultant {Password = "leo", Email="leonnie@gmail.com", FirstName="Leonnie", LastName="Bouchat", Title="java developer", BirthDate=new DateTime(1995, 1, 2), Role = Role.CONSULTANT, UserId = 4, managerID = 7},
-                new Consultant {Password = "jen", Email="jen@gmail.com", FirstName="jen", LastName="Kins", Title="python developer", BirthDate=new DateTime(1995, 1, 2), Role = Role.CONSULTANT, UserId = 5}
+                new Consultant {Password = "dan", Email="danielsoria@gmail.com", FirstName="Daniel", LastName="Calatayud Soria", Title= "Java developer", BirthDate=new DateTime(1989, 11, 26), Role = Role.CONSULTANT, About = about1 ,     UserId =1, managerID = 2},
+                new Consultant {Password = "joa", Email="joaquim@gmail.com", FirstName="Joaquim", LastName="Munoz", Title="C++ developer" ,BirthDate=new DateTime(1989, 11, 26), Role = Role.CONSULTANT,About="", UserId = 3, managerID = 2},
+                new Consultant {Password = "leo", Email="leonnie@gmail.com", FirstName="Leonnie", LastName="Bouchat", Title="java developer", BirthDate=new DateTime(1995, 1, 2), Role = Role.CONSULTANT,About="",UserId = 4, managerID = 7},
+                new Consultant {Password = "jen", Email="jen@gmail.com", FirstName="jen", LastName="Kins", Title="python developer", BirthDate=new DateTime(1995, 1, 2), Role = Role.CONSULTANT,About="",UserId = 5}
             );
 
             modelBuilder.Entity<Training>().HasData(

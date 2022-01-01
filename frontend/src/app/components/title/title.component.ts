@@ -22,7 +22,7 @@ export class TitleComponent implements OnInit {
   
   @Input() public connectedUser! : User | undefined
 
-
+ 
   isEditable :  boolean = false;
 
   ngOnInit(): void {

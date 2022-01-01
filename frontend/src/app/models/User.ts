@@ -31,7 +31,7 @@ export class User {
     role?: string;
     about?: string;
     token?:string;
-    picturePath?: string;
+  
     masterings: Mastering[] = [];
     manager?: User;
     managerID?:number;

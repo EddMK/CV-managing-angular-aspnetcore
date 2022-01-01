@@ -39,6 +39,7 @@ export class UserService {
     }
 
     public unLink(m: User): Observable<boolean> {
+        console.log(m);
         return this.http.put<User>(`${this.baseUrl}api/Users/unlink`, m).pipe(
             map(res => true),
             catchError(err => {
@@ -103,37 +104,7 @@ export class UserService {
         );
     }
 
-    public uploadPicture(email: string, file: File): Observable<string | undefined> {
-        console.log(file);
-        const formData = new FormData();
-        formData.append('email', email);
-        formData.append('picture', file);
-        return this.http.post<string>(`${this.baseUrl}api/users/upload`, formData).pipe(
-            catchError(err => {
-                console.error(err);
-                return of(undefined);
-            })
-        );
-    }
-    
-    public confirmPicture(email: string, path?: string): Observable<string | undefined> {
-        return this.http.post<string>(`${this.baseUrl}api/users/confirm`, { email: email, picturePath: path }).pipe(
-            catchError(err => {
-                console.error(err);
-                return of(undefined);
-            })
-        );
-    }
-    
-    public cancelPicture(path?: string): Observable<string | undefined> {
-        return this.http.post<string>(`${this.baseUrl}api/users/cancel`, { picturePath: path }).pipe(
-            catchError(err => {
-                console.error(err);
-                return of(undefined);
-            })
-        );
-    }
-    
+   
 
 
     

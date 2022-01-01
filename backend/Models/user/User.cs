@@ -41,7 +41,6 @@ namespace backend.Models
 
         public string About { get; set; }
 
-        public string PicturePath { get; set; }
 
         [NotMapped]
         public string Token { get; set; }

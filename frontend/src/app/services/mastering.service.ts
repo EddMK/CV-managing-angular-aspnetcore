@@ -27,6 +27,16 @@ export class MasteringService {
             })
         );
     }
+    public update(m: Mastering[], id: number): Observable<boolean> {
+        console.log(id);
+        return this.http.put<User>(`${this.baseUrl}api/mastering/${id}`, m).pipe(
+            map(res => true),
+            catchError(err => {
+                console.error(err);
+                return of(false);
+            })
+        );
+    }
 
 
     

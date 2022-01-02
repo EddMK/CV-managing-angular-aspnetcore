@@ -53,6 +53,23 @@ public class MasteringController : ControllerBase
             await _context.SaveChangesAsync();
             return NoContent();
         }
+        [AllowAnonymous]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutMasterings([FromBody]List<MasteringDto> masterings, int id) {
+            var m = await _context.Masterings.Where(m => m.userId == id).Include(s => s.Skill)
+                                             .ThenInclude(c => c.category)
+                                             .ToListAsync();
+            if (m == null){
+                return NotFound();
+            }
+            else {
+              for(int i = 0; i < m.Count; ++i){
+                   m[i] =  _mapper.Map<Mastering>(masterings[i]);
+              }
+              await _context.SaveChangesAsyncWithValidation();
+            }
+            return NoContent();
+        }
 
 
 

@@ -8,6 +8,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { EditCompetencesComponent } from '../edit-competences/edit-competences.component';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { plainToClass } from 'class-transformer';
+import * as _ from 'lodash';
 
 
 
@@ -45,7 +47,6 @@ export class SkillsComponent  implements OnInit {
     return this.authenticationService.currentUser;
    }
 
-  
 
    onEditMode() {
      if(!this.isEditable){
@@ -60,22 +61,23 @@ export class SkillsComponent  implements OnInit {
     if(this.isUserConnected){
     const dlg = this.dialog.open(EditCompetencesComponent, { data: { masterings,  isNew: false } });
     console.log(masterings);
-    /*dlg.beforeClosed().subscribe(res => {
+    dlg.beforeClosed().subscribe(res => {
       if (res) {
          console.log(res);
-          _.assign(user, res);
-          res = plainToClass(User, res);
+          _.assign(masterings, res);
+          res = plainToClass(Mastering, res);
           console.log(res);
           console.log(res.email);
-          this.userService.update(res).subscribe(res => {
-              if (!res) {
-                  this.snackBar.open(`There was an error at the server. The update has not been done! Please try again.`, 'Dismiss', { duration: 10000 });
-                  this.refresh();
-              }
+          this.masteringService.update(res, this.currentUser?.userId!).subscribe(res => {
+                  
+                  this.masteringService.getAllById(this.currentUser?.userId!).subscribe(m => {
+                  this.masterings = m;
+                });  
+              
           });
       }
-  });*/
-     } 
+    }); 
+    }
    }
 
 

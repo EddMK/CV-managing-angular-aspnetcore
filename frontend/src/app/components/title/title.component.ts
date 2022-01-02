@@ -56,7 +56,7 @@ export class TitleComponent implements OnInit {
           this.userService.update(res).subscribe(res => {
               if (!res) {
                   this.snackBar.open(`There was an error at the server. The update has not been done! Please try again.`, 'Dismiss', { duration: 10000 });
-                  this.refresh();
+                  //this.refresh();
               }
           });
       }

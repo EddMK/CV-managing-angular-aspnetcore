@@ -35,7 +35,7 @@ public class MasteringController : ControllerBase
        .ThenInclude(c => c.category)
        .ToListAsync());
     }
-    [AllowAnonymous]
+    
    
     [HttpGet("{id}")]
     public async Task<ActionResult<IEnumerable<MasteringDto>>> GetAllById(int id) {
@@ -43,6 +43,16 @@ public class MasteringController : ControllerBase
        .ThenInclude(c => c.category)
        .ToListAsync());
     }
+       [AllowAnonymous]
+       [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id) {
+            var mastering = await _context.Masterings.FindAsync(id);
+            if (mastering == null)
+                return NotFound();
+                _context.Masterings.Remove(mastering);
+            await _context.SaveChangesAsync();
+            return NoContent();
+        }
 
 
 

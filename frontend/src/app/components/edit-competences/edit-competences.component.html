@@ -19,6 +19,9 @@
             <input matInput placeholder="Level" [value]="m.level">
            <!-- <mat-error class="field-error" *ngIf="ctlLastname.hasError('minlength')">Minimum length is {{ctlLastname.errors?.minlength?.requiredLength}}</mat-error> -->
         </mat-form-field>
+        <button mat-icon-button tabindex="-1">
+            <mat-icon (click)="delete(m)">delete</mat-icon>
+        </button>
         
     </div>
 

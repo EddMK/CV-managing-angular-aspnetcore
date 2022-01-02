@@ -11,6 +11,7 @@ import { StateService } from 'src/app/services/state.service';
 import { SkillService } from '../../services/skills.service';
 import { plainToClass } from 'class-transformer';
 import { EditSkillComponent } from 'src/app/components/edit-skill/edit-skill.component';
+import { ConfirmService } from 'src/app/services/confirm.service';
 
 import * as _ from 'lodash-es';
 import * as internal from 'assert';
@@ -34,7 +35,8 @@ export class SkillListComponent implements AfterViewInit, OnDestroy{
         private SkillService: SkillService,
         private stateService: StateService,
         public dialog: MatDialog,
-        public snackBar: MatSnackBar
+        public snackBar: MatSnackBar,
+        private confirmService: ConfirmService
     ) {
         this.state = new MatTableState('skill', 'asc', 5);
         this.categories = new Map().set(1,"Language").set(2,"Database").set(3,"Framework");
@@ -119,16 +121,21 @@ export class SkillListComponent implements AfterViewInit, OnDestroy{
         });
     }
 
-    delete(skill : Skill): void{
-        const backup = this.dataSource.data;
-        this.dataSource.data = _.filter(this.dataSource.data, s => s.name !== skill.name);
-        const snackBarRef = this.snackBar.open(`Skill '${skill.name}' will be deleted`, 'Undo', { duration: 10000 });
-        snackBarRef.afterDismissed().subscribe(res => {
-            if (!res.dismissedByAction)
-                this.SkillService.delete(skill).subscribe();
-            else
-                this.dataSource.data = backup;
-        });
+   
+
+    delete(skill: Skill) {
+        var dialog = this.confirmService.confirmDialog({title: 'Confirm delete' ,
+         message: 'Are you sure you want to delete  ' + skill?.name + '?, If you do so all the masterings and usings related will also be deleted', 
+         confirmText: 'Confirm', 
+         canceltext: 'Cancel'});
+         dialog.subscribe(res => {
+            if(res){
+                this.SkillService.delete(skill).subscribe(res => {
+                    this.refresh(); 
+                 });
+                
+            }
+        })
     }
 
     // appelée quand on clique sur le bouton "new member"

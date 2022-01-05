@@ -25,8 +25,7 @@ export class EditTitleComponent implements OnDestroy{
     public ctlAbout!: FormControl;
     public isNew: boolean;
     public maxDate: Moment = moment().subtract(18, 'years');
-    private tempPicturePath?: string; 
-    private pictureChanged: boolean; 
+   
 
 
 
@@ -53,8 +52,7 @@ export class EditTitleComponent implements OnDestroy{
             about: this.ctlAbout
           
         });
-        this.tempPicturePath = data.user.picturePath; 
-        this.pictureChanged = false; 
+       
         this.isNew = data.isNew;
         this.frm.patchValue(data.user);
     }
@@ -99,43 +97,18 @@ export class EditTitleComponent implements OnDestroy{
     update() {
         this.dialogRef.close(this.frm.value);
         const data = this.frm.value; 
-        data.picturePath = this.tempPicturePath; 
-        if (this.pictureChanged) { 
-            this.userService.confirmPicture(data.pseudo, this.tempPicturePath).subscribe(); 
-            data.picturePath = 'uploads/' + data.pseudo + '.jpg'; 
-            this.pictureChanged = false; 
-        } 
+       
+        
     }
 
     cancel() {
         this.dialogRef.close();
         const data = this.frm.value; 
-        if (this.pictureChanged) { 
-            this.userService.cancelPicture(this.tempPicturePath).subscribe(); 
-        } 
+       
     }
-    fileChange(event: Event) { 
-        const fileList: FileList | null = (event.target as HTMLInputElement).files; 
-        if (fileList && fileList.length > 0) { 
-            const file = fileList[0]; 
-            this.userService.uploadPicture(this.frm.value.pseudo || 'empty', file).subscribe(path => { 
-                console.log(path); 
-                this.cancelTempPicture(); 
-                this.tempPicturePath = path; 
-                this.pictureChanged = true; 
-                this.frm.markAsDirty(); 
-            }); 
-        } 
-    } 
-    cancelTempPicture() {
-        throw new Error('Method not implemented.');
-    }
-
-    get picturePath(): string { 
-        return this.tempPicturePath && this.tempPicturePath !== '' ? this.tempPicturePath : 'uploads/unknown-user.jpg'; 
-    } 
+    
 
     ngOnDestroy(): void { 
-        this.cancelTempPicture(); 
+        
     } 
 }

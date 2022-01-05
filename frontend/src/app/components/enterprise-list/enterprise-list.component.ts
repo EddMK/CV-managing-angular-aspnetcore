@@ -12,6 +12,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { plainToClass } from 'class-transformer';
 import { EditEnterpriseComponent } from '../edit-enterprise/edit-enterprise.component';
+import { ConfirmService } from 'src/app/services/confirm.service';
+
 @Component({
     templateUrl: './enterprise-list.component.html',
     styleUrls: ['./enterprise-list.component.css']
@@ -29,7 +31,8 @@ export class EnterpriseListComponent implements AfterViewInit, OnDestroy {
         private EnterpriseService: EnterpriseService,
         private stateService: StateService,
         public dialog: MatDialog,
-        public snackBar: MatSnackBar
+        public snackBar: MatSnackBar,
+        private confirmService: ConfirmService
     ) {
         this.state = new MatTableState('name', 'asc', 5);
     }
@@ -94,19 +97,23 @@ export class EnterpriseListComponent implements AfterViewInit, OnDestroy {
         });
     }
 
-    // appelée quand on clique sur le bouton "delete" d'un membre
+
     delete(enterprise: Enterprise) {
-        console.log(enterprise.idEnterprise);
-        const backup = this.dataSource.data;
-        this.dataSource.data = _.filter(this.dataSource.data, e => e.name !== enterprise.name);
-        const snackBarRef = this.snackBar.open(`Enterprise '${enterprise.name}' will be deleted`, 'Undo', { duration: 10000 });
-        snackBarRef.afterDismissed().subscribe(res => {
-            if (!res.dismissedByAction)
-                this.EnterpriseService.delete(enterprise).subscribe();
-            else
-                this.dataSource.data = backup;
-        });
+        var dialog = this.confirmService.confirmDialog({title: 'Confirm delete' ,
+         message: 'Are you sure you want to delete ' + enterprise?.name + '? If you do so all the missions related will be also deleted', 
+         confirmText: 'Confirm', 
+         canceltext: 'Cancel'});
+         dialog.subscribe(res => {
+            if(res){
+                this.EnterpriseService.delete(enterprise).subscribe(res => {
+                    this.refresh(); 
+                 });
+                
+            }
+        })
     }
+
+
 
     // appelée quand on clique sur le bouton "new member"
     create() {

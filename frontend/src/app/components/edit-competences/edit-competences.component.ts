@@ -62,6 +62,26 @@ export class EditCompetencesComponent {
         };
     }
 
+    delete(mastering: Mastering){
+        console.log("delte done");
+        this.masteringService.delete(mastering).subscribe(res =>{
+           this.refresh(mastering?.userId!);
+           
+        })
+    }
+
+    refresh(id: number) {
+        this.masteringService.getAllById(id).subscribe(m => {
+            console.log(m);
+            this.masterings = m;
+        });
+        
+    }
+    
+    
+
+   
+
   
 
     // Validateur asynchrone qui vérifie si le pseudo n'est pas déjà utilisé par un autre membre

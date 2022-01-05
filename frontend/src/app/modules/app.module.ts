@@ -29,6 +29,9 @@ import { ExperiencesComponent } from '../components/experiences/experiences.comp
 
 import { EditTitleComponent } from '../components/edit-title/edit-title.component';
 import { EditCompetencesComponent } from '../components/edit-competences/edit-competences.component';
+import { ConfirmComponent } from '../components/confirm/confirm.component';
+
+
 
 
 
@@ -59,12 +62,15 @@ export function getBaseUrl() {
         EnterpriseListComponent,
         EditCompetencesComponent,
         EditTitleComponent,
+        ConfirmComponent,
+       
     
         
     ],
     entryComponents: [
        
     ],
+    
     imports: [
         BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
         HttpClientModule,

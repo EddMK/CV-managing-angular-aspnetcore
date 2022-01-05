@@ -122,10 +122,8 @@ public class UsersController : ControllerBase
            user.LastName = dto.Lastname;
            user.Title = dto.title;
            user.About = dto.about;
-          if (!string.IsNullOrWhiteSpace(dto.PicturePath)){
-              user.PicturePath = dto.PicturePath + "?" + DateTime.Now.Ticks;
-          }
-          await _context.SaveChangesAsyncWithValidation();
+         
+          _context.SaveChanges();
        }
      
        // Retourne un statut 204 avec une réponse vide
@@ -139,9 +137,11 @@ public class UsersController : ControllerBase
                 return NotFound();
             }
             else {
+                Console.WriteLine("my actual managerId is " + consultant.managerID + " before link");
               consultant.managerID = null;
               //_mapper.Map<UserDTO, Consultant>(dto, consultant);
-              await _context.SaveChangesAsyncWithValidation();
+               _context.SaveChanges();
+               Console.WriteLine("my lmangerid after link is " + consultant.managerID + " ???");
             }
             return NoContent();
     }
@@ -149,13 +149,16 @@ public class UsersController : ControllerBase
     [HttpPut("link/{id}")]
     public async Task<IActionResult> Link([FromBody]UserDTO dto, int id) {
       var consultant = await _context.Consultants.FindAsync(dto.UserId);
+      Console.WriteLine(dto.Email);
             if (consultant == null){
                 return NotFound();
             }
             else {
+                Console.WriteLine("my actual managerId is " + consultant.managerID + " before link");
               consultant.managerID = id;
               //_mapper.Map<UserDTO, Consultant>(dto, consultant);
-              await _context.SaveChangesAsyncWithValidation();
+               _context.SaveChanges();
+              Console.WriteLine("my lmangerid after link is " + consultant.managerID + " ???");
             }
             return NoContent();
     }
@@ -222,42 +225,7 @@ private async Task<User> Authenticate(string email, string password) {
     return user;
 }
 
-[HttpPost("upload")]
-public async Task<IActionResult> Upload([FromForm] string email, [FromForm] IFormFile picture) {
-    if (picture != null && picture.Length > 0) {
-        var fileName = email + "-" + DateTime.Now.ToString("yyyyMMddHHmmssff") + ".jpg";
-        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", fileName);
-        using (var stream = new FileStream(filePath, FileMode.Create)) {
-            await picture.CopyToAsync(stream);
-        }
-        string path = "\"" + JsonEncodedText.Encode("uploads" + Path.DirectorySeparatorChar + fileName) + "\"";
-        return Ok(path);
-    }
-    return Ok();
-}
 
-[HttpPost("cancel")]
-public IActionResult Cancel([FromBody] JsonElement data) {
-    string picturePath = data.GetProperty("picturePath").ToString();
-    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", picturePath);
-    if (System.IO.File.Exists(path))
-        System.IO.File.Delete(path);
-    return Ok();
-}
-
-[HttpPost("confirm")]
-public IActionResult Confirm([FromBody] JsonElement data) {
-    string pseudo = data.GetProperty("pseudo").ToString();
-    string picturePath = data.GetProperty("picturePath").ToString();
-    string newPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", pseudo + ".jpg");
-    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", picturePath);
-    if (System.IO.File.Exists(path)) {
-        if (System.IO.File.Exists(newPath))
-            System.IO.File.Delete(newPath);
-        System.IO.File.Move(path, newPath);
-    }
-    return Ok();
-}
 
 
 

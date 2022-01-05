@@ -20,12 +20,7 @@
             <textarea matInput placeholder="About" [formControl]="ctlAbout"></textarea>
            <!-- <mat-error class="field-error" *ngIf="ctlLastname.hasError('minlength')">Minimum length is {{ctlLastname.errors?.minlength?.requiredLength}}</mat-error> -->
         </mat-form-field>
-        <mat-tab label="Picture">
-            <div class="picture-container">
-                <img class="img-responsive" [src]="picturePath" width="200px">
-                <input type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".png,.jpg,.gif">
-            </div>
-        </mat-tab>
+       
     </div>
   
     <div class="footer">

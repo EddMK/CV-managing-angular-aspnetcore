@@ -16,6 +16,30 @@ export class MasteringService {
             .pipe(map(res => plainToClass(Mastering, res))
         );
     }
+
+    public delete(m: Mastering): Observable<boolean> {
+        console.log("delete " + m.masteringId);
+        return this.http.delete<boolean>(`${this.baseUrl}api/mastering/${m.masteringId}`).pipe(
+            map(res => true),
+            catchError(err => {
+                console.error(err);
+                return of(false);
+            })
+        );
+    }
+    public update(m: Mastering[], id: number): Observable<boolean> {
+        console.log(id + " we arrived in the service update");
+        return this.http.put<Mastering>(`${this.baseUrl}api/mastering/${id}`, m).pipe( /// a problem appened here
+            map(res => true), 
+            catchError(err => {
+                console.error(err);
+                return of(false);
+            })
+        );
+       
+    }
+
+
     
 }
 

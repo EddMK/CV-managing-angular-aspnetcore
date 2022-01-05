@@ -4,7 +4,7 @@
 <div *ngIf = "trainings.length > 0" >
    <div *ngFor="let training of trainings"  (click)="onEditTraining()">
     
-      <p> {{ training.start?.format('DD/MM/YYYY')}}   :    {{ training.finish?.format('DD/MM/YYYY')}}  : <span class="font-weight-bold ml-3">  {{ training.enterpriseToString }} - {{ training.title}} </span>
+      <p> {{ training.start?.format('DD/MM/YYYY')}}   :    {{ training.finish?.format('DD/MM/YYYY')}}  : <span class="font-weight-bold ml-3">  {{ training.enterprise?.name }} - {{ training.title}} </span>
         <span *ngIf="isEditableTraining"> 
           <button mat-icon-button class="ml-3">
               <mat-icon (click)="editTraining(training)">edit</mat-icon>

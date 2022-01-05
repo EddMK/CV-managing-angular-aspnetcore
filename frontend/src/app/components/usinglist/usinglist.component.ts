@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges , SimpleChanges, SimpleChange} from '@angular/core';
 
 import { CVComponent } from '../CV/CV.component';
 
@@ -6,6 +6,7 @@ import { User } from 'src/app/models/User';
 import { Experience } from 'src/app/models/Experience';
 import { UsingService } from 'src/app/services/using.service';
 import { Using } from 'src/app/models/Using';
+import { Observable, Subscription } from 'rxjs';
 
 
 
@@ -15,11 +16,11 @@ import { Using } from 'src/app/models/Using';
   styles: [
   ]
 })
-export class UsinglistComponent implements OnInit {
+export class UsinglistComponent implements OnInit{
 
 
-  @Input() public set IdExperience(experience: Experience | undefined) {
-    
+  @Input() public set IdExperience(experience: Experience | undefined){
+    console.log(experience);
     if (experience != undefined) {
       console.log("ideexperience : " + experience?.title+ ", " + experience?.idExperience + " , "  +  experience.usings.length);
       this.usingService.GetLanguagesById(experience?.idExperience!).subscribe(u => {
@@ -33,7 +34,8 @@ export class UsinglistComponent implements OnInit {
      });
     }
 }
-  constructor(public usingService : UsingService){ }
+  constructor(public usingService : UsingService){
+   }
  
   
   @Input() public connectedUser! : User | undefined
@@ -42,8 +44,7 @@ export class UsinglistComponent implements OnInit {
   databases : Using[] = [];
   frameworks : Using[] = [];
 
-
-  ngOnInit(): void {
-     
+  public ngOnInit(): void {
+      
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { User } from 'src/app/models/User';
 import { Experience } from 'src/app/models/Experience';
 import { CVComponent } from '../CV/CV.component';
@@ -9,6 +9,9 @@ import { UsingService } from 'src/app/services/using.service';
 import { MatDialog } from '@angular/material/dialog';
 import { EditTrainingComponent } from '../edit-training/edit-training.component';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import * as _ from 'lodash-es';
+import { plainToClass } from 'class-transformer';
+import { Subject } from 'rxjs';
 
 
 
@@ -36,6 +39,12 @@ export class ExperiencesComponent implements OnInit {
 
     }
 }
+
+  eventsSubject: Subject<void> = new Subject<void>();
+
+  emitEventToChild() {
+    this.eventsSubject.next();
+  }
 
   ngOnInit(): void {
     
@@ -71,14 +80,29 @@ export class ExperiencesComponent implements OnInit {
 
   editTraining(training : Experience):void{
     if(this.isUserConnected){
-    console.log("edit training");
-    const dlg = this.dialog.open(EditTrainingComponent, { data: { training, isNew: false }, height : '150%', width : '50%' });
-    dlg.beforeClosed().subscribe(res => {
-        if (res) {
-        }
-    });
+      console.log(training);
+      const dlg = this.dialog.open(EditTrainingComponent, { data: { training, isNew: false }, height : '150%', width : '50%' });
+      dlg.beforeClosed().subscribe(res => {
+          if (res) {
+            console.log(res);
+            const usings : Using[] = res.languages.concat(res.databases).concat(res.frameworks);
+            console.log(usings);
+            res.usings = usings;
+            res.idExperience = 1;
+            //_.assign(training.usings, usings);
+            _.assign(training, res);
+            res = plainToClass(Experience, res);
+            console.log(res);
+            //this.refresh();
+            this.experienceService.GetAllTraingById(this.currentUser?.userId!).subscribe(t => {
+              this.trainings = t;
+              
+            });
+          }
+      });
+    }
   }
-  }
+
 
   constructor(public experienceService :  ExperienceService, public dialog: MatDialog, private authenticationService: AuthenticationService){
 

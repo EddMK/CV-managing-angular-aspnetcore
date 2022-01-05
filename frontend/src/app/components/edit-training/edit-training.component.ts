@@ -1,10 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
+import { UsingService } from '../../services/using.service';
 import { SkillService } from '../../services/skills.service';
 import { FormGroup } from '@angular/forms';
 import { FormControl } from '@angular/forms';
+import { ValidatorFn } from '@angular/forms';
+import { AbstractControl } from '@angular/forms';
+import { ValidationErrors } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { Experience } from 'src/app/models/Experience';
@@ -12,9 +16,18 @@ import { Using } from 'src/app/models/Using';
 import * as _ from 'lodash-es';
 import { Skill } from 'src/app/models/Skill';
 import { MatChipInputEvent } from "@angular/material/chips";
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatChipList } from "@angular/material/chips";
 import { Moment } from 'moment';
 import * as moment from 'moment';
 import { Variable } from '@angular/compiler/src/render3/r3_ast';
+
+
+const startDateValidation: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+    const start = control.get('start') as FormControl;
+    const finish = control.get('finish') as FormControl;
+    return start.value !== null && finish.value !== null && start.value < finish.value ? null :{ dateValid:true };
+  }
 
 
 @Component({
@@ -40,18 +53,23 @@ export class EditTrainingComponent{
     addOnBlur = true;
     readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
+    @ViewChild("langList") langList :  any;
+    @ViewChild("dataList") dataList :  any;
+    @ViewChild("frameList") frameList :  any;
+
     constructor(public dialogRef: MatDialogRef<EditTrainingComponent>,
         @Inject(MAT_DIALOG_DATA) public data: { training: Experience; isNew: boolean; },
-        private fb: FormBuilder
-        //private skillService: SkillService
+        private fb: FormBuilder,
+        private usingService: UsingService,
+        private skillService : SkillService,
+        public snackBar: MatSnackBar
     ) {
-        var enterpriseName = data.training.enterprise?.name;
-        this.ctlStart = this.fb.control('');
-        this.ctlFinish = this.fb.control('');
+        this.ctlStart = this.fb.control('', Validators.required);
+        this.ctlFinish = this.fb.control('', Validators.required);
         this.ctlEnterprise = this.fb.control('');
         this.ctlTitle = this.fb.control('');
         this.ctlDescription = this.fb.control('');
-        this.ctlGrade = this.fb.control('');
+        this.ctlGrade = this.fb.control('', [Validators.min(0),Validators.max(100)]);
         this.ctlLanguages = this.fb.control('');
         this.ctlDatabases = this.fb.control('');
         this.ctlFrameworks = this.fb.control('');
@@ -65,9 +83,13 @@ export class EditTrainingComponent{
             languages : this.ctlLanguages,
             databases : this.ctlDatabases,
             frameworks : this.ctlFrameworks
-        });
+        }, { validators : startDateValidation });
         this.isNew = data.isNew;
         this.distribution(data.training);
+    }  
+
+    setError() {
+        this.langList.errorState = true;
     }
 
     distribution(experience : Experience) : void{
@@ -75,13 +97,13 @@ export class EditTrainingComponent{
         var database  = new Array() ;
         var framework  = new Array() ;
         const l : Using[] = experience.usings.filter(using => using.skill?.category?.name === "Language");
-        l.forEach(using => language.push(using.skill?.name));
+        language = l;
         //"Database"
         const d : Using[] = experience.usings.filter(using => using.skill?.category?.name === "Database");
-        d.forEach(using => database.push(using.skill?.name));
+        database = d;
         //Framework
         const f : Using[] = experience.usings.filter(using => using.skill?.category?.name === "Framework");
-        f.forEach(using => framework.push(using.skill?.name));
+        framework = f;
         this.frm.patchValue({
             start: experience.start,
             finish : experience.finish,
@@ -97,51 +119,116 @@ export class EditTrainingComponent{
 
     addLanguage(event: MatChipInputEvent): void {
         const value = (event.value || '').trim();
+        var exist = this.frm.controls['languages'].value.includes(value);
         if ((value || '').trim()) {
-            this.frm.controls['languages'].value.push(value);
+            if(!exist){
+                this.langList.errorState = false;
+                console.log(value);
+                this.skillService.getByName(value).subscribe(res =>{
+                    console.log(res);
+                    if(res != null){
+                        this.usingService.AddUsing(1,res).subscribe(res2 => {
+                             console.log(res2);
+                            this.frm.controls['languages'].value.push(res2);
+                            if (!res2) {
+                                this.snackBar.open(`There was an error at the server. The member has not been created! Please try again.`, 'Dismiss', { duration: 10000 });
+                            }
+                        }); 
+                    }else{
+                        this.snackBar.open(`Skill does not exist in database !`, 'Dismiss', { duration: 10000 });
+                    }
+                });
+            }else{
+                this.langList.errorState = true;
+            }
         }
         event.chipInput!.clear();
       }
     
-      removeLanguage(language: String): void {
+    
+      removeLanguage(language: Using): void {
         const index = this.frm.controls['languages'].value.indexOf(language);
+        const idSkill = language.skill?.skillId;
         if (index > -1) {
-            this.frm.controls['languages'].value.splice(index, 1);
+            this.frm.controls['languages'].value.splice(index, 1);  
+            this.usingService.DeleteUsing(1,idSkill).subscribe(); 
         }
       }
 
     
       addDatabase(event: MatChipInputEvent): void {
         const value = (event.value || '').trim();
+        var exist = this.frm.controls['databases'].value.includes(value);
         if ((value || '').trim()) {
-            this.frm.controls['databases'].value.push(value);
+            if(!exist){
+                this.dataList.errorState = false;
+                this.skillService.getByName(value).subscribe(res =>{
+                    console.log(res);
+                    if(res != null){
+                        this.usingService.AddUsing(1,res).subscribe(res2 => {
+                             console.log(res2);
+                            this.frm.controls['databases'].value.push(res2);
+                            if (!res2) {
+                                this.snackBar.open(`There was an error at the server. The member has not been created! Please try again.`, 'Dismiss', { duration: 10000 });
+                            }
+                        }); 
+                    }else{
+                        this.snackBar.open(`Skill does not exist in database !`, 'Dismiss', { duration: 10000 });
+                    }
+                });
+            }else{
+                this.dataList.errorState = true;
+            }
         }
         event.chipInput!.clear();
       }
     
-      removeDatabase(database: String): void {
+      removeDatabase(database: Using): void {
         const index = this.frm.controls['databases'].value.indexOf(database);
+        const idSkill = database.skill?.skillId;
         if (index > -1) {
-            this.frm.controls['databases'].value.splice(index, 1);
+            this.frm.controls['databases'].value.splice(index, 1);  
+            this.usingService.DeleteUsing(1,idSkill).subscribe(); 
         }
       }
 
       addFramework(event: MatChipInputEvent): void {
         const value = (event.value || '').trim();
+        var exist = this.frm.controls['frameworks'].value.includes(value);
         if ((value || '').trim()) {
-            this.frm.controls['frameworks'].value.push(value);
+            if(!exist){
+                this.frameList.errorState = false;
+                this.skillService.getByName(value).subscribe(res =>{
+                    console.log(res);
+                    if(res != null){
+                        this.usingService.AddUsing(1,res).subscribe(res2 => {
+                             console.log(res2);
+                            this.frm.controls['frameworks'].value.push(res2);
+                            if (!res2) {
+                                this.snackBar.open(`There was an error at the server. The member has not been created! Please try again.`, 'Dismiss', { duration: 10000 });
+                            }
+                        }); 
+                    }else{
+                        this.snackBar.open(`Skill does not exist in database !`, 'Dismiss', { duration: 10000 });
+                    }
+                });
+            }else{
+                this.frameList.errorState = true;
+            }
         }
         event.chipInput!.clear();
       }
+               
     
-      removeFramework(framework: String): void {
+      removeFramework(framework: Using): void {
         const index = this.frm.controls['frameworks'].value.indexOf(framework);
+        const idSkill = framework.skill?.skillId;
         if (index > -1) {
-            this.frm.controls['frameworks'].value.splice(index, 1);
+            this.frm.controls['frameworks'].value.splice(index, 1);  
+            this.usingService.DeleteUsing(1,idSkill).subscribe(); 
         }
       }
     
-    // use getter method to access courseIds control value easily
     get getLanguages() {
         return this.frm.get('languages')?.value;
     }

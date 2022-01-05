@@ -27,6 +27,7 @@ export class SkillService {
 
 
     getByName(name: String) {
+        console.log(name);
         return this.http.get<Skill>(`${this.baseUrl}api/skills/${name}`).pipe(
             map(m => plainToClass(Skill, m)),
             catchError(err => of(null))

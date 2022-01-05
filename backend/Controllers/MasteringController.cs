@@ -64,9 +64,13 @@ public class MasteringController : ControllerBase
             }
             else {
               for(int i = 0; i < m.Count; ++i){
-                   m[i] =  _mapper.Map<Mastering>(masterings[i]);
+                  // m[i] =  _mapper.Map<Mastering>(masterings[i]);
+                  // just to test
+                  m[i].Level = Level.Intermediate;
+                   Console.WriteLine(i);
+                    _context.SaveChanges();
               }
-              await _context.SaveChangesAsyncWithValidation();
+              
             }
             return NoContent();
         }

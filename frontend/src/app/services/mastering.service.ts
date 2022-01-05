@@ -28,14 +28,15 @@ export class MasteringService {
         );
     }
     public update(m: Mastering[], id: number): Observable<boolean> {
-        console.log(id);
-        return this.http.put<User>(`${this.baseUrl}api/mastering/${id}`, m).pipe(
-            map(res => true),
+        console.log(id + " we arrived in the service update");
+        return this.http.put<Mastering>(`${this.baseUrl}api/mastering/${id}`, m).pipe( /// a problem appened here
+            map(res => true), 
             catchError(err => {
                 console.error(err);
                 return of(false);
             })
         );
+       
     }
 
 

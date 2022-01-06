@@ -58,16 +58,14 @@ export class SkillsComponent  implements OnInit {
 
    edit(masterings : Mastering[]){
     if(this.isUserConnected){
-    const dlg = this.dialog.open(EditCompetencesComponent, { data: { masterings,  isNew: false } });
+    const dlg = this.dialog.open(EditCompetencesComponent, { data: { masterings,  isNew: true } });
     console.log(masterings);
     dlg.beforeClosed().subscribe(res => {
        if (res) {
-          console.log(res);
+          /*console.log(res.length);
           _.assign(masterings, res);
-          res = plainToClass(Mastering, res);
-          console.log(res);
-          console.log(res.email);
-          this.masteringService.update(res, this.currentUser?.userId!).subscribe(res => {
+          res = plainToClass(Mastering, res);*/
+          this.masteringService.update(masterings, this.currentUser?.userId!).subscribe(res => {
                 this.refresh();
           });
        }

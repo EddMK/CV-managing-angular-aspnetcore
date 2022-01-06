@@ -63,7 +63,7 @@ export class EditCompetencesComponent {
     }
 
     delete(mastering: Mastering){
-        console.log("delte done");
+        console.log("delete done");
         this.masteringService.delete(mastering).subscribe(res =>{
            this.refresh(mastering?.userId!);
            console.log(mastering.level)

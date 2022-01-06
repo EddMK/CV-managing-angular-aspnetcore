@@ -54,8 +54,8 @@ public class MasteringController : ControllerBase
             return NoContent();
         }
         [AllowAnonymous]
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutMasterings([FromBody]List<MasteringDto> masterings, int id) {
+        [HttpPut("update/{id}")]
+        public async Task<IActionResult> PutMasterings(int id, [FromBody]List<MasteringDto> masterings) {
             var m = await _context.Masterings.Where(m => m.userId == id).Include(s => s.Skill)
                                              .ThenInclude(c => c.category)
                                              .ToListAsync();
@@ -64,10 +64,18 @@ public class MasteringController : ControllerBase
             }
             else {
               for(int i = 0; i < m.Count; ++i){
-                  // m[i] =  _mapper.Map<Mastering>(masterings[i]);
-                  // just to test
-                  m[i].Level = Level.Intermediate;
-                   Console.WriteLine(i);
+                  /*
+                    if(masterings[i].Level.ToString().Equals("Beginner")){
+                       m[i].Level = Level.Beginner;
+                   }
+                   else if(masterings[i].Level.ToString() == "Intermediate"){
+                        m[i].Level = Level.Intermediate;
+                   }
+                   else {
+                        m[i].Level = Level.Expert;
+                   }*/
+                    m[i] = _mapper.Map<MasteringDto, Mastering>(masterings[i]);
+                   Console.WriteLine(m[i].Level + ": " + masterings[i].Level);
                     _context.SaveChanges();
               }
               

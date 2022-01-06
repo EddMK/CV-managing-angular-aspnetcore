@@ -45,7 +45,8 @@ namespace prid_2122_g04.Controllers
         [AllowAnonymous]
         [HttpGet("{name}")]
         public async Task<ActionResult<SkillDto>> GetOneByName(String name) {
-            var skill = await _context.Skills.SingleOrDefaultAsync(skill => skill.Name == name);
+            //Console.WriteLine("NAME : "+name);
+            var skill = await _context.Skills.Include(s => s.category).SingleOrDefaultAsync(skill => skill.Name == name);
             if (skill == null)
                 return NotFound();
             return _mapper.Map<SkillDto>(skill);

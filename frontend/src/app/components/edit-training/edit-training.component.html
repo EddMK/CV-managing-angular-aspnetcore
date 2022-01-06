@@ -1,15 +1,21 @@
 <form id="frm" class="form" [formGroup]="frm" novalidate>
     <!--<h1 class="header">{{(!isNew ? 'Edit existing' : 'Add a new') + ' skill'}}</h1>-->
     <div class="form">
-        <mat-form-field>
-            <input matInput placeholder="Start" [formControl]="ctlStart" required >
+        <mat-form-field appearance="fill">
+            <mat-label>Start</mat-label>
+            <input matInput [matDatepicker]="picker1" [formControl]="ctlStart">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
         </mat-form-field>
-        <mat-form-field>
-            <input matInput placeholder="Finish" [formControl]="ctlFinish" required >
+        <mat-form-field appearance="fill">
+            <mat-label>Finish</mat-label>
+            <input matInput [matDatepicker]="picker2" [formControl]="ctlFinish">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
         </mat-form-field>
         <br>
         <mat-form-field>
-            <input matInput placeholder="Enterprise" [formControl]="ctlEnterprise" required >
+            <input matInput placeholder="Enterprise" [formControl]="ctlEnterprise" readonly >
         </mat-form-field>
         <mat-form-field>
             <input matInput placeholder="Title" [formControl]="ctlTitle" required >
@@ -21,23 +27,25 @@
         <br>
         <mat-form-field>
             <input matInput placeholder="Grade" [formControl]="ctlGrade" required >
+            <mat-error class="field-error" *ngIf="ctlGrade.hasError">Between 0 and 100</mat-error>
         </mat-form-field>
         <br>
         <mat-form-field>
-            <mat-chip-list #langList formControlName="languages">
+            <mat-chip-list #langList>
                 <mat-chip *ngFor="let language of getLanguages" 
                                 [selectable]="selectable"
                                 [removable]="removable" 
                                 (removed) = "removeLanguage(language)">
-                    {{language}}
+                    {{language.skill?.name}}
                     <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                 </mat-chip>
-                <input matInput placeholder="Languages"
-                                [matChipInputFor]="langList"
-                                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                                [matChipInputAddOnBlur]="addOnBlur"
-                                (matChipInputTokenEnd)="addLanguage($event)">
+                <input  placeholder="Languages"
+                        [matChipInputFor]="langList"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                        [matChipInputAddOnBlur]="addOnBlur"
+                        (matChipInputTokenEnd)="addLanguage($event)">
             </mat-chip-list>
+            <mat-error class="field-error" *ngIf="langList.errorState">Already in the list</mat-error>
         </mat-form-field>
         <br>
         <mat-form-field>
@@ -46,7 +54,7 @@
                                 [selectable]="selectable"
                                 [removable]="removable" 
                                 (removed) = "removeDatabase(database)">
-                    {{database}}
+                    {{database.skill?.name}}
                     <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                 </mat-chip>
                 <input matInput placeholder="Databases"
@@ -63,7 +71,7 @@
                                 [selectable]="selectable"
                                 [removable]="removable" 
                                 (removed) = "removeFramework(framework)">
-                    {{framework}}
+                    {{framework.skill?.name}}
                     <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                 </mat-chip>
                 <input matInput placeholder="Frameworks"
@@ -74,6 +82,7 @@
             </mat-chip-list>
         </mat-form-field>
     </div>
+    <mat-error class="field-error" *ngIf="frm.errors?.dateValid">The start date must be before the finish date</mat-error>
     <div class="footer">
         <button type="submit" mat-button form="frm" [disabled]="frm.pristine || frm.invalid || frm.pending" (click)="update()">{{!isNew ? 'Update' : 'Add'}}</button>
         <button type="reset" mat-button (click)="cancel()">Cancel</button>

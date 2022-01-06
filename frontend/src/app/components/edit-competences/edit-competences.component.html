@@ -5,24 +5,27 @@
     <div class="form" *ngFor="let m of masterings">
       
         <mat-form-field>
-            <input matInput placeholder="Skill"  [value]="m.skill?.name">
+            <input matInput placeholder="Skill"  [value]="m.skill?.name" readonly>
            <!--<mat-error class="field-error" *ngIf="ctlEmail.hasError('required')">Required</mat-error>
             <mat-error class="field-error" *ngIf="ctlEmail.hasError('minlength')">Minimum length is {{ctlEmail.errors?.minlength?.requiredLength}}</mat-error>
             <mat-error class="field-error" *ngIf="ctlEmail.hasError('emailUsed')">Email already in use</mat-error> -->
         </mat-form-field>
     
         <mat-form-field>
-            <input matInput placeholder="Category" [value]="m.skill?.category?.name">
+            <input matInput placeholder="Category" [value]="m.skill?.category?.name" readonly>
             <!--<mat-error class="field-error" *ngIf="ctlFirstname.hasError('minlength')">Minimum length is {{ctlFirstname.errors?.minlength?.requiredLength}}</mat-error> -->
         </mat-form-field>
         <mat-form-field>
-            <input matInput placeholder="Level" [value]="m.level">
-           <!-- <mat-error class="field-error" *ngIf="ctlLastname.hasError('minlength')">Minimum length is {{ctlLastname.errors?.minlength?.requiredLength}}</mat-error> -->
+           
+            <mat-select placeholder="Level" [value]="m.levelValue">
+                <mat-option [value]="0">Beginner</mat-option>
+                <mat-option [value]="1">Intermediate</mat-option>
+                <mat-option [value]="2">Expert</mat-option>
+            </mat-select>
         </mat-form-field>
         <button mat-icon-button tabindex="-1">
             <mat-icon (click)="delete(m)">delete</mat-icon>
         </button>
-        
     </div>
 
   

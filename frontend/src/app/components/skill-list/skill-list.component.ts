@@ -96,15 +96,6 @@ export class SkillListComponent implements AfterViewInit, OnDestroy{
         const dlg = this.dialog.open(EditSkillComponent, { data: { skill, isNew: false } });
         dlg.beforeClosed().subscribe(res => {
             if (res) {
-                /*
-                this.SkillService.getCategory(res).subscribe(category => {
-                    var newCategory = plainToClass(Category, category);
-                    this.newCategory = newCategory;
-                    console.log(newCategory);
-                });
-                res.category = this.newCategory;
-                */
-                //this.categories.get(res.categoryId);
                 console.log(res.skillId);
                 let newCategory : Category = { categoryId : res.categoryId, name :this.categories.get(res.categoryId) };
                 res.category = newCategory;

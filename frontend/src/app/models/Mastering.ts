@@ -12,7 +12,7 @@ import { Skill } from "./Skill";
 
 
 export enum Level {
-    Beginner = 1, Intermediate = 2, Advanced = 3
+    Beginner = 0, Intermediate = 1, Advanced = 2
 }
 
 
@@ -29,6 +29,17 @@ export class Mastering {
    }
    public get categoryToString(){
        return this.skill?.category?.name;
+   }
+   public get levelValue(){
+       if(this.level?.toString() === "Beginner"){
+           return 0;
+       }
+       else if(this.level?.toString() == "Intermediate"){
+           return 1;
+       }
+       else {
+           return 2;
+       }
    }
 
  

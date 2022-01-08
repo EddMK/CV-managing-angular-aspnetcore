@@ -33,7 +33,7 @@ export class UsinglistComponent implements OnInit{
         this.frameworks = u;
      });
     }
-}
+} 
   constructor(public usingService : UsingService){
    }
  

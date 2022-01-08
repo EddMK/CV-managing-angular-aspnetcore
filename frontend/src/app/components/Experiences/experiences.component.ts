@@ -5,6 +5,8 @@ import { CVComponent } from '../CV/CV.component';
 import { TitleComponent } from '../title/title.component';
 import { ExperienceService } from 'src/app/services/experience.service';
 import { Using } from 'src/app/models/Using';
+import { Skill } from 'src/app/models/Skill';
+import { Enterprise } from 'src/app/models/Enterprise';
 import { UsingService } from 'src/app/services/using.service';
 import { MatDialog } from '@angular/material/dialog';
 import { EditTrainingComponent } from '../edit-training/edit-training.component';
@@ -53,11 +55,14 @@ export class ExperiencesComponent implements OnInit {
   trainings : Experience[] = [];
   missions : Experience[] = [];
   isEditableTraining :  boolean = false;
+  isEditableMission :  boolean = false;
+  isAddableTraining :  boolean = false;
+  isAddableMission:  boolean = false;
   isUserConnected : boolean = false;
    
 
   onEditTraining() {
-    console.log("TOUCHE TRAINING !");
+    //console.log("TOUCHE TRAINING !");
     if(!this.isEditableTraining){
        this.isEditableTraining = true;
     }
@@ -66,10 +71,29 @@ export class ExperiencesComponent implements OnInit {
     }
   }
 
-  isEditableMission :  boolean = false;
+
+  onAddMission() {
+    //console.log("TOUCHE TRAINING !");
+    if(!this.isAddableMission){
+       this.isAddableMission = true;
+    }
+    else {
+      this.isAddableMission = false;
+    }
+  }
+
+  onAddTraining() {
+    //console.log("TOUCHE TRAINING !");
+    if(!this.isAddableTraining){
+       this.isAddableTraining = true;
+    }
+    else {
+      this.isAddableTraining = false;
+    }
+  }
 
   onEditMission() {
-    console.log("TOUCHE MISSION!");
+    //console.log("TOUCHE MISSION!");
     if(!this.isEditableMission){
        this.isEditableMission = true;
     }
@@ -78,33 +102,99 @@ export class ExperiencesComponent implements OnInit {
     }
   }
 
-  editTraining(training : Experience):void{
+  addMission():void{
+    const training = new Experience();
     if(this.isUserConnected){
-      console.log(training);
-      const dlg = this.dialog.open(EditTrainingComponent, { data: { training, isNew: false }, height : '150%', width : '50%' });
+      const dlg = this.dialog.open(EditTrainingComponent, { data: { training, isNew: true, isMission : true}, height : '150%', width : '50%' });
       dlg.beforeClosed().subscribe(res => {
-          if (res) {
-            console.log(res);
-            const usings : Using[] = res.languages.concat(res.databases).concat(res.frameworks);
-            console.log(usings);
-            res.usings = usings;
-            res.idExperience = 1;
-            //_.assign(training.usings, usings);
-            _.assign(training, res);
-            res = plainToClass(Experience, res);
-            console.log(res);
-            //this.refresh();
-            this.experienceService.GetAllTraingById(this.currentUser?.userId!).subscribe(t => {
-              this.trainings = t;
-              
-            });
-          }
+        if (res) {
+          res.userId = this.currentUser?.userId!;
+          //res.role = 1;
+          res = plainToClass(Experience, res);
+          console.log(res);
+          this.experienceService.addMission(res).subscribe(idexperience => {
+            res.idExperience = idexperience;
+            if (!idexperience) {
+              console.log("NOT added");
+              //this.snackBar.open(`There was an error at the server. The update has not been done! Please try again.`, 'Dismiss', { duration: 10000 });
+            }
+            this.refreshMission();
+          });
+        }
       });
     }
   }
 
+  addTraining():void{
+    const training = new Experience();
+    if(this.isUserConnected){
+      const dlg = this.dialog.open(EditTrainingComponent, { data: { training, isNew: true, isMission : false}, height : '150%', width : '50%' });
+      dlg.beforeClosed().subscribe(res => {
+        if (res) {
+          res.userId = this.currentUser?.userId!;
+          res = plainToClass(Experience, res);
+          this.experienceService.addTraining(res).subscribe(idexperience => {
+            res.idExperience = idexperience;
+            if (!idexperience) {
+              console.log("NOT added");
+              //this.snackBar.open(`There was an error at the server. The update has not been done! Please try again.`, 'Dismiss', { duration: 10000 });
+            }
+            this.refreshTraining();
+          });
+        }
+      });
+    }
+  }
 
-  constructor(public experienceService :  ExperienceService, public dialog: MatDialog, private authenticationService: AuthenticationService){
+  editTraining(training : Experience):void{
+    if(this.isUserConnected){
+      console.log(training);
+      const enterprise = training.enterprise;
+      //const idTraining = training.idExperience;
+      const dlg = this.dialog.open(EditTrainingComponent, { data: { training, isNew: false}, height : '150%', width : '50%' });
+      dlg.beforeClosed().subscribe(res => {
+          if (res) {
+            res.enterprise = enterprise;
+            _.assign(training, res);
+            res = plainToClass(Experience, training);
+            console.log(res);
+            if(res.role?.toString() === "TRAINING"){
+              console.log("FONCTION UPDATE DANS TRAINING");
+              this.experienceService.updateTraining(res).subscribe(res => {
+                if (!res) {
+                  console.log("NOT updated");
+                  //this.snackBar.open(`There was an error at the server. The update has not been done! Please try again.`, 'Dismiss', { duration: 10000 });
+                }
+                this.refreshTraining();
+              });
+            }else{
+              console.log("FONCTION UPDATE DANS MISSION");
+              this.experienceService.updateMission(res).subscribe(res => {
+                if (!res) {
+                  console.log("NOT updated");
+                  //this.snackBar.open(`There was an error at the server. The update has not been done! Please try again.`, 'Dismiss', { duration: 10000 });
+                }
+                this.refreshMission();
+              });
+            }
+          }
+      });
+    }
+  } 
+
+  refreshTraining() : void{
+    this.experienceService.GetAllTraingById(this.currentUser?.userId!).subscribe(t => {
+      this.trainings = t;
+    });
+  }
+
+  refreshMission() : void{
+    this.experienceService.GetAllMissionById(this.currentUser?.userId!).subscribe(t => {
+      this.missions = t;
+    });
+  }
+
+  constructor(public experienceService :  ExperienceService, public usingService : UsingService,public dialog: MatDialog, private authenticationService: AuthenticationService){
 
   }
 

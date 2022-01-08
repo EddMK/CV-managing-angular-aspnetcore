@@ -15,8 +15,6 @@ import { not } from '@angular/compiler/src/output/output_ast';
 @Injectable({ providedIn: 'root' })
 export class UsingService {
     constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
-    private usingToSend = new BehaviorSubject<Boolean>(false);
-    public using$ = this.usingToSend.asObservable();
 
     GetLanguagesById(id : number): Observable<Using[]> {
         return this.http.get<any[]>(`${this.baseUrl}api/using/languages/` + id)
@@ -36,11 +34,10 @@ export class UsingService {
         );
     }
 
-
     public AddUsing(idExperience : number, s: Skill){
         console.log(s.name);
         console.log(idExperience);
-        return this.http.post<Skill>(`${this.baseUrl}api/using/addUsing/${idExperience}`,s)
+        return this.http.post<Using>(`${this.baseUrl}api/using/addUsing/${idExperience}`,s)
         .pipe(map(res => 
                 {console.log(res);
                     return res;
@@ -51,7 +48,6 @@ export class UsingService {
                 return of(false);
             })
             */
-        
     }
 
 

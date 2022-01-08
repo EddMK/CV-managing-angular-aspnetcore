@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
 using PRID_Framework;
 
@@ -43,6 +44,9 @@ namespace prid_2122_g04.Controllers
         public async Task<ActionResult<IEnumerable<ExperienceDTO>>> GetAllMissionById(int id) {//OK
            return _mapper.Map<List<ExperienceDTO>>(await _context.Experience.Where(t => t.Role == ExperienceRole.MISSION && t.UserId == id)
            .Include(t => t.Enterprise)
+           .Include(e => e.usings)
+           .ThenInclude(s => s.skill)
+           .ThenInclude(c => c.category)
            .ToListAsync());
         }
 
@@ -56,23 +60,75 @@ namespace prid_2122_g04.Controllers
             return _mapper.Map<ExperienceDTO>(train);
         }
 
+        [AllowAnonymous]
         [HttpPost]
-        public async Task<ActionResult<ExperienceDTO>> PostTraining(ExperienceDTO training) {// X
-            var newTraining = _mapper.Map<Experience>(training);
+        public async Task<ActionResult<int>> PostTraining(ExperienceDTO training) {// X
+            Console.WriteLine("ARRIVE POST !");
+            Console.WriteLine("ROLE : "+training.Role);
+            var newTraining = new Training(){
+                UserId = training.UserId, Start = training.Start, Finish = training.Finish,
+                IdEnterprise = training.Enterprise.IdEnterprise, Title = training.Title, Description = training.Description,
+                Role = ExperienceRole.TRAINING, Grade = training.Grade
+            };
             Console.WriteLine(newTraining.GetType());
             _context.Experience.Add(newTraining);
             var res = await _context.SaveChangesAsyncWithValidation();
             if (!res.IsEmpty) return BadRequest(res);
-            return CreatedAtAction(nameof(GetOne), new { training = training.IdExperience }, _mapper.Map<ExperienceDTO>(newTraining));
+            //Console.WriteLine("Experience Id : "+newTraining.IdExperience);
+            return newTraining.IdExperience;
+            //return CreatedAtAction(nameof(GetOne), new { training = training.IdExperience }, _mapper.Map<ExperienceDTO>(newTraining));
             //return CreatedAtAction(nameof(GetOne), new { training = training.Title }, training);
         }
 
+        [AllowAnonymous]
+        [HttpPost("addMission/")]
+        public async Task<ActionResult<int>> PostMission(ExperienceDTO training) {// X
+            Console.WriteLine("ARRIVE POST  MISSION!");
+            Console.WriteLine("ROLE : "+training.Role);
+            var newTraining = new Mission(){
+                UserId = training.UserId, Start = training.Start, Finish = training.Finish,
+                IdEnterprise = training.Enterprise.IdEnterprise, Title = training.Title, Description = training.Description,
+                Role = ExperienceRole.MISSION};
+            Console.WriteLine(newTraining.GetType());
+            _context.Experience.Add(newTraining);
+            var res = await _context.SaveChangesAsyncWithValidation();
+            if (!res.IsEmpty) return BadRequest(res);
+            //Console.WriteLine("Experience Id : "+newTraining.IdExperience);
+            return newTraining.IdExperience;
+            //return CreatedAtAction(nameof(GetOne), new { training = training.IdExperience }, _mapper.Map<ExperienceDTO>(newTraining));
+            //return CreatedAtAction(nameof(GetOne), new { training = training.Title }, training);
+        }
+
+        [AllowAnonymous]
         [HttpPut]
-        public async Task<IActionResult> PutTraining(ExperienceDTO trainingDTO) {
-            var exists = await _context.Experience.FindAsync(trainingDTO.IdExperience);
+        public async Task<IActionResult> Put(ExperienceDTO dto) {
+            Console.WriteLine("role : " + dto.Role);
+            var exists = await _context.Trainings.FindAsync(dto.IdExperience);
+            exists.Description = dto.Description;
+            exists.Start = dto.Start;
+            exists.Finish = dto.Finish;
+            exists.Title = dto.Title;
+            exists.Grade = dto.Grade;
             if (exists == null)
                 return NotFound();
-            _mapper.Map<ExperienceDTO, Experience>(trainingDTO, exists);
+            //_mapper.Map<ExperienceDTO, Experience>(trainingDTO, exists);
+            var res = await _context.SaveChangesAsyncWithValidation();
+            if (!res.IsEmpty) return BadRequest(res);
+            return NoContent();
+        }
+
+        [AllowAnonymous]
+        [HttpPut("updateMission/")]
+        public async Task<IActionResult> PutMission(ExperienceDTO dto) {
+            //Console.WriteLine("role : " + dto.Role);
+            var exists = await _context.Experience.FindAsync(dto.IdExperience);
+            exists.Description = dto.Description;
+            exists.Start = dto.Start;
+            exists.Finish = dto.Finish;
+            exists.Title = dto.Title;
+            if (exists == null)
+                return NotFound();
+            //_mapper.Map<ExperienceDTO, Experience>(trainingDTO, exists);
             var res = await _context.SaveChangesAsyncWithValidation();
             if (!res.IsEmpty) return BadRequest(res);
             return NoContent();

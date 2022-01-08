@@ -48,11 +48,8 @@ export class TitleComponent implements OnInit {
     console.log(user.firstname + " " + user.userId);
     dlg.beforeClosed().subscribe(res => {
       if (res) {
-         console.log(res);
           _.assign(user, res);
           res = plainToClass(User, res);
-          console.log(res);
-          console.log(res.email);
           this.userService.update(res).subscribe(res => {
               if (!res) {
                   this.snackBar.open(`There was an error at the server. The update has not been done! Please try again.`, 'Dismiss', { duration: 10000 });

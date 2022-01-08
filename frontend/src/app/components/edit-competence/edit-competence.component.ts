@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
 import { UserService } from '../../services/user.service';
@@ -13,45 +13,53 @@ import * as moment from 'moment';
 import { Level, Mastering } from 'src/app/models/Mastering';
 import { MasteringService } from 'src/app/services/mastering.service';
 import { UsingService } from 'src/app/services/using.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EditCompetencesListComponent } from '../edit-competences-list/edit-competences-list.component';
+
 
 @Component({
-    selector: 'app-edit-competences-mat',
-    templateUrl: './edit-competences.component.html',
+    selector: 'app-edit-competence-mat',
+    templateUrl: './edit-competence.component.html',
    
 })
-export class EditCompetencesComponent {
+export class EditCompetenceComponent implements OnChanges{
     public frm!: FormGroup;
     public ctlSkill!: FormControl;
     public ctlCategory!: FormControl;
     public ctlLevel!: FormControl;
-    public isNew: boolean;
+  
     public masterings: Mastering[];
 
-   
+    @Input() public mastering! : Mastering;
+    @Output() public newRefreshEvent = new EventEmitter<number>();
 
-    constructor(public dialogRef: MatDialogRef<EditCompetencesComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: { masterings: Mastering[]; isNew: boolean; },
+
+    $emit: any;
+  
+ 
+
+    constructor(
+      
         private fb: FormBuilder,
         private masteringService: MasteringService,
-        private usingService: UsingService
+        private usingService: UsingService,
     ) {
         
         this.ctlSkill = this.fb.control(null, [Validators.minLength(3)]);
         this.ctlCategory = this.fb.control(null, [Validators.minLength(3)]);
-        this.ctlLevel = this.fb.control(Level.Advanced, []);
-
-        
+        this.ctlLevel = this.fb.control(this.mastering?.level!, []);
+        this.masterings = []
+     
+    
         this.frm = this.fb.group({
             skill: this.ctlSkill,
+            
             level: this.ctlLevel,
             
         });
 
-        this.isNew = data.isNew;
-        this.masterings = data.masterings;
-        console.log(this.masterings);
-        console.log(data);
-        this.frm.patchValue(data.masterings);
+     
+       
     }
 
     // Validateur bidon qui vérifie que la valeur est différente
@@ -66,13 +74,16 @@ export class EditCompetencesComponent {
 
     delete(mastering: Mastering){
         this.masteringService.delete(mastering).subscribe(res =>{
-           this.refresh(mastering?.userId!);
+           //this.refresh(mastering?.userId!);
+           this.refreshParent(mastering);
         })
     }
 
     save(mastering: Mastering){
+        
         this.masteringService.save(mastering).subscribe(res =>{
-            this.refresh(mastering?.userId!);
+           // this.refresh(mastering?.userId!);
+           this.refreshParent(mastering);
         });
     }
 
@@ -81,23 +92,16 @@ export class EditCompetencesComponent {
     }
 
     refresh(id: number) {
-        this.masteringService.getAllById(id).subscribe(m => {
-            console.log(m);
-            this.masterings = m;
-        });
+       
         
     }
 
-
-    onNoClick(): void {
-        this.dialogRef.close();
+    refreshParent(mastering : Mastering){
+        this.newRefreshEvent.emit(mastering.userId);
     }
+   
 
-    update() {
-        this.dialogRef.close(this.frm.value);
-    }
+    ngOnChanges() {}
 
-    cancel() {
-        this.dialogRef.close();
-    }
+
 }

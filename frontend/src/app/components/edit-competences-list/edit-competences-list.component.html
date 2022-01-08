@@ -1,0 +1,44 @@
+<div *ngIf="masterings.length > 0">
+<div *ngFor="let mastering of masterings">
+  
+   <app-edit-competence-mat [mastering] = "mastering" (newRefreshEvent)="refresh($event)"></app-edit-competence-mat>
+
+</div>
+</div>
+<form id="frm" class="form" [formGroup]="frm" novalidate>
+        <mat-form-field>
+            <input matInput placeholder="Skill"  [formControl]="ctlSkill" >
+          
+        </mat-form-field>
+    
+        <mat-form-field>
+            <mat-select placeholder="Category"  [formControl]="ctlCategory">
+                <mat-option [value]="3">Framework</mat-option>
+                <mat-option [value]="2">Database</mat-option>
+                <mat-option [value]="1">Language</mat-option>
+            </mat-select>   
+        </mat-form-field>
+      
+       
+        <mat-form-field>
+            <mat-select placeholder="Level"  [formControl]="ctlLevel">
+                <mat-option [value]="0">Beginner</mat-option>
+                <mat-option [value]="1">Intermediate</mat-option>
+                <mat-option [value]="2">Advanced</mat-option>
+                <mat-option [value]="3">Expert</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <button mat-icon-button tabindex="-1">
+            <mat-icon >add</mat-icon>
+        </button>
+    
+  
+    <div class="footer">
+       <!--- <button type="submit" mat-button form="frm"(click)="update()">update</button> -->
+        <button type="reset" mat-button (click)="update()">Close</button>
+    </div>
+   
+  <!--  [disabled]="frm.pristine || frm.invalid || frm.pending" -->
+
+</form> 
+

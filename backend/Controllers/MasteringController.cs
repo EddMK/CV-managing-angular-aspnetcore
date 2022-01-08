@@ -70,8 +70,8 @@ public class MasteringController : ControllerBase
                  
                
              
-                 // _context.SaveChanges();
-                   await _context.SaveChangesAsync(); 
+                   _context.SaveChanges();
+                   //await _context.SaveChangesAsync(); 
                   Console.WriteLine(m.Level + " : " + dto.Level);
             }
             return NoContent();

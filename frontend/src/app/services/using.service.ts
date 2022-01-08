@@ -36,6 +36,12 @@ export class UsingService {
         );
     }
 
+    GetUsingById(id : number): Observable<Using[]>{
+        return this.http.get<any[]>(`${this.baseUrl}api/using/` + id)
+        .pipe(map(res => plainToClass(Using, res))
+       );
+    }
+
 
     public AddUsing(idExperience : number, s: Skill){
         console.log(s.name);

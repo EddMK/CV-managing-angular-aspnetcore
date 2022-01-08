@@ -64,10 +64,10 @@ export class SkillsComponent  implements OnInit {
        if (res) {
           /*console.log(res.length);
           _.assign(masterings, res);
-          res = plainToClass(Mastering, res);*/
-          this.masteringService.update(masterings, this.currentUser?.userId!).subscribe(res => {
+          res = plainToClass(Mastering, res);
+          this.masteringService.update(masterings, this.currentUser?.userId!).subscribe(res => {*/
                 this.refresh();
-          });
+          /*});*/
        }
     }); 
     }

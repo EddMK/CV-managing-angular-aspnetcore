@@ -17,17 +17,19 @@
         </mat-form-field>
         <mat-form-field>
            
-            <mat-select placeholder="Level" [value]="m.levelValue">
+            <mat-select placeholder="Level" (value)="m.levelValue">
                 <mat-option [value]="0">Beginner</mat-option>
                 <mat-option [value]="1">Intermediate</mat-option>
                 <mat-option [value]="2">Advanced</mat-option>
                 <mat-option [value]="3">Expert</mat-option>
             </mat-select>
         </mat-form-field>
-        <button mat-icon-button tabindex="-1">
-            <mat-icon (click)="delete(m)">delete</mat-icon>
-        </button>
+       
+        <button class="btn btn-outline-secondary ml-2" (click)="save(m)"> <mat-icon >save</mat-icon></button>
+        <button class="btn btn-outline-danger" (click)="delete(m)"><mat-icon >delete</mat-icon></button>
     </div>
+
+    <!--    add a new mastering -->
     <div>
         <mat-form-field>
             <input matInput placeholder="Skill"   [formControl]="ctlSkill" >
@@ -60,8 +62,8 @@
     </div>
   
     <div class="footer">
-        <button type="submit" mat-button form="frm"(click)="update()">update</button>
-        <button type="reset" mat-button (click)="cancel()">Cancel</button>
+       <!--- <button type="submit" mat-button form="frm"(click)="update()">update</button> -->
+        <button type="reset" mat-button (click)="update()">Close</button>
     </div>
    
   <!--  [disabled]="frm.pristine || frm.invalid || frm.pending" -->

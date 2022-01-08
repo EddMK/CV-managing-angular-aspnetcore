@@ -33,6 +33,7 @@ namespace prid_2122_g04.Controllers
             return _mapper.Map<List<UsingDto>>(await _context.Usings.Include(s => s.skill).ThenInclude(c => c.category).ToListAsync());
         }
 
+
         
         [HttpGet("languages/{id}")]
         public async Task<ActionResult<IEnumerable<UsingDto>>> GetLanguagesById(int id) {//OK

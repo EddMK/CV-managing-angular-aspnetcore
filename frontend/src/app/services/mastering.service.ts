@@ -27,9 +27,9 @@ export class MasteringService {
             })
         );
     }
-    public update(m: Mastering[], id: number): Observable<boolean> {
-        console.log(id + " we arrived in the service update" + m?.length!);
-        return this.http.put<Mastering>(`${this.baseUrl}api/mastering/update/${id}`, m).pipe( /// a problem happened here
+    public save(m: Mastering): Observable<boolean> {
+        console.log(m.level)
+        return this.http.put<Mastering>(`${this.baseUrl}api/mastering/`, m).pipe( /// a problem happened here
             map(res => true), 
             catchError(err => {
                 console.error(err);

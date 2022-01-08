@@ -63,7 +63,7 @@ namespace backend.Models
 
             modelBuilder.Entity<Consultant>().HasData( 
                 new Consultant {Password = "dan", Email="danielsoria@gmail.com", FirstName="Daniel", LastName="Calatayud Soria", Title= "Java developer", BirthDate=new DateTime(1989, 11, 26), Role = Role.CONSULTANT, About = about1 ,     UserId =1, managerID = 7},
-                new Consultant {Password = "li", Email="linh@gmail.com", FirstName="Linh", LastName="Nguyen", Title="java developer" ,BirthDate=new DateTime(1996, 2, 26), Role = Role.CONSULTANT,About="", UserId = 3, managerID = 2},
+                new Consultant {Password = "li", Email="linh@gmail.com", FirstName="Linh", LastName="Nguyen", Title="java developer" ,BirthDate=new DateTime(1996, 2, 26), Role = Role.CONSULTANT,About="", UserId = 3, managerID = 7},
                 new Consultant {Password = "alex", Email="alexei@gmail.com", FirstName="Alexei", LastName="Revenko", Title="java developer", BirthDate=new DateTime(1999, 1, 2), Role = Role.CONSULTANT,About="",UserId = 4, managerID = 7},
                 new Consultant {Password = "jen", Email="jen@gmail.com", FirstName="jen", LastName="Kins", Title="python developer", BirthDate=new DateTime(1995, 1, 2), Role = Role.CONSULTANT,About="",UserId = 5}
             );

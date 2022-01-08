@@ -8,7 +8,8 @@ using System.Diagnostics;
 namespace backend.Models {
 
   public enum Level {
-    Beginner, Intermediate, Advanced, Expert
+    Beginner = 0 , Intermediate = 1, Advanced = 2, Expert = 3
+    
   }
 
   public class Mastering : IValidatableObject {
@@ -31,6 +32,12 @@ namespace backend.Models {
             Debug.Assert(currContext != null);
             yield return new ValidationResult(null);
             
+    }
+
+    public void setLevel(string newLevel){
+      if(newLevel == "Beginner"){
+         this.Level = Level.Beginner;
+      }
     }
 
 

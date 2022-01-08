@@ -21,7 +21,6 @@ import * as _ from 'lodash';
 export class SkillsComponent  implements OnInit {
 
   @Input() public set connectedUser(user: User | undefined) {
-    
       if (user != undefined) {
         console.log("user : " + user?.firstname + ", " + user?.userId + " , " + user?.manager);
         this.masteringService.getAllById(user?.userId!).subscribe(m => {
@@ -59,30 +58,26 @@ export class SkillsComponent  implements OnInit {
 
    edit(masterings : Mastering[]){
     if(this.isUserConnected){
-    const dlg = this.dialog.open(EditCompetencesComponent, { data: { masterings,  isNew: false } });
+    const dlg = this.dialog.open(EditCompetencesComponent, { data: { masterings,  isNew: true } });
     console.log(masterings);
     dlg.beforeClosed().subscribe(res => {
-      if (res) {
-         console.log(res);
+       if (res) {
+          /*console.log(res.length);
           _.assign(masterings, res);
           res = plainToClass(Mastering, res);
-          console.log(res);
-          console.log(res.email);
-          this.masteringService.update(res, this.currentUser?.userId!).subscribe(res => {
-                  
-                  this.masteringService.getAllById(this.currentUser?.userId!).subscribe(m => {
-                  this.masterings = m;
-                });  
-              
-          });
-      }
+          this.masteringService.update(masterings, this.currentUser?.userId!).subscribe(res => {*/
+                this.refresh();
+          /*});*/
+       }
     }); 
     }
+    }
+
+   public refresh(){
+      this.masteringService.getAllById(this.currentUser?.userId!).subscribe(m => {
+      this.masterings = m;
+      });
    }
-
-
-
-  
 
   ngOnInit(): void {
     

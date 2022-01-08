@@ -10,8 +10,9 @@ import * as _ from 'lodash-es';
 import { User,  Role } from 'src/app/models/User';
 import { Moment } from 'moment';
 import * as moment from 'moment';
-import { Mastering } from 'src/app/models/Mastering';
+import { Level, Mastering } from 'src/app/models/Mastering';
 import { MasteringService } from 'src/app/services/mastering.service';
+import { UsingService } from 'src/app/services/using.service';
 
 @Component({
     selector: 'app-edit-competences-mat',
@@ -31,12 +32,13 @@ export class EditCompetencesComponent {
     constructor(public dialogRef: MatDialogRef<EditCompetencesComponent>,
         @Inject(MAT_DIALOG_DATA) public data: { masterings: Mastering[]; isNew: boolean; },
         private fb: FormBuilder,
-        private masteringService: MasteringService
+        private masteringService: MasteringService,
+        private usingService: UsingService
     ) {
         
         this.ctlSkill = this.fb.control(null, [Validators.minLength(3)]);
         this.ctlCategory = this.fb.control(null, [Validators.minLength(3)]);
-        this.ctlLevel = this.fb.control(null, [Validators.minLength(3)]);
+        this.ctlLevel = this.fb.control(Level.Advanced, []);
 
         
         this.frm = this.fb.group({
@@ -63,11 +65,19 @@ export class EditCompetencesComponent {
     }
 
     delete(mastering: Mastering){
-        console.log("delte done");
         this.masteringService.delete(mastering).subscribe(res =>{
            this.refresh(mastering?.userId!);
-           
         })
+    }
+
+    save(mastering: Mastering){
+        this.masteringService.save(mastering).subscribe(res =>{
+            this.refresh(mastering?.userId!);
+        });
+    }
+
+    create(){
+      
     }
 
     refresh(id: number) {
@@ -77,14 +87,7 @@ export class EditCompetencesComponent {
         });
         
     }
-    
-    
 
-   
-
-  
-
-    // Validateur asynchrone qui vérifie si le pseudo n'est pas déjà utilisé par un autre membre
 
     onNoClick(): void {
         this.dialogRef.close();

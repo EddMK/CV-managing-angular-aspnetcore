@@ -36,7 +36,7 @@ public class MasteringController : ControllerBase
        .ToListAsync());
     }
     
-   
+    [AllowAnonymous]
     [HttpGet("{id}")]
     public async Task<ActionResult<IEnumerable<MasteringDto>>> GetAllById(int id) {
       return _mapper.Map<List<MasteringDto>>(await _context.Masterings.Where(m => m.userId == id).Include(s => s.Skill)
@@ -54,23 +54,25 @@ public class MasteringController : ControllerBase
             return NoContent();
         }
         [AllowAnonymous]
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutMasterings([FromBody]List<MasteringDto> masterings, int id) {
-            var m = await _context.Masterings.Where(m => m.userId == id).Include(s => s.Skill)
+        [HttpPut]
+        public async Task<IActionResult> PutMasterings(MasteringDto dto) {
+            var m = await _context.Masterings.Where(m => m.masteringId == dto.masteringId).Include(s => s.Skill)
                                              .ThenInclude(c => c.category)
-                                             .ToListAsync();
+                                             .SingleAsync();
             if (m == null){
                 return NotFound();
             }
             else {
-              for(int i = 0; i < m.Count; ++i){
-                  // m[i] =  _mapper.Map<Mastering>(masterings[i]);
-                  // just to test
-                  m[i].Level = Level.Intermediate;
-                   Console.WriteLine(i);
-                    _context.SaveChanges();
-              }
-              
+                  Console.WriteLine(m.masteringId + " : " + dto.Level);
+                  //m = _mapper.Map<MasteringDto, Mastering>(dto, m);
+                
+                    m = _mapper.Map<MasteringDto, Mastering>(dto, m);
+                 
+               
+             
+                 // _context.SaveChanges();
+                   await _context.SaveChangesAsync(); 
+                  Console.WriteLine(m.Level + " : " + dto.Level);
             }
             return NoContent();
         }

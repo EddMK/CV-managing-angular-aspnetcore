@@ -1,7 +1,7 @@
 
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Mastering } from '../models/Mastering';
+import { Level, Mastering } from '../models/Mastering';
 import { User } from '../models/User';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
@@ -27,9 +27,10 @@ export class MasteringService {
             })
         );
     }
-    public save(m: Mastering): Observable<boolean> {
+    public save(m: Mastering, selectedLevel : number): Observable<boolean> {
         console.log(m.level)
-        return this.http.put<Mastering>(`${this.baseUrl}api/mastering/`, m).pipe( /// a problem happened here
+    
+        return this.http.put<Mastering>(`${this.baseUrl}api/mastering/${m.masteringId}`, selectedLevel).pipe( /// a problem happened here
             map(res => true), 
             catchError(err => {
                 console.error(err);

@@ -13,7 +13,7 @@
         </mat-form-field>
         <mat-form-field>
            
-            <mat-select placeholder="Level" [formControl]="ctlLevel">
+            <mat-select placeholder="Level" [(value)]="selected" >
                 <mat-option [value]="0">Beginner</mat-option>
                 <mat-option [value]="1">Intermediate</mat-option>
                 <mat-option [value]="2">Advanced</mat-option>

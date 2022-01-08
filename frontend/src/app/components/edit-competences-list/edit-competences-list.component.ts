@@ -68,16 +68,16 @@ export class EditCompetencesListComponent {
 
     delete(mastering: Mastering){
         this.masteringService.delete(mastering).subscribe(res =>{
-           this.refresh(mastering?.userId!);
+           //this.refresh(mastering?.userId!);
         })
     }
 
-    save(mastering: Mastering){
+    /*save(mastering: Mastering){
         
         this.masteringService.save(mastering).subscribe(res =>{
             this.refresh(mastering?.userId!);
         });
-    }
+    }*/
 
     create(){
       

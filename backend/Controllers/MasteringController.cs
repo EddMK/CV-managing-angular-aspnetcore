@@ -54,25 +54,31 @@ public class MasteringController : ControllerBase
             return NoContent();
         }
         [AllowAnonymous]
-        [HttpPut]
-        public async Task<IActionResult> PutMasterings(MasteringDto dto) {
-            var m = await _context.Masterings.Where(m => m.masteringId == dto.masteringId).Include(s => s.Skill)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutMasterings(int id, [FromBody]int level) {
+            var m = await _context.Masterings.Where(m => m.masteringId == id).Include(s => s.Skill)
                                              .ThenInclude(c => c.category)
                                              .SingleAsync();
             if (m == null){
                 return NotFound();
             }
             else {
-                  Console.WriteLine(m.masteringId + " : " + dto.Level);
-                  //m = _mapper.Map<MasteringDto, Mastering>(dto, m);
-                
-                    m = _mapper.Map<MasteringDto, Mastering>(dto, m);
-                 
-               
-             
+                  Console.WriteLine(m.masteringId + " : " + level);
+                   if(level == 0){
+                       m.Level = Level.Beginner;
+                   }
+                   else if(level == 1){
+                       m.Level = Level.Intermediate;
+                   }
+                   else if(level == 2){
+                       m.Level = Level.Advanced;
+                   }
+                   else {
+                       m.Level = Level.Expert;
+                   }
                    _context.SaveChanges();
                    //await _context.SaveChangesAsync(); 
-                  Console.WriteLine(m.Level + " : " + dto.Level);
+                 
             }
             return NoContent();
         }

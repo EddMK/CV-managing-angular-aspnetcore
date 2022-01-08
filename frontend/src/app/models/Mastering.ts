@@ -30,6 +30,11 @@ export class Mastering {
    public get categoryToString(){
        return this.skill?.category?.name;
    }
+
+   public set changeLevel(level : number) {
+       this.level = level;
+   }
+
    public get levelValue(){
        if(this.level?.toString() === "Beginner"){
            return 0;

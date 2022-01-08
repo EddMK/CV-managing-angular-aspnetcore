@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angu
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
 import { UserService } from '../../services/user.service';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, NumberValueAccessor } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
@@ -27,8 +27,10 @@ export class EditCompetenceComponent implements OnChanges{
     public ctlSkill!: FormControl;
     public ctlCategory!: FormControl;
     public ctlLevel!: FormControl;
+    public id: any;
+    public selected: number;
   
-    public masterings: Mastering[];
+
 
     @Input() public mastering! : Mastering;
     @Output() public newRefreshEvent = new EventEmitter<number>();
@@ -39,26 +41,25 @@ export class EditCompetenceComponent implements OnChanges{
  
 
     constructor(
-      
         private fb: FormBuilder,
         private masteringService: MasteringService,
-        private usingService: UsingService,
+        
     ) {
         
         this.ctlSkill = this.fb.control(null, [Validators.minLength(3)]);
         this.ctlCategory = this.fb.control(null, [Validators.minLength(3)]);
-        this.ctlLevel = this.fb.control(this.mastering?.level!, []);
-        this.masterings = []
+        this.ctlLevel = this.fb.control(this.mastering?.levelValue!, []);
+        this.selected = this.mastering?.level!;
      
     
         this.frm = this.fb.group({
-            skill: this.ctlSkill,
             
             level: this.ctlLevel,
             
         });
-
-     
+       
+        this.frm.patchValue(this.mastering);
+        
        
     }
 
@@ -80,9 +81,11 @@ export class EditCompetenceComponent implements OnChanges{
     }
 
     save(mastering: Mastering){
-        
-        this.masteringService.save(mastering).subscribe(res =>{
+        console.log(this.selected)
+       
+        this.masteringService.save(mastering, this.selected).subscribe(res =>{
            // this.refresh(mastering?.userId!);
+           console.log(this.frm.value);
            this.refreshParent(mastering);
         });
     }

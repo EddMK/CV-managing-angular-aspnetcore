@@ -135,18 +135,16 @@ namespace prid_2122_g04.Controllers
         }
 
         [HttpDelete("{id}")]//ok
-        public async Task<IActionResult> DeleteTraining(int  id) {
-            var training = await _context.Experience.FindAsync(id);
-            if (training == null)
+        public async Task<IActionResult> DeleteMission(int  id) {
+            Console.WriteLine("Id recu au backend : "+ id);
+            var experience = await _context.Experience.FindAsync(id);
+            Console.WriteLine("BACKEND envoye : "+experience.IdExperience);
+            if (experience == null)
                 return NotFound();
-            _context.Experience.Remove(training);
+            _context.Experience.Remove(experience);
             await _context.SaveChangesAsync();
             return NoContent();
         }
-
-
-
-
     }
 
 }

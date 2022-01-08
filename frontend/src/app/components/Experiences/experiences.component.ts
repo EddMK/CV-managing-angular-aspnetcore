@@ -11,6 +11,7 @@ import { UsingService } from 'src/app/services/using.service';
 import { MatDialog } from '@angular/material/dialog';
 import { EditTrainingComponent } from '../edit-training/edit-training.component';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { ConfirmService } from 'src/app/services/confirm.service';
 import * as _ from 'lodash-es';
 import { plainToClass } from 'class-transformer';
 import { Subject } from 'rxjs';
@@ -180,7 +181,22 @@ export class ExperiencesComponent implements OnInit {
           }
       });
     }
-  } 
+  }
+
+  deleteExperience(experience: Experience) {
+    console.log(experience);
+    var dialog = this.confirmService.confirmDialog({title: 'Confirm delete' ,
+     message: 'Are you sure you want to delete ' + experience.title + '? If you do so all the missions related will be also deleted', 
+     confirmText: 'Confirm', 
+     canceltext: 'Cancel'});
+     dialog.subscribe(res => {
+        if(res){
+            this.experienceService.deleteExperience(experience).subscribe(res => {
+              this.refreshAll(); 
+            });
+        }
+    })
+}
 
   refreshTraining() : void{
     this.experienceService.GetAllTraingById(this.currentUser?.userId!).subscribe(t => {
@@ -194,7 +210,13 @@ export class ExperiencesComponent implements OnInit {
     });
   }
 
-  constructor(public experienceService :  ExperienceService, public usingService : UsingService,public dialog: MatDialog, private authenticationService: AuthenticationService){
+  refreshAll() : void{
+    this.refreshMission();
+    this.refreshTraining();
+  }
+
+  constructor(public experienceService :  ExperienceService, public usingService : UsingService,
+    public dialog: MatDialog, private authenticationService: AuthenticationService, private confirmService: ConfirmService){
 
   }
 

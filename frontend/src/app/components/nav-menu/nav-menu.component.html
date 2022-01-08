@@ -13,18 +13,26 @@
                         </a>
                     </li>
                     <li class="nav-item" [routerLinkActive]='["link-active"]' *ngIf="isManager">
-                        <a class="nav-link text-white" [routerLink]="['/skill-list']">Skills</a>
+                        <a class="nav-link text-white" [routerLink]="['/skill-list']">
+                            <span class="material-icons">construction</span>
+                        </a>
                     </li>
 
                     <li class="nav-item" [routerLinkActive]='["link-active"]' *ngIf="isManager">
-                        <a class="nav-link text-white" [routerLink]="['/enterprise-list']">Enterprises</a>
+                        <a class="nav-link text-white" [routerLink]="['/enterprise-list']">
+                            <span class="material-icons">business</span>
+                        </a>
                     </li>
                     
                     <li class="nav-item" [routerLinkActive]='["link-active"]'  *ngIf="isManager">
-                        <a class="nav-link text-white" [routerLink]="['/team']">Team</a>
+                        <a class="nav-link text-white" [routerLink]="['/team']">
+                            <span class="material-icons">groups</span>
+                        </a>
                     </li>
                     <li class="nav-item" [routerLinkActive]='["link-active"]'  *ngIf="currentUser">
-                        <a class="nav-link text-white" [routerLink]="['/CV']">CV</a>
+                        <a class="nav-link text-white" [routerLink]="['/CV']">
+                            <span class="material-icons">description</span>
+                        </a>
                     </li>
                     <li class="nav-item" [routerLinkActive]='["link-active"]' *ngIf="!currentUser">
                         <a class="nav-link text-white" [routerLink]='["/login"]'>

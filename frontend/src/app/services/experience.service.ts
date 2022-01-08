@@ -63,6 +63,17 @@ export class ExperienceService {
                 return res;
             }));
     }
+
+    public deleteExperience(e : Experience): Observable<boolean> {
+        console.log("Id delete  : "+e.idExperience);
+        return this.http.delete<boolean>(`${this.baseUrl}api/experiences/${e.idExperience}`).pipe(
+            map(res => true),
+            catchError(err => {
+                console.error(err);
+                return of(false);
+            })
+        );
+    }
     
 }
 

@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
 import { UsingService } from '../../services/using.service';
 import { SkillService } from '../../services/skills.service';
+import { EnterpriseService } from '../../services/enterprise.service';
 import { FormGroup } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { ValidatorFn } from '@angular/forms';
@@ -15,12 +16,16 @@ import { Experience } from 'src/app/models/Experience';
 import { Using } from 'src/app/models/Using';
 import * as _ from 'lodash-es';
 import { Skill } from 'src/app/models/Skill';
+import { Enterprise } from 'src/app/models/Enterprise';
 import { MatChipInputEvent } from "@angular/material/chips";
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatChipList } from "@angular/material/chips";
 import { Moment } from 'moment';
 import * as moment from 'moment';
 import { Variable } from '@angular/compiler/src/render3/r3_ast';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
+import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 
 
 const startDateValidation: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
@@ -46,11 +51,13 @@ export class EditTrainingComponent{
     public ctlDatabases! : FormControl;
     public ctlFrameworks! : FormControl;
     public isNew: boolean;
-    public id : any;
+    public idExperience : any;
+    public isTraining : boolean;
     visible = true;
     selectable = true;
     removable = true;
     addOnBlur = true;
+    listEnterprises : Enterprise[] = [];
     readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
     @ViewChild("langList") langList :  any;
@@ -58,15 +65,16 @@ export class EditTrainingComponent{
     @ViewChild("frameList") frameList :  any;
 
     constructor(public dialogRef: MatDialogRef<EditTrainingComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: { training: Experience; isNew: boolean; },
+        @Inject(MAT_DIALOG_DATA) public data: { training: Experience; isNew: boolean, isMission : boolean},
         private fb: FormBuilder,
         private usingService: UsingService,
         private skillService : SkillService,
+        private enterpriseService : EnterpriseService,
         public snackBar: MatSnackBar
     ) {
         this.ctlStart = this.fb.control('', Validators.required);
         this.ctlFinish = this.fb.control('', Validators.required);
-        this.ctlEnterprise = this.fb.control('');
+        this.ctlEnterprise = this.fb.control({value : 'CACA'});
         this.ctlTitle = this.fb.control('');
         this.ctlDescription = this.fb.control('');
         this.ctlGrade = this.fb.control('', [Validators.min(0),Validators.max(100)]);
@@ -84,9 +92,34 @@ export class EditTrainingComponent{
             databases : this.ctlDatabases,
             frameworks : this.ctlFrameworks
         }, { validators : startDateValidation });
+        if(!data.isNew){
+            if(data.training?.role?.toString() === "TRAINING"){
+                this.isTraining = true;
+            }else{
+                this.isTraining = false;
+            }
+        }else{
+            if(data.isMission){
+                this.isTraining = false;
+            }else{
+                this.isTraining = true;
+            }
+        }
+        
+        console.log("BOOLEAN IS TRAINING : "+this.isTraining);
         this.isNew = data.isNew;
+        console.log(data.training);
+        this.idExperience = data.training.idExperience!;
         this.distribution(data.training);
-    }  
+        this.enterpriseService.getAll().subscribe( enterprises =>{
+            this.listEnterprises = enterprises;
+        });
+    } 
+
+      displayFn(e: Enterprise): string {
+        return e && e.name ? e.name : '';
+      }
+    
 
     setError() {
         this.langList.errorState = true;
@@ -117,6 +150,7 @@ export class EditTrainingComponent{
         });
     }
 
+
     addLanguage(event: MatChipInputEvent): void {
         const value = (event.value || '').trim();
         var exist = this.frm.controls['languages'].value.includes(value);
@@ -127,13 +161,13 @@ export class EditTrainingComponent{
                 this.skillService.getByName(value).subscribe(res =>{
                     console.log(res);
                     if(res != null){
-                        this.usingService.AddUsing(1,res).subscribe(res2 => {
-                             console.log(res2);
+                        this.usingService.AddUsing(this.idExperience,res).subscribe(res2 => {
+                            console.log(res2);
                             this.frm.controls['languages'].value.push(res2);
                             if (!res2) {
                                 this.snackBar.open(`There was an error at the server. The member has not been created! Please try again.`, 'Dismiss', { duration: 10000 });
                             }
-                        }); 
+                        });
                     }else{
                         this.snackBar.open(`Skill does not exist in database !`, 'Dismiss', { duration: 10000 });
                     }
@@ -151,7 +185,7 @@ export class EditTrainingComponent{
         const idSkill = language.skill?.skillId;
         if (index > -1) {
             this.frm.controls['languages'].value.splice(index, 1);  
-            this.usingService.DeleteUsing(1,idSkill).subscribe(); 
+            this.usingService.DeleteUsing(this.idExperience,idSkill).subscribe(); 
         }
       }
 
@@ -165,7 +199,7 @@ export class EditTrainingComponent{
                 this.skillService.getByName(value).subscribe(res =>{
                     console.log(res);
                     if(res != null){
-                        this.usingService.AddUsing(1,res).subscribe(res2 => {
+                        this.usingService.AddUsing(this.idExperience,res).subscribe(res2 => {
                              console.log(res2);
                             this.frm.controls['databases'].value.push(res2);
                             if (!res2) {
@@ -188,7 +222,7 @@ export class EditTrainingComponent{
         const idSkill = database.skill?.skillId;
         if (index > -1) {
             this.frm.controls['databases'].value.splice(index, 1);  
-            this.usingService.DeleteUsing(1,idSkill).subscribe(); 
+            this.usingService.DeleteUsing(this.idExperience,idSkill).subscribe(); 
         }
       }
 
@@ -201,7 +235,7 @@ export class EditTrainingComponent{
                 this.skillService.getByName(value).subscribe(res =>{
                     console.log(res);
                     if(res != null){
-                        this.usingService.AddUsing(1,res).subscribe(res2 => {
+                        this.usingService.AddUsing(this.idExperience,res).subscribe(res2 => {
                              console.log(res2);
                             this.frm.controls['frameworks'].value.push(res2);
                             if (!res2) {
@@ -225,7 +259,7 @@ export class EditTrainingComponent{
         const idSkill = framework.skill?.skillId;
         if (index > -1) {
             this.frm.controls['frameworks'].value.splice(index, 1);  
-            this.usingService.DeleteUsing(1,idSkill).subscribe(); 
+            this.usingService.DeleteUsing(this.idExperience,idSkill).subscribe(); 
         }
       }
     

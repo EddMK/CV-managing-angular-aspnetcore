@@ -14,9 +14,27 @@
             <mat-datepicker #picker2></mat-datepicker>
         </mat-form-field>
         <br>
-        <mat-form-field>
-            <input matInput placeholder="Enterprise" [formControl]="ctlEnterprise" readonly >
-        </mat-form-field>
+        <span *ngIf="!isNew">
+            <mat-form-field>
+                <input matInput placeholder="Enterprise" [formControl]="ctlEnterprise" readonly >
+            </mat-form-field>
+        </span>
+        <span *ngIf="isNew">
+            <mat-form-field>
+                <mat-label>Enterprise</mat-label>
+                <input  type="text"
+                        placeholder="Pick one"
+                        aria-label="Number"
+                        matInput
+                        [formControl]="ctlEnterprise"
+                        [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                    <mat-option *ngFor="let enterprise of listEnterprises" [value]="enterprise">
+                        {{enterprise.name}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </span>
         <mat-form-field>
             <input matInput placeholder="Title" [formControl]="ctlTitle" required >
         </mat-form-field>
@@ -25,62 +43,66 @@
             <input matInput placeholder="Description" [formControl]="ctlDescription" required >
         </mat-form-field>
         <br>
-        <mat-form-field>
-            <input matInput placeholder="Grade" [formControl]="ctlGrade" required >
-            <mat-error class="field-error" *ngIf="ctlGrade.hasError">Between 0 and 100</mat-error>
-        </mat-form-field>
+        <span *ngIf="isTraining">
+            <mat-form-field>
+                <input matInput placeholder="Grade" [formControl]="ctlGrade" required >
+                <mat-error class="field-error" *ngIf="ctlGrade.hasError">Between 0 and 100</mat-error>
+            </mat-form-field>
+        </span>
         <br>
-        <mat-form-field>
-            <mat-chip-list #langList>
-                <mat-chip *ngFor="let language of getLanguages" 
-                                [selectable]="selectable"
-                                [removable]="removable" 
-                                (removed) = "removeLanguage(language)">
-                    {{language.skill?.name}}
-                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                </mat-chip>
-                <input  placeholder="Languages"
-                        [matChipInputFor]="langList"
-                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                        [matChipInputAddOnBlur]="addOnBlur"
-                        (matChipInputTokenEnd)="addLanguage($event)">
-            </mat-chip-list>
-            <mat-error class="field-error" *ngIf="langList.errorState">Already in the list</mat-error>
-        </mat-form-field>
-        <br>
-        <mat-form-field>
-            <mat-chip-list #dataList formControlName="databases">
-                <mat-chip *ngFor="let database of getDatabases" 
-                                [selectable]="selectable"
-                                [removable]="removable" 
-                                (removed) = "removeDatabase(database)">
-                    {{database.skill?.name}}
-                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                </mat-chip>
-                <input matInput placeholder="Databases"
-                                [matChipInputFor]="dataList"
-                                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                                [matChipInputAddOnBlur]="addOnBlur"
-                                (matChipInputTokenEnd)="addDatabase($event)">
-            </mat-chip-list>
-        </mat-form-field>
-        <br>
-        <mat-form-field>
-            <mat-chip-list #frameList formControlName="frameworks">
-                <mat-chip *ngFor="let framework of getFrameworks" 
-                                [selectable]="selectable"
-                                [removable]="removable" 
-                                (removed) = "removeFramework(framework)">
-                    {{framework.skill?.name}}
-                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                </mat-chip>
-                <input matInput placeholder="Frameworks"
-                                [matChipInputFor]="frameList"
-                                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                                [matChipInputAddOnBlur]="addOnBlur"
-                                (matChipInputTokenEnd)="addFramework($event)">
-            </mat-chip-list>
-        </mat-form-field>
+        <span *ngIf="!isNew">
+            <mat-form-field>
+                <mat-chip-list #langList>
+                    <mat-chip *ngFor="let language of getLanguages" 
+                                    [selectable]="selectable"
+                                    [removable]="removable" 
+                                    (removed) = "removeLanguage(language)">
+                        {{language.skill?.name}}
+                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                    </mat-chip>
+                    <input  placeholder="Languages"
+                            [matChipInputFor]="langList"
+                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                            [matChipInputAddOnBlur]="addOnBlur"
+                            (matChipInputTokenEnd)="addLanguage($event)">
+                </mat-chip-list>
+                <mat-error class="field-error" *ngIf="langList.errorState">Already in the list</mat-error>
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <mat-chip-list #dataList formControlName="databases">
+                    <mat-chip *ngFor="let database of getDatabases" 
+                                    [selectable]="selectable"
+                                    [removable]="removable" 
+                                    (removed) = "removeDatabase(database)">
+                        {{database.skill?.name}}
+                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                    </mat-chip>
+                    <input matInput placeholder="Databases"
+                                    [matChipInputFor]="dataList"
+                                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                    [matChipInputAddOnBlur]="addOnBlur"
+                                    (matChipInputTokenEnd)="addDatabase($event)">
+                </mat-chip-list>
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <mat-chip-list #frameList formControlName="frameworks">
+                    <mat-chip *ngFor="let framework of getFrameworks" 
+                                    [selectable]="selectable"
+                                    [removable]="removable" 
+                                    (removed) = "removeFramework(framework)">
+                        {{framework.skill?.name}}
+                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                    </mat-chip>
+                    <input matInput placeholder="Frameworks"
+                                    [matChipInputFor]="frameList"
+                                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                    [matChipInputAddOnBlur]="addOnBlur"
+                                    (matChipInputTokenEnd)="addFramework($event)">
+                </mat-chip-list>
+            </mat-form-field>
+        </span>
     </div>
     <mat-error class="field-error" *ngIf="frm.errors?.dateValid">The start date must be before the finish date</mat-error>
     <div class="footer">

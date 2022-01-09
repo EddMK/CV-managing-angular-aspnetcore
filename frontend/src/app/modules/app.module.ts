@@ -28,7 +28,8 @@ import { UsinglistComponent } from '../components/usinglist/usinglist.component'
 import { ExperiencesComponent } from '../components/experiences/experiences.component';
 
 import { EditTitleComponent } from '../components/edit-title/edit-title.component';
-import { EditCompetencesComponent } from '../components/edit-competences/edit-competences.component';
+import { EditCompetencesListComponent } from '../components/edit-competences-list/edit-competences-list.component';
+import { EditCompetenceComponent } from '../components/edit-competence/edit-competence.component';
 import { ConfirmComponent } from '../components/confirm/confirm.component';
 
 
@@ -60,7 +61,8 @@ export function getBaseUrl() {
         EditEnterpriseComponent,
         SkillListComponent,
         EnterpriseListComponent,
-        EditCompetencesComponent,
+        EditCompetencesListComponent,
+        EditCompetenceComponent,
         EditTitleComponent,
         ConfirmComponent,
        

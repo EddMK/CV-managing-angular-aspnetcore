@@ -13,23 +13,23 @@ import * as moment from 'moment';
 import { Level, Mastering } from 'src/app/models/Mastering';
 import { MasteringService } from 'src/app/services/mastering.service';
 import { UsingService } from 'src/app/services/using.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @Component({
-    selector: 'app-edit-competences-mat',
-    templateUrl: './edit-competences.component.html',
+    selector: 'app-edit-competenceslis-mat',
+    templateUrl: './edit-competences-list.component.html',
    
 })
-export class EditCompetencesComponent {
+export class EditCompetencesListComponent {
     public frm!: FormGroup;
     public ctlSkill!: FormControl;
     public ctlCategory!: FormControl;
     public ctlLevel!: FormControl;
     public isNew: boolean;
     public masterings: Mastering[];
+  
 
-   
-
-    constructor(public dialogRef: MatDialogRef<EditCompetencesComponent>,
+    constructor(public dialogRef: MatDialogRef<EditCompetencesListComponent>,
         @Inject(MAT_DIALOG_DATA) public data: { masterings: Mastering[]; isNew: boolean; },
         private fb: FormBuilder,
         private masteringService: MasteringService,
@@ -39,6 +39,7 @@ export class EditCompetencesComponent {
         this.ctlSkill = this.fb.control(null, [Validators.minLength(3)]);
         this.ctlCategory = this.fb.control(null, [Validators.minLength(3)]);
         this.ctlLevel = this.fb.control(Level.Advanced, []);
+       
 
         
         this.frm = this.fb.group({
@@ -52,6 +53,7 @@ export class EditCompetencesComponent {
         console.log(this.masterings);
         console.log(data);
         this.frm.patchValue(data.masterings);
+       
     }
 
     // Validateur bidon qui vérifie que la valeur est différente
@@ -66,26 +68,32 @@ export class EditCompetencesComponent {
 
     delete(mastering: Mastering){
         this.masteringService.delete(mastering).subscribe(res =>{
-           this.refresh(mastering?.userId!);
+           //this.refresh(mastering?.userId!);
         })
     }
 
-    save(mastering: Mastering){
+    /*save(mastering: Mastering){
+        
         this.masteringService.save(mastering).subscribe(res =>{
             this.refresh(mastering?.userId!);
         });
-    }
+    }*/
 
     create(){
       
     }
 
-    refresh(id: number) {
+     refresh(id: number) {
         this.masteringService.getAllById(id).subscribe(m => {
             console.log(m);
             this.masterings = m;
         });
         
+    }
+
+    handleChildEvent () {
+        // do what you need here
+        console.log("parent refreshed");
     }
 
 

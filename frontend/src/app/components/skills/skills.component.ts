@@ -6,7 +6,7 @@ import { MasteringService } from 'src/app/services/mastering.service';
 import { isDefined } from '@angular/compiler/src/util';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { EditCompetencesComponent } from '../edit-competences/edit-competences.component';
+import { EditCompetencesListComponent } from '../edit-competences-list/edit-competences-list.component';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { plainToClass } from 'class-transformer';
 import * as _ from 'lodash';
@@ -58,7 +58,7 @@ export class SkillsComponent  implements OnInit {
 
    edit(masterings : Mastering[]){
     if(this.isUserConnected){
-    const dlg = this.dialog.open(EditCompetencesComponent, { data: { masterings,  isNew: true } });
+    const dlg = this.dialog.open(EditCompetencesListComponent, { data: { masterings,  isNew: true } });
     console.log(masterings);
     dlg.beforeClosed().subscribe(res => {
        if (res) {

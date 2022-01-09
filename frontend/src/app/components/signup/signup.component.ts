@@ -1,9 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, ValidationErrors, AbstractControl, ValidatorFn } from '@angular/forms';
 import { AuthenticationService } from '../../services/authentication.service';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/User';
+import { Moment } from 'moment';
+
+const passwordsValidations: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+    const password = control.get('password') as FormControl;
+    const confirm = control.get('confirmPassword') as FormControl;
+    if(confirm.value === ""){
+        return null;
+    }
+    return (confirm.value !== null && password.value !== null) && password.value === confirm.value ? null :{ passwordValid:true };
+}
 
 
 @Component({
@@ -23,7 +33,8 @@ export class SignupComponent  implements OnInit{
     ctlTitle! : FormControl;
     ctlPassword!: FormControl;
     ctlConfirmPassword!: FormControl;
-    ctlPseudo! : FormControl;
+    user! : User;
+    maxDate: Moment;
 
     constructor(
         private userService: UserService,
@@ -36,21 +47,23 @@ export class SignupComponent  implements OnInit{
         if (this.authenticationService.currentUser) {
             this.router.navigate(['/']);
         }
+        const moment = require('moment');
+        this.maxDate = moment(new Date());
     }
 
     ngOnInit() {
 
         this.ctlLastName = this.formBuilder.control('', Validators.required);
         this.ctlFirstName = this.formBuilder.control('', Validators.required);
-        this.ctlEmail = this.formBuilder.control('', Validators.required);
-        this.ctlBirthday = this.formBuilder.control('', Validators.required);
+        this.ctlEmail = this.formBuilder.control('', [Validators.required, Validators.email], [this.emailUsed()]);
+        this.ctlBirthday = this.formBuilder.control('', [Validators.required], [this.dateValid()]);
         this.ctlTitle = this.formBuilder.control('', Validators.required);
         this.ctlPassword = this.formBuilder.control('', Validators.required);
         this.ctlConfirmPassword = this.formBuilder.control('', Validators.required);
-        this.ctlPseudo = this.formBuilder.control('', Validators.required);
+        const moment = require('moment');
+        this.maxDate = moment().subtract(18, 'years');
 
         this.signupForm = this.formBuilder.group({
-            pseudo : this.ctlPseudo,
             lastname: this.ctlLastName,
             firstname: this.ctlFirstName,
             email: this.ctlEmail,
@@ -58,13 +71,54 @@ export class SignupComponent  implements OnInit{
             title: this.ctlTitle,
             password: this.ctlPassword,
             confirmPassword : this.ctlConfirmPassword
-        });
+        }, { validators : passwordsValidations });
 
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 
     get f() { return this.signupForm.controls; }
+
+    emailUsed(): any {
+        let timeout: NodeJS.Timer;
+        return (ctl: FormControl) => {
+            clearTimeout(timeout);
+            const mail = ctl.value;
+            return new Promise(resolve => {
+                timeout = setTimeout(() => {
+                    if (ctl.pristine) {
+                        resolve(null);
+                    } else {
+                        this.userService.getByEmail(mail).subscribe(user => {
+                            resolve(user ? { emailUsed: true } : null);
+                        });
+                    }
+                }, 300);
+            });
+        };
+    }
+
+    dateValid(): any {
+        let timeout: NodeJS.Timer;
+        return (ctl: FormControl) => {
+            clearTimeout(timeout);
+            const date = ctl.value;
+            return new Promise(resolve => {
+                timeout = setTimeout(() => {
+                    console.log("date signup : "+ date);
+                    if (ctl.pristine) {
+                        resolve(null);
+                    } else {
+                        /*
+                        this.userService.getByEmail(mail).subscribe(user => {
+                            resolve(user ? { emailUsed: true } : null);
+                        });*/
+                    }
+                }, 300);
+            });
+        };
+    }
+
 
     /**
      * Cette méthode est bindée sur l'événement onsubmit du formulaire. On va y faire le
@@ -78,26 +132,29 @@ export class SignupComponent  implements OnInit{
         
         this.loading = true;
 
-        
-
-        let formObj = this.signupForm.getRawValue(); // {name: '', description: ''}
-        const user = new User(formObj);
         //console.log(user);
+        const user = new User(this.signupForm.value);
+        console.log(user);
         
-        this.userService.signup(this.f.pseudo.value,this.f.firstname.value,
-            this.f.lastname.value, this.f.email.value,this.f.birthDate.value, this.f.title.value, this.f.password.value )
-            .subscribe(
+        this.userService.signup(user).subscribe(
                 // si signup est ok, on navigue vers la page demandée
                 data => {
-                    //console.log("success !");
-                    this.authenticationService.login(this.f.email.value, this.f.password.value);
-                    //this.router.navigate([this.returnUrl]);
+                    this.authenticationService.login(user.email!, user.password!).subscribe(
+                        // si login est ok, on navigue vers la page demandée
+                        data => {
+                            console.log("return url : "+this.returnUrl);
+                            this.router.navigate([this.returnUrl]);
+                        },
+                        // en cas d'erreurs, on reste sur la page et on les affiche
+                        error => {
+                            this.loading = false;
+                        }
+                );
                 },
                 // en cas d'erreurs, on reste sur la page et on les affiche
                 error => {
                     console.log(error.error.errors);
-                });
-        
-                
+                }
+        );
     }
 }

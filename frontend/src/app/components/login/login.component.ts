@@ -67,10 +67,10 @@ export class LoginComponent implements OnInit {
         if (this.loginForm.invalid) return;
 
         this.loading = true;
-        this.authenticationService.login(this.f.email.value, this.f.password.value)
-            .subscribe(
+        this.authenticationService.login(this.f.email.value, this.f.password.value).subscribe(
                 // si login est ok, on navigue vers la page demandée
                 data => {
+                    console.log("return url : "+this.returnUrl);
                     this.router.navigate([this.returnUrl]);
                 },
                 // en cas d'erreurs, on reste sur la page et on les affiche
@@ -80,6 +80,7 @@ export class LoginComponent implements OnInit {
                         this.loginForm.get(field.toLowerCase())?.setErrors({ custom: errors[field] })
                     }
                     this.loading = false;
-                });
+                }
+        );
     }
 }

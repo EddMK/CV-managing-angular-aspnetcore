@@ -74,6 +74,17 @@ public class UsersController : ControllerBase
       // Transforme le membre en son DTO et retourne ce dernier
     return _mapper.Map<UserDTO>(user);
     }
+
+
+    [AllowAnonymous]
+    [HttpGet("getByEmail/{mail}")]
+    public async Task<ActionResult<UserDTO>> GetOneByEmail(string mail) {
+        Console.WriteLine("email backend : "+mail);
+        var user = await _context.Users.Where(u => u.Email == mail).FirstOrDefaultAsync();
+        if (user == null)
+            return NotFound();
+        return _mapper.Map<UserDTO>(user);
+    }
     
     
     //[Authorized(Role.MANAGER)]
@@ -83,10 +94,12 @@ public class UsersController : ControllerBase
     public async Task<ActionResult<UserDTO>> PostUser(UserWithPasswordDTO user) {
         // Utilise le mapper pour convertir le DTO qu'on a reçu en une instance de Member
         //var newuser = _mapper.Map<Consultant>(user);
+        var newx = _mapper.Map<Consultant>(user);
+        Console.WriteLine("User mapping : "+newx);
         var newuser = new Consultant()
                 {Password = user.Password, Email= user.Email, 
                 FirstName= user.Firstname, LastName= user.Lastname, Title= user.title
-                ,BirthDate= user.BirthDate, Role = Role.CONSULTANT, UserId = 0, managerID = 2};
+                ,BirthDate= user.BirthDate, Role = Role.CONSULTANT};
         // Ajoute ce nouveau membre au contexte EF
         _context.Users.Add(newuser);
         // Sauve les changements
@@ -94,20 +107,13 @@ public class UsersController : ControllerBase
         if (!res.IsEmpty)
             return BadRequest(res);
 
-        return null;
+        //return null;
         // Renvoie une réponse ayant dans son body les données du nouveau membre (3ème paramètre)
         // et ayant dans ses headers une entrée 'Location' qui contient l'url associé à GetOne avec la bonne valeur 
         // pour le paramètre 'pseudo' de cet url.
-        //return CreatedAtAction(nameof(GetOne), new { pseudo = user.Pseudo }, _mapper.Map<UserDTO>(newuser));
+        return CreatedAtAction(nameof(GetOne), new { id = newuser.UserId }, _mapper.Map<UserDTO>(newuser));
     }
-/*
-    [AllowAnonymous]
-    [HttpPost("postuser")]
-    public async Task<ActionResult<UserDTO>> AddNewUser(UserWithPasswordDTO user) {
-        Console.WriteLine("Arrrivé");
-        return null;
-    }
-*/
+
     [AllowAnonymous]
     [HttpPut]
     public async Task<IActionResult> PutUser(UserDTO dto) {

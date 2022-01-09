@@ -24,6 +24,7 @@ export class AuthenticationService {
     }
 
     login(email: string, password: string) {
+        console.log(email + " "+ password);
         return this.http.post<any>(`${this.baseUrl}api/users/authenticate`, { email, password })
             .pipe(map(user => {
                 user = plainToClass(User, user);

@@ -32,7 +32,7 @@ const startDateValidation: ValidatorFn = (control: AbstractControl): ValidationE
     const start = control.get('start') as FormControl;
     const finish = control.get('finish') as FormControl;
     return start.value !== null && finish.value !== null && start.value < finish.value ? null :{ dateValid:true };
-  }
+}
 
 
 @Component({

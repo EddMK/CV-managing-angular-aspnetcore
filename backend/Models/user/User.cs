@@ -102,7 +102,6 @@ namespace backend.Models
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext) {
             var currContext = validationContext.GetService(typeof(MainContext)) as MainContext;
             Debug.Assert(currContext != null);
-            
             if (!CheckFullNameUnicity(currContext))
                  yield return new ValidationResult("The combinaison of a firstname and fullname should be unique", new[] { nameof(LastName) });
             if (Password == "abc")

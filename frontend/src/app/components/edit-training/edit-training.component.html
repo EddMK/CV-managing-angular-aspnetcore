@@ -1,5 +1,5 @@
 <form id="frm" class="form" [formGroup]="frm" novalidate>
-    <!--<h1 class="header">{{(!isNew ? 'Edit existing' : 'Add a new') + ' skill'}}</h1>-->
+    <h1 class="header">{{(!isNew ? 'Edit existing ' : 'Add a new ') + (!isTraining ? 'mission' : 'training')}}</h1>
     <div class="form">
         <mat-form-field appearance="fill">
             <mat-label>Start</mat-label>
@@ -37,15 +37,16 @@
         </span>
         <mat-form-field>
             <input matInput placeholder="Title" [formControl]="ctlTitle" required >
+            <mat-error class="field-error" *ngIf="ctlTitle.hasError('required')">Required</mat-error>
         </mat-form-field>
         <br>
         <mat-form-field>
-            <input matInput placeholder="Description" [formControl]="ctlDescription" required >
+            <input matInput placeholder="Description" [formControl]="ctlDescription" >
         </mat-form-field>
         <br>
         <span *ngIf="isTraining">
             <mat-form-field>
-                <input matInput placeholder="Grade" [formControl]="ctlGrade" required >
+                <input matInput placeholder="Grade" [formControl]="ctlGrade">
                 <mat-error class="field-error" *ngIf="ctlGrade.hasError">Between 0 and 100</mat-error>
             </mat-form-field>
         </span>
@@ -70,7 +71,7 @@
             </mat-form-field>
             <br>
             <mat-form-field>
-                <mat-chip-list #dataList formControlName="databases">
+                <mat-chip-list #dataList >
                     <mat-chip *ngFor="let database of getDatabases" 
                                     [selectable]="selectable"
                                     [removable]="removable" 
@@ -78,16 +79,17 @@
                         {{database.skill?.name}}
                         <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                     </mat-chip>
-                    <input matInput placeholder="Databases"
+                    <input  placeholder="Databases"
                                     [matChipInputFor]="dataList"
                                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                                     [matChipInputAddOnBlur]="addOnBlur"
                                     (matChipInputTokenEnd)="addDatabase($event)">
                 </mat-chip-list>
+                <mat-error class="field-error" *ngIf="dataList.errorState">Already in the list</mat-error>
             </mat-form-field>
             <br>
             <mat-form-field>
-                <mat-chip-list #frameList formControlName="frameworks">
+                <mat-chip-list #frameList >
                     <mat-chip *ngFor="let framework of getFrameworks" 
                                     [selectable]="selectable"
                                     [removable]="removable" 
@@ -101,12 +103,16 @@
                                     [matChipInputAddOnBlur]="addOnBlur"
                                     (matChipInputTokenEnd)="addFramework($event)">
                 </mat-chip-list>
+                <mat-error class="field-error" *ngIf="frameList.errorState">Already in the list</mat-error>
             </mat-form-field>
         </span>
     </div>
     <mat-error class="field-error" *ngIf="frm.errors?.dateValid">The start date must be before the finish date</mat-error>
     <div class="footer">
-        <button type="submit" mat-button form="frm" [disabled]="frm.pristine || frm.invalid || frm.pending" (click)="update()">{{!isNew ? 'Update' : 'Add'}}</button>
+        <button type="submit" mat-button form="frm" [disabled]="frm.invalid" (click)="update()">{{!isNew ? 'Update' : 'Add'}}</button>
         <button type="reset" mat-button (click)="cancel()">Cancel</button>
     </div>
 </form>
+<!--
+[disabled]="frm.pristine || frm.invalid || frm.pending"
+-->

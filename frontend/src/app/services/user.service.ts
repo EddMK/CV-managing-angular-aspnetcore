@@ -32,7 +32,7 @@ export class UserService {
 
 
     getByEmail(email: string) {
-        return this.http.get<User>(`${this.baseUrl}api/Users/${email}`).pipe(
+        return this.http.get<User>(`${this.baseUrl}api/Users/getByEmail/${email}`).pipe(
             map(m => plainToClass(User, m)),
             catchError(err => of(null))
         );
@@ -83,8 +83,8 @@ export class UserService {
         );
     }
 
-    signup( pseudo : string, firstName : string, lastName : string, email : string, birthDate : Date, title : string, password : string ) {
-        return this.http.post<any>(`${this.baseUrl}api/users/`, {pseudo, firstName, lastName ,email, birthDate, title, password})
+    public signup( u : User) {
+        return this.http.post<User>(`${this.baseUrl}api/users/`, u)
             .pipe(map(user => {
                 console.log(user);
                 return user;

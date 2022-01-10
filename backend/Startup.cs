@@ -18,11 +18,29 @@ using backend.Models;
 using AutoMapper;
 using AutoMapper.EquivalencyExpression;
 using Microsoft.IdentityModel.Tokens;
+using System.Globalization;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 
 
 namespace backend
 {
+
+    public class DateTimeConverter : JsonConverter<DateTime>
+{
+    public override DateTime Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    {
+        //Debug.Assert(typeToConvert == typeof(DateTime));
+        return DateTime.Parse(reader.GetString());
+    }
+
+    public override void Write(Utf8JsonWriter writer, DateTime value, JsonSerializerOptions options)
+    {
+        writer.WriteStringValue(value.ToUniversalTime().ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ssZ"));
+    }
+}
+
     public class Startup
     {
         public Startup(IConfiguration configuration) {
@@ -35,6 +53,10 @@ namespace backend
         public void ConfigureServices(IServiceCollection services) {
             services.AddDbContext<MainContext>(opt => opt.UseSqlite("data source=prid-2122-g04.db"));
             services.AddControllers();
+            services.AddControllers().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(new DateTimeConverter());
+            });
             
           // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration => {

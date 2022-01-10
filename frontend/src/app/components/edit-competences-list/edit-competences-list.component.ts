@@ -14,6 +14,9 @@ import { Level, Mastering } from 'src/app/models/Mastering';
 import { MasteringService } from 'src/app/services/mastering.service';
 import { UsingService } from 'src/app/services/using.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SkillService } from 'src/app/services/skills.service';
+import { Skill } from 'src/app/models/Skill';
+import { Using } from 'src/app/models/Using';
 
 @Component({
     selector: 'app-edit-competenceslis-mat',
@@ -27,33 +30,31 @@ export class EditCompetencesListComponent {
     public ctlLevel!: FormControl;
     public isNew: boolean;
     public masterings: Mastering[];
+
+
   
 
     constructor(public dialogRef: MatDialogRef<EditCompetencesListComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: { masterings: Mastering[]; isNew: boolean; },
+        @Inject(MAT_DIALOG_DATA) public data: { masterings: Mastering[];isNew: boolean; },
         private fb: FormBuilder,
         private masteringService: MasteringService,
-        private usingService: UsingService
+        
     ) {
         
         this.ctlSkill = this.fb.control(null, [Validators.minLength(3)]);
         this.ctlCategory = this.fb.control(null, [Validators.minLength(3)]);
         this.ctlLevel = this.fb.control(Level.Advanced, []);
        
-
-        
         this.frm = this.fb.group({
             skill: this.ctlSkill,
             level: this.ctlLevel,
             
         });
-
         this.isNew = data.isNew;
         this.masterings = data.masterings;
-        console.log(this.masterings);
-        console.log(data);
-        this.frm.patchValue(data.masterings);
+     
        
+        this.frm.patchValue(data.masterings);
     }
 
     // Validateur bidon qui vérifie que la valeur est différente
@@ -66,18 +67,7 @@ export class EditCompetencesListComponent {
         };
     }
 
-    delete(mastering: Mastering){
-        this.masteringService.delete(mastering).subscribe(res =>{
-           //this.refresh(mastering?.userId!);
-        })
-    }
-
-    /*save(mastering: Mastering){
-        
-        this.masteringService.save(mastering).subscribe(res =>{
-            this.refresh(mastering?.userId!);
-        });
-    }*/
+   
 
     create(){
       
@@ -107,5 +97,9 @@ export class EditCompetencesListComponent {
 
     cancel() {
         this.dialogRef.close();
+    
+       
+       
+        
     }
 }

@@ -78,7 +78,6 @@ public class MasteringController : ControllerBase
                    }
                    _context.SaveChanges();
                    //await _context.SaveChangesAsync(); 
-                 
             }
             return NoContent();
         }

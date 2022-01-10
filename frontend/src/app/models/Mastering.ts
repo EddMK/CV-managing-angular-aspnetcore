@@ -35,15 +35,18 @@ export class Mastering {
        this.level = level;
    }
 
-   public get levelValue(){
+   public get levelValue() : number{
        if(this.level?.toString() === "Beginner"){
            return 0;
        }
        else if(this.level?.toString() == "Intermediate"){
            return 1;
        }
-       else {
+       else if(this.level?.toString() == "Advanced"){
            return 2;
+       }
+       else {
+           return 3;
        }
    }
 

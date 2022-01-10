@@ -8,48 +8,48 @@
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end" [ngClass]="{ show: isExpanded }">
                 <ul class="navbar-nav flex-grow">
                     <li class="nav-item" [routerLinkActive]='["link-active"]' >
-                        <a class="nav-link text-white" [routerLink]="['/']">
-                            <span class="material-icons">home</span>
+                        <a class="nav-link text-white " [routerLink]="['/']">
+                            <span class="material-icons">home</span> Home
                         </a>
                     </li>
                     <li class="nav-item" [routerLinkActive]='["link-active"]' *ngIf="isManager">
                         <a class="nav-link text-white" [routerLink]="['/skill-list']">
-                            <span class="material-icons">construction</span>
+                            <span class="material-icons">construction</span> Skills
                         </a>
                     </li>
 
                     <li class="nav-item" [routerLinkActive]='["link-active"]' *ngIf="isManager">
                         <a class="nav-link text-white" [routerLink]="['/enterprise-list']">
-                            <span class="material-icons">business</span>
+                            <span class="material-icons">business</span> Enterprises
                         </a>
                     </li>
                     
                     <li class="nav-item" [routerLinkActive]='["link-active"]'  *ngIf="isManager">
                         <a class="nav-link text-white" [routerLink]="['/team']">
-                            <span class="material-icons">groups</span>
+                            <span class="material-icons">groups</span> Team
                         </a>
                     </li>
                     <li class="nav-item" [routerLinkActive]='["link-active"]'  *ngIf="currentUser">
                         <a class="nav-link text-white" [routerLink]="['/CV']">
-                            <span class="material-icons">description</span>
+                            <span class="material-icons">description</span> CV
                         </a>
                     </li>
                     <li class="nav-item" [routerLinkActive]='["link-active"]' *ngIf="!currentUser">
                         <a class="nav-link text-white" [routerLink]='["/login"]'>
-                            <span class="material-icons">exit_to_app</span>
+                            <span class="material-icons">exit_to_app</span> Login
                         
                         </a>
                     </li>
                     <li class="nav-item" [routerLinkActive]='["link-active"]' *ngIf="!currentUser">
                         <a class="nav-link text-white" [routerLink]="['/signup']">
-                            <span class="material-icons">person_add_alt</span>
+                            <span class="material-icons">person_add_alt</span> Signup
                         </a>
                     </li>
                 
                     <li class="nav-item" [routerLinkActive]='["link-active"]' *ngIf="currentUser">
                     
                         <a class="nav-link text-white" [routerLink]='' (click)='logout()'>
-                            <span class="material-icons">power_settings_new</span> 
+                            <span class="material-icons">power_settings_new</span>  Logout
                         </a>
                         
                     </li>

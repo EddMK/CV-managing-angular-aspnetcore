@@ -31,7 +31,11 @@ import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 const startDateValidation: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
     const start = control.get('start') as FormControl;
     const finish = control.get('finish') as FormControl;
-    return start.value !== null && finish.value !== null && start.value < finish.value ? null :{ dateValid:true };
+    if(finish.value === null ||  start.value === null){
+        return null;
+    }else{
+        return (start.value !== null && finish.value !== null) && start.value < finish.value ? null :{ dateValid:true };
+    }
 }
 
 
@@ -74,8 +78,8 @@ export class EditTrainingComponent{
     ) {
         this.ctlStart = this.fb.control('', Validators.required);
         this.ctlFinish = this.fb.control('', Validators.required);
-        this.ctlEnterprise = this.fb.control({value : 'CACA'});
-        this.ctlTitle = this.fb.control('');
+        this.ctlEnterprise = this.fb.control('');
+        this.ctlTitle = this.fb.control('',Validators.required);
         this.ctlDescription = this.fb.control('');
         this.ctlGrade = this.fb.control('', [Validators.min(0),Validators.max(100)]);
         this.ctlLanguages = this.fb.control('');
@@ -105,10 +109,7 @@ export class EditTrainingComponent{
                 this.isTraining = true;
             }
         }
-        
-        console.log("BOOLEAN IS TRAINING : "+this.isTraining);
         this.isNew = data.isNew;
-        console.log(data.training);
         this.idExperience = data.training.idExperience!;
         this.distribution(data.training);
         this.enterpriseService.getAll().subscribe( enterprises =>{
@@ -150,24 +151,37 @@ export class EditTrainingComponent{
         });
     }
 
+    isInTheListLanguage(name : string) : boolean{
+        for( const str in this.getLanguages){
+            if(this.getLanguages[str].skill?.name == name){
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     addLanguage(event: MatChipInputEvent): void {
         const value = (event.value || '').trim();
-        var exist = this.frm.controls['languages'].value.includes(value);
+        var exist = this.isInTheListLanguage(value);
+        //console.log("boolean : "+this.isInTheListLanguage(value));
         if ((value || '').trim()) {
             if(!exist){
                 this.langList.errorState = false;
-                console.log(value);
+                //console.log(value);
                 this.skillService.getByName(value).subscribe(res =>{
-                    console.log(res);
                     if(res != null){
-                        this.usingService.AddUsing(this.idExperience,res).subscribe(res2 => {
-                            console.log(res2);
+                        if(res.categoryId ===  1){
+                            this.usingService.AddUsing(this.idExperience,res).subscribe(res2 => {
                             this.frm.controls['languages'].value.push(res2);
-                            if (!res2) {
-                                this.snackBar.open(`There was an error at the server. The member has not been created! Please try again.`, 'Dismiss', { duration: 10000 });
-                            }
-                        });
+                                if (!res2) {
+                                    this.snackBar.open(`There was an error at the server. The member has not been created! Please try again.`, 'Dismiss', { duration: 10000 });
+                                }
+                            });
+                        }else{
+                            this.snackBar.open(`Skill is not a language !`, 'Dismiss', { duration: 10000 });
+                        }
+                        
                     }else{
                         this.snackBar.open(`Skill does not exist in database !`, 'Dismiss', { duration: 10000 });
                     }
@@ -189,23 +203,34 @@ export class EditTrainingComponent{
         }
       }
 
+        isInTheListDatabase(name : string) : boolean{
+            for( const str in this.getDatabases){
+                if(this.getDatabases[str].skill?.name == name){
+                    return true;
+                }
+            }
+            return false;
+        }
+
     
       addDatabase(event: MatChipInputEvent): void {
         const value = (event.value || '').trim();
-        var exist = this.frm.controls['databases'].value.includes(value);
+        var exist = this.isInTheListDatabase(value);
         if ((value || '').trim()) {
             if(!exist){
                 this.dataList.errorState = false;
                 this.skillService.getByName(value).subscribe(res =>{
-                    console.log(res);
                     if(res != null){
-                        this.usingService.AddUsing(this.idExperience,res).subscribe(res2 => {
-                             console.log(res2);
-                            this.frm.controls['databases'].value.push(res2);
-                            if (!res2) {
-                                this.snackBar.open(`There was an error at the server. The member has not been created! Please try again.`, 'Dismiss', { duration: 10000 });
-                            }
-                        }); 
+                        if(res.categoryId ===  2){
+                            this.usingService.AddUsing(this.idExperience,res).subscribe(res2 => {
+                                this.frm.controls['databases'].value.push(res2);
+                                if (!res2) {
+                                    this.snackBar.open(`There was an error at the server. The member has not been created! Please try again.`, 'Dismiss', { duration: 10000 });
+                                }
+                            });
+                        }else{
+                            this.snackBar.open(`Skill is not a database`, 'Dismiss', { duration: 10000 });
+                        } 
                     }else{
                         this.snackBar.open(`Skill does not exist in database !`, 'Dismiss', { duration: 10000 });
                     }
@@ -226,22 +251,33 @@ export class EditTrainingComponent{
         }
       }
 
+      isInTheListFramework(name : string) : boolean{
+        for( const str in this.getFrameworks){
+            if(this.getFrameworks[str].skill?.name == name){
+                return true;
+            }
+        }
+        return false;
+    }
+
       addFramework(event: MatChipInputEvent): void {
         const value = (event.value || '').trim();
-        var exist = this.frm.controls['frameworks'].value.includes(value);
+        var exist = this.isInTheListFramework(value);
         if ((value || '').trim()) {
             if(!exist){
                 this.frameList.errorState = false;
                 this.skillService.getByName(value).subscribe(res =>{
-                    console.log(res);
                     if(res != null){
-                        this.usingService.AddUsing(this.idExperience,res).subscribe(res2 => {
-                             console.log(res2);
-                            this.frm.controls['frameworks'].value.push(res2);
-                            if (!res2) {
-                                this.snackBar.open(`There was an error at the server. The member has not been created! Please try again.`, 'Dismiss', { duration: 10000 });
-                            }
-                        }); 
+                        if(res.categoryId === 3){
+                            this.usingService.AddUsing(this.idExperience,res).subscribe(res2 => {
+                                this.frm.controls['frameworks'].value.push(res2);
+                                if (!res2) {
+                                    this.snackBar.open(`There was an error at the server. The member has not been created! Please try again.`, 'Dismiss', { duration: 10000 });
+                                }
+                            });
+                        }else{
+                            this.snackBar.open(`Skill is not a framework !`, 'Dismiss', { duration: 10000 });
+                        }
                     }else{
                         this.snackBar.open(`Skill does not exist in database !`, 'Dismiss', { duration: 10000 });
                     }
@@ -281,7 +317,11 @@ export class EditTrainingComponent{
     }
 
     update() {
-        this.dialogRef.close(this.frm.value);
+
+        //console.log(this.frm.dirty);
+        console.log(this.frm.status);
+        this.dialogRef.close();
+        //this.dialogRef.close(this.frm.value);
     }
 
     cancel() {

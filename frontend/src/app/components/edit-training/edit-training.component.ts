@@ -1,17 +1,10 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, Inject } from '@angular/core';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Inject } from '@angular/core';
 import { UsingService } from '../../services/using.service';
 import { SkillService } from '../../services/skills.service';
 import { EnterpriseService } from '../../services/enterprise.service';
-import { FormGroup } from '@angular/forms';
-import { FormControl } from '@angular/forms';
-import { ValidatorFn } from '@angular/forms';
-import { AbstractControl } from '@angular/forms';
-import { ValidationErrors } from '@angular/forms';
-import { FormBuilder } from '@angular/forms';
-import { Validators } from '@angular/forms';
+import { FormGroup, FormControl, ValidatorFn, AbstractControl, Validators, FormBuilder, ValidationErrors } from '@angular/forms';
 import { Experience } from 'src/app/models/Experience';
 import { Using } from 'src/app/models/Using';
 import * as _ from 'lodash-es';
@@ -317,11 +310,7 @@ export class EditTrainingComponent{
     }
 
     update() {
-
-        //console.log(this.frm.dirty);
-        console.log(this.frm.status);
-        this.dialogRef.close();
-        //this.dialogRef.close(this.frm.value);
+        this.dialogRef.close(this.frm.value);
     }
 
     cancel() {

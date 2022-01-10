@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { MAT_DATE_LOCALE} from '@angular/material/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -93,7 +94,8 @@ export function getBaseUrl() {
     providers: [
         { provide: 'BASE_URL', useFactory: getBaseUrl, deps: [] },
         { provide: 'BASE_URL', useFactory: getBaseUrl, deps: [] },
-        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+        {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
     ],
     bootstrap: [AppComponent]
 })

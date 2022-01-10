@@ -102,7 +102,7 @@ namespace prid_2122_g04.Controllers
         [AllowAnonymous]
         [HttpPut]
         public async Task<IActionResult> Put(ExperienceDTO dto) {
-            Console.WriteLine("role : " + dto.Role);
+            //Console.WriteLine("date start training : " + dto.Start);
             var exists = await _context.Trainings.FindAsync(dto.IdExperience);
             exists.Description = dto.Description;
             exists.Start = dto.Start;

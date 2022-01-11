@@ -8,18 +8,11 @@
 <form id="frm" class="form" [formGroup]="frm" novalidate>
         <mat-form-field>
             <input matInput placeholder="Skill"  [formControl]="ctlSkill" >
-          
+            <!--  mat-selct here-->
         </mat-form-field>
-    
         <mat-form-field>
-            <mat-select placeholder="Category"  [formControl]="ctlCategory">
-                <mat-option [value]="3">Framework</mat-option>
-                <mat-option [value]="2">Database</mat-option>
-                <mat-option [value]="1">Language</mat-option>
-            </mat-select>   
+            <input matInput placeholder="Category"  [formControl]="ctlCategory" readonly > 
         </mat-form-field>
-      
-       
         <mat-form-field>
             <mat-select placeholder="Level"  [formControl]="ctlLevel">
                 <mat-option [value]="0">Beginner</mat-option>
@@ -28,14 +21,14 @@
                 <mat-option [value]="3">Expert</mat-option>
             </mat-select>
         </mat-form-field>
-        <button mat-icon-button tabindex="-1">
-            <mat-icon >add</mat-icon>
-        </button>
+       
+        <button class="btn btn-outline-primary ml-2 mr-0" > <mat-icon >add</mat-icon></button>
     
   
     <div class="footer">
        <!--- <button type="submit" mat-button form="frm"(click)="update()">update</button> -->
-        <button type="reset" mat-button (click)="update()">Close</button>
+        <button type="reset" mat-button (click)="update()">Update</button>
+        <button type="reset" mat-button (click)="cancel()">Close</button>
     </div>
    
   <!--  [disabled]="frm.pristine || frm.invalid || frm.pending" -->

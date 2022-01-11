@@ -15,6 +15,8 @@ import { MasteringService } from 'src/app/services/mastering.service';
 import { UsingService } from 'src/app/services/using.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EditCompetencesListComponent } from '../edit-competences-list/edit-competences-list.component';
+import { validateHorizontalPosition } from '@angular/cdk/overlay';
+import { SkillService } from 'src/app/services/skills.service';
 
 
 @Component({
@@ -24,43 +26,15 @@ import { EditCompetencesListComponent } from '../edit-competences-list/edit-comp
 })
 export class EditCompetenceComponent implements OnChanges{
     public frm!: FormGroup;
-    public ctlSkill!: FormControl;
-    public ctlCategory!: FormControl;
-    public ctlLevel!: FormControl;
-    public id: any;
     public selected: number;
   
-
-
     @Input() public mastering! : Mastering;
     @Output() public newRefreshEvent = new EventEmitter<number>();
 
-
     $emit: any;
   
- 
-
-    constructor(
-        private fb: FormBuilder,
-        private masteringService: MasteringService,
-        
-    ) {
-        
-        this.ctlSkill = this.fb.control(null, [Validators.minLength(3)]);
-        this.ctlCategory = this.fb.control(null, [Validators.minLength(3)]);
-        this.ctlLevel = this.fb.control(this.mastering?.levelValue!, []);
-        this.selected = this.mastering?.level!;
-     
-    
-        this.frm = this.fb.group({
-            
-            level: this.ctlLevel,
-            
-        });
-       
-        this.frm.patchValue(this.mastering);
-        
-       
+    constructor(private masteringService: MasteringService, private skillService : SkillService) {
+        this.selected = this.mastering?.levelValue!
     }
 
     // Validateur bidon qui vérifie que la valeur est différente
@@ -75,16 +49,14 @@ export class EditCompetenceComponent implements OnChanges{
 
     delete(mastering: Mastering){
         this.masteringService.delete(mastering).subscribe(res =>{
-           //this.refresh(mastering?.userId!);
            this.refreshParent(mastering);
         })
     }
 
     save(mastering: Mastering){
         console.log(this.selected)
-       
+        console.log(this.mastering.levelValue + " has level value")
         this.masteringService.save(mastering, this.selected).subscribe(res =>{
-           // this.refresh(mastering?.userId!);
            console.log(this.frm.value);
            this.refreshParent(mastering);
         });
@@ -94,17 +66,15 @@ export class EditCompetenceComponent implements OnChanges{
       
     }
 
-    refresh(id: number) {
-       
-        
-    }
-
     refreshParent(mastering : Mastering){
         this.newRefreshEvent.emit(mastering.userId);
     }
    
 
     ngOnChanges() {}
+
+
+  
 
 
 }

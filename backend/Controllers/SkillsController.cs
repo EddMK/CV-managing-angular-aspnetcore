@@ -33,6 +33,30 @@ namespace prid_2122_g04.Controllers
         public async Task<ActionResult<IEnumerable<SkillDto>>> GetAll() {
             return _mapper.Map<List<SkillDto>>(await _context.Skills.Include(e => e.category).ToListAsync());
         }
+        [AllowAnonymous]
+        [HttpGet("/skillsToAdd/{id}")]
+        public async Task<ActionResult<IEnumerable<SkillDto>>> GetSkillsToAdd(int id) {
+            var query = from s in _context.Skills
+                        join u in _context.Usings on s.skillId equals u.SkillId
+                        join m in _context.Masterings on s.skillId equals m.SkillId
+                        where u.experience.UserId == id && u.SkillId == s.skillId
+                        select s;
+
+             
+
+
+             return _mapper.Map<List<SkillDto>>(await query.Include(c => c.category).ToListAsync()); 
+        }
+
+        private Boolean isSkillInMastering(int id, List<Mastering> masterings){
+            foreach(Mastering m in masterings){
+                if(id == m.SkillId){
+                    return true;
+                }
+            }
+            return false;
+        }
+
 
         [HttpGet("~/getSkillById")]
         public async Task<ActionResult<SkillDto>> GetOne(int id) {

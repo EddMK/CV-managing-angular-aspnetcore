@@ -6,6 +6,8 @@ import { catchError, map } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { plainToClass } from 'class-transformer';
 import { Category } from '../models/Category';
+import { Mastering } from '../models/Mastering';
+import { Using } from '../models/Using';
 
 @Injectable({ providedIn: 'root' })
 export class SkillService {
@@ -16,6 +18,8 @@ export class SkillService {
             .pipe(map(res => plainToClass(Skill, res))
         );
     }
+
+
 
     getCategory(skill: Skill) {
         console.log("arrive : "+skill.name);

@@ -19,12 +19,13 @@ import { Variable } from '@angular/compiler/src/render3/r3_ast';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
+import { ThrowStmt } from '@angular/compiler';
 
 
 const startDateValidation: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
     const start = control.get('start') as FormControl;
     const finish = control.get('finish') as FormControl;
-    if(finish.value === null ||  start.value === null){
+    if(finish.value === null){
         return null;
     }else{
         return (start.value !== null && finish.value !== null) && start.value < finish.value ? null :{ dateValid:true };
@@ -34,7 +35,8 @@ const startDateValidation: ValidatorFn = (control: AbstractControl): ValidationE
 
 @Component({
     selector : 'app-edit-training',
-    templateUrl: './edit-training.component.html'
+    templateUrl: './edit-training.component.html',
+    styleUrls: ['./edit-training.component.css']
 })
 export class EditTrainingComponent{
     public frm!: FormGroup;
@@ -48,6 +50,8 @@ export class EditTrainingComponent{
     public ctlDatabases! : FormControl;
     public ctlFrameworks! : FormControl;
     public isNew: boolean;
+    public isProgress : boolean;
+    public disableProgress : boolean;
     public idExperience : any;
     public isTraining : boolean;
     visible = true;
@@ -70,7 +74,7 @@ export class EditTrainingComponent{
         public snackBar: MatSnackBar
     ) {
         this.ctlStart = this.fb.control('', Validators.required);
-        this.ctlFinish = this.fb.control('', Validators.required);
+        this.ctlFinish = this.fb.control('');
         this.ctlEnterprise = this.fb.control('');
         this.ctlTitle = this.fb.control('',Validators.required);
         this.ctlDescription = this.fb.control('');
@@ -102,6 +106,8 @@ export class EditTrainingComponent{
                 this.isTraining = true;
             }
         }
+        this.disableProgress = (data.training.finish == null)? true : false;
+        this.isProgress = (data.training.finish == null)? true : false;
         this.isNew = data.isNew;
         this.idExperience = data.training.idExperience!;
         this.distribution(data.training);
@@ -157,11 +163,9 @@ export class EditTrainingComponent{
     addLanguage(event: MatChipInputEvent): void {
         const value = (event.value || '').trim();
         var exist = this.isInTheListLanguage(value);
-        //console.log("boolean : "+this.isInTheListLanguage(value));
         if ((value || '').trim()) {
             if(!exist){
                 this.langList.errorState = false;
-                //console.log(value);
                 this.skillService.getByName(value).subscribe(res =>{
                     if(res != null){
                         if(res.categoryId ===  1){
@@ -302,6 +306,14 @@ export class EditTrainingComponent{
 
     get getFrameworks(){
         return this.frm.get('frameworks')?.value;
+    }
+
+    progressChange(checked : boolean){
+        console.log("boolean : "+checked);
+        if(checked){
+            this.ctlFinish.setValue(null);
+        }
+        this.isProgress = checked;
     }
 
 

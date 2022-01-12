@@ -60,9 +60,8 @@ namespace backend
             
           // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration => {
-                configuration.RootPath = "frontend/dist";
+                configuration.RootPath = "wwwroot/frontend";
             });
-
            
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "prid-2122-g04", Version = "v1" });

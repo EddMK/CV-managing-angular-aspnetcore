@@ -66,6 +66,12 @@ export class SkillsComponent  implements OnInit {
     return this.authenticationService.currentUser;
    }
 
+   isNotEmpty(category : string) : boolean{
+      if(this.masterings.filter(m => m.categoryToString === category).length === 0){
+        return false;
+      }
+      return true;
+   }
 
    onEditMode() {
      if(!this.isEditable){

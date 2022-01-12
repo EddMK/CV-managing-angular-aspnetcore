@@ -41,3 +41,52 @@
     margin-top: 30px;
 }
 
+
+.start{
+    /*border: 3px solid #6921ad;*/
+    margin-right: 7%;
+}
+
+.finish{
+    /*border: 3px solid #3f21ad;*/
+    margin-left: 7%;
+}
+
+.title{
+    /*border: 3px solid #3f21ad;*/
+    width: 95%;
+}
+
+.description{
+    /*border: 3px solid #3f21ad;*/
+    width: 95%;
+    height: 10%;
+}
+
+.languages{
+    width: 95%;
+}
+
+.databases{
+    width: 95%;
+}
+
+.frameworks{
+    width: 95%;
+}
+
+.grade{
+    width : 10%;
+    margin-left: 15%;
+    margin-right: 0%;
+}
+
+.enterprise{
+    width : 70%;
+}
+
+h1{
+    text-align:center;
+    text-decoration: underline;
+}
+

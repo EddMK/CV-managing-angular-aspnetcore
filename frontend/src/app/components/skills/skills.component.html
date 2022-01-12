@@ -1,24 +1,24 @@
 <div *ngIf="isUserConnected"> 
   
-<H1 class = "font-weight-bold" style='font-size: 30px; font-family:Segoe UI' (click)="edit(masterings)">COMPETENCES</H1>
+<h1 class = "font-weight-bold" (click)="edit(masterings)">COMPETENCES</h1>
 
 
 <div class="row" >
     <div class="col-sm-12  d-inline" >
         <div *ngIf="masterings.length > 0">
-            <p class="categories">Language :</p>
+            <p class="categories"  *ngIf="isNotEmpty('Language')">Language :</p>
             <div *ngFor="let mastering of masterings; let last = last" Style="display: inline-flex">
                 <p *ngIf="mastering.categoryToString === 'Language'" >
                     {{ mastering.skilltoString}}  : {{ mastering.level}}    {{ !last? ',' : '' }}
                 </p>
             </div>
-            <p class="categories">Database :</p>
+            <p class="categories"  *ngIf="isNotEmpty('Database')">Database :</p>
             <div *ngFor="let mastering of masterings" Style="display: inline-flex">
                 <p *ngIf="mastering.categoryToString === 'Database'" >
                     {{ mastering.skilltoString}}  : {{ mastering.level}}   , 
                 </p>
             </div>
-            <p class="categories">Framework :</p>
+            <p class="categories"  *ngIf="isNotEmpty('Framework')">Framework :</p>
             <div *ngFor="let mastering of masterings" Style="display: inline-flex">
                 <p  *ngIf="mastering.categoryToString === 'Framework'" >
                     {{ mastering.skilltoString}}  : {{ mastering.level}}   , 

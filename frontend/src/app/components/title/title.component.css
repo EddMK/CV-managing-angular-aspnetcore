@@ -7,3 +7,12 @@
     margin-bottom: 7em;
     clip-path: circle();
 }
+
+h1{
+    font-size: 30px; 
+    font-family: Helvetica;
+}
+
+h1:hover{
+    color: rgb(107, 183, 189);
+}

@@ -25,7 +25,7 @@ namespace backend.Models {
          public User User { get; set; }
 
         public DateTime Start { get;set;}
-        [Required (ErrorMessage = "Required")]
+        //[Required (ErrorMessage = "Required")]
         public DateTime Finish { get;set;}
         [Required (ErrorMessage = "Required")]
         
@@ -66,6 +66,8 @@ namespace backend.Models {
             if(Finish<Start){
                 yield return new ValidationResult("The Date of finish must be older than the start Date", null );
             }
+
+            
         }
 
     }

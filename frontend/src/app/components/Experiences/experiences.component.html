@@ -1,12 +1,12 @@
 
-<H1 class = "font-weight-bold mt-sm-2" style='font-size: 30px; font-family:Segoe UI' (click)="onAddTraining()">
+<h1 class = "font-weight-bold mt-sm-2" (click)="onAddTraining()">
     TRAININGS
     <span *ngIf="isAddableTraining">
       <button mat-icon-button>
         <mat-icon (click)="addTraining()">add</mat-icon>
     </button>
     </span>
-</H1>
+</h1>
 <div *ngIf = "trainings.length > 0" >
    <div *ngFor="let training of trainings"  (click)="onEditTraining()">
       <p> {{ training.start?.format('DD/MM/YYYY')}}   :    {{ training.finish?.format('DD/MM/YYYY')}}  : <span class="font-weight-bold ml-3">  {{ training.enterprise?.name }} - {{ training.title}} </span>
@@ -24,14 +24,14 @@
       <app-usinglist [IdExperience] = "training"></app-usinglist>
   </div> 
 </div>
-<H1 class = "font-weight-bold mt-sm-2" style='font-size: 30px; font-family:Segoe UI' (click)="onAddMission()">
+<h1 class = "font-weight-bold mt-sm-2"  (click)="onAddMission()">
   MISSIONS
   <span *ngIf="isAddableMission">
     <button mat-icon-button>
       <mat-icon (click)="addMission()">add</mat-icon>
   </button>
   </span>
-</H1>
+</h1>
 <div *ngIf = "missions.length > 0" >
   <div *ngFor="let mission of missions"  (click)="onEditMission()">    
       <p> {{ mission.start?.format('DD/MM/YYYY')}}   :    {{ mission.finish?.format('DD/MM/YYYY')}}    <span class="font-weight-bold ml-3">  {{ mission.enterpriseToString }} - {{ mission.title}} </span>

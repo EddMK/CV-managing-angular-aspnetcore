@@ -17,7 +17,7 @@ import { EnterpriseListComponent} from '../components/enterprise-list/enterprise
 //import { RestrictedComponent } from '../components/restricted/restricted.component';
 import {EditSkillComponent} from '../components/edit-skill/edit-skill.component';
 import {EditEnterpriseComponent} from '../components/edit-enterprise/edit-enterprise.component';
-import {EditTrainingComponent } from '../components/edit-training/edit-training.component';
+import {EditExperienceComponent } from '../components/edit-experience/edit-experience.component';
 import { UnknownComponent } from '../components/unknown/unknown.component';
 import { JwtInterceptor } from '../interceptors/jwt.interceptor';
 import { LoginComponent } from '../components/login/login.component';
@@ -58,7 +58,7 @@ export function getBaseUrl() {
         ExperiencesComponent,
         UsinglistComponent,
         EditSkillComponent,
-        EditTrainingComponent,
+        EditExperienceComponent,
         EditEnterpriseComponent,
         SkillListComponent,
         EnterpriseListComponent,

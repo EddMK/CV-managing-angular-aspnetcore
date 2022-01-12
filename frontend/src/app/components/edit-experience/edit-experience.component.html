@@ -59,7 +59,7 @@
                     <mat-chip *ngFor="let language of getLanguages" 
                                     [selectable]="selectable"
                                     [removable]="removable" 
-                                    (removed) = "removeLanguage(language)">
+                                    (removed) = "removeUsing(language, 'Languages' )">
                         {{language.skill?.name}}
                         <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                     </mat-chip>
@@ -67,7 +67,7 @@
                             [matChipInputFor]="langList"
                             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                             [matChipInputAddOnBlur]="addOnBlur"
-                            (matChipInputTokenEnd)="addLanguage($event)">
+                            (matChipInputTokenEnd)="addSkill($event, 'Languages')">
                 </mat-chip-list>
                 <mat-error class="field-error" *ngIf="langList.errorState">Already in the list</mat-error>
             </mat-form-field>
@@ -76,7 +76,7 @@
                     <mat-chip *ngFor="let database of getDatabases" 
                                     [selectable]="selectable"
                                     [removable]="removable" 
-                                    (removed) = "removeDatabase(database)">
+                                    (removed) = "removeUsing(database, 'Databases')">
                         {{database.skill?.name}}
                         <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                     </mat-chip>
@@ -84,7 +84,7 @@
                                     [matChipInputFor]="dataList"
                                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                                     [matChipInputAddOnBlur]="addOnBlur"
-                                    (matChipInputTokenEnd)="addDatabase($event)">
+                                    (matChipInputTokenEnd)="addSkill($event, 'Databases')">
                 </mat-chip-list>
                 <mat-error class="field-error" *ngIf="dataList.errorState">Already in the list</mat-error>
             </mat-form-field>
@@ -93,7 +93,7 @@
                     <mat-chip *ngFor="let framework of getFrameworks" 
                                     [selectable]="selectable"
                                     [removable]="removable" 
-                                    (removed) = "removeFramework(framework)">
+                                    (removed) = "removeUsing(framework, 'Frameworks')">
                         {{framework.skill?.name}}
                         <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                     </mat-chip>
@@ -101,7 +101,7 @@
                                     [matChipInputFor]="frameList"
                                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                                     [matChipInputAddOnBlur]="addOnBlur"
-                                    (matChipInputTokenEnd)="addFramework($event)">
+                                    (matChipInputTokenEnd)="addSkill($event, 'Frameworks')">
                 </mat-chip-list>
                 <mat-error class="field-error" *ngIf="frameList.errorState">Already in the list</mat-error>
             </mat-form-field>

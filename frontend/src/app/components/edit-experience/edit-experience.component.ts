@@ -34,11 +34,11 @@ const startDateValidation: ValidatorFn = (control: AbstractControl): ValidationE
 
 
 @Component({
-    selector : 'app-edit-training',
-    templateUrl: './edit-training.component.html',
-    styleUrls: ['./edit-training.component.css']
+    selector : 'app-edit-experience',
+    templateUrl: './edit-experience.component.html',
+    styleUrls: ['./edit-experience.component.css']
 })
-export class EditTrainingComponent{
+export class EditExperienceComponent{
     public frm!: FormGroup;
     public ctlStart!: FormControl;
     public ctlFinish!: FormControl;
@@ -65,7 +65,7 @@ export class EditTrainingComponent{
     @ViewChild("dataList") dataList :  any;
     @ViewChild("frameList") frameList :  any;
 
-    constructor(public dialogRef: MatDialogRef<EditTrainingComponent>,
+    constructor(public dialogRef: MatDialogRef<EditExperienceComponent>,
         @Inject(MAT_DIALOG_DATA) public data: { training: Experience; isNew: boolean, isMission : boolean},
         private fb: FormBuilder,
         private usingService: UsingService,
@@ -89,9 +89,9 @@ export class EditTrainingComponent{
             title : this.ctlTitle,
             description : this.ctlDescription,
             grade : this.ctlGrade,
-            languages : this.ctlLanguages,
-            databases : this.ctlDatabases,
-            frameworks : this.ctlFrameworks
+            Languages : this.ctlLanguages,
+            Databases : this.ctlDatabases,
+            Frameworks : this.ctlFrameworks
         }, { validators : startDateValidation });
         if(!data.isNew){
             if(data.training?.role?.toString() === "TRAINING"){
@@ -119,11 +119,6 @@ export class EditTrainingComponent{
       displayFn(e: Enterprise): string {
         return e && e.name ? e.name : '';
       }
-    
-
-    setError() {
-        this.langList.errorState = true;
-    }
 
     distribution(experience : Experience) : void{
         var language  = new Array() ;
@@ -144,168 +139,89 @@ export class EditTrainingComponent{
             title : experience.title,
             description : experience.description,
             grade : experience.grade,
-            languages : language,
-            databases : database,
-            frameworks : framework
+            Languages : language,
+            Databases : database,
+            Frameworks : framework
         });
     }
 
-    isInTheListLanguage(name : string) : boolean{
-        for( const str in this.getLanguages){
-            if(this.getLanguages[str].skill?.name == name){
-                return true;
-            }
+    setError(category : string, state : boolean) : number {
+        switch (category) {
+            case "Languages":
+                this.langList.errorState = state;
+                return 1;
+            case "Databases":
+                this.dataList.errorState = state;
+                return 2;
+            case "Frameworks":
+                this.frameList.errorState = state;
+                return 3;
         }
-        return false;
+        return 0;
     }
 
-
-    addLanguage(event: MatChipInputEvent): void {
+    addSkill(event: MatChipInputEvent, category : string): void {
         const value = (event.value || '').trim();
-        var exist = this.isInTheListLanguage(value);
+        var exist = this.isInTheList(value, category);
         if ((value || '').trim()) {
             if(!exist){
-                this.langList.errorState = false;
+                var numerId = this.setError(category, false);
+                console.log("numer Id : "+numerId+"  "+category);
                 this.skillService.getByName(value).subscribe(res =>{
                     if(res != null){
-                        if(res.categoryId ===  1){
+                        if(res.categoryId ===  numerId){
                             this.usingService.AddUsing(this.idExperience,res).subscribe(res2 => {
-                            this.frm.controls['languages'].value.push(res2);
+                            this.frm.controls[category].value.push(res2);
                                 if (!res2) {
                                     this.snackBar.open(`There was an error at the server. The member has not been created! Please try again.`, 'Dismiss', { duration: 10000 });
                                 }
                             });
                         }else{
-                            this.snackBar.open(`Skill is not a language !`, 'Dismiss', { duration: 10000 });
-                        }
-                        
-                    }else{
-                        this.snackBar.open(`Skill does not exist in database !`, 'Dismiss', { duration: 10000 });
-                    }
-                });
-            }else{
-                this.langList.errorState = true;
-            }
-        }
-        event.chipInput!.clear();
-      }
-    
-    
-      removeLanguage(language: Using): void {
-        const index = this.frm.controls['languages'].value.indexOf(language);
-        const idSkill = language.skill?.skillId;
-        if (index > -1) {
-            this.frm.controls['languages'].value.splice(index, 1);  
-            this.usingService.DeleteUsing(this.idExperience,idSkill).subscribe(); 
-        }
-      }
-
-        isInTheListDatabase(name : string) : boolean{
-            for( const str in this.getDatabases){
-                if(this.getDatabases[str].skill?.name == name){
-                    return true;
-                }
-            }
-            return false;
-        }
-
-    
-      addDatabase(event: MatChipInputEvent): void {
-        const value = (event.value || '').trim();
-        var exist = this.isInTheListDatabase(value);
-        if ((value || '').trim()) {
-            if(!exist){
-                this.dataList.errorState = false;
-                this.skillService.getByName(value).subscribe(res =>{
-                    if(res != null){
-                        if(res.categoryId ===  2){
-                            this.usingService.AddUsing(this.idExperience,res).subscribe(res2 => {
-                                this.frm.controls['databases'].value.push(res2);
-                                if (!res2) {
-                                    this.snackBar.open(`There was an error at the server. The member has not been created! Please try again.`, 'Dismiss', { duration: 10000 });
-                                }
-                            });
-                        }else{
-                            this.snackBar.open(`Skill is not a database`, 'Dismiss', { duration: 10000 });
-                        } 
-                    }else{
-                        this.snackBar.open(`Skill does not exist in database !`, 'Dismiss', { duration: 10000 });
-                    }
-                });
-            }else{
-                this.dataList.errorState = true;
-            }
-        }
-        event.chipInput!.clear();
-      }
-    
-      removeDatabase(database: Using): void {
-        const index = this.frm.controls['databases'].value.indexOf(database);
-        const idSkill = database.skill?.skillId;
-        if (index > -1) {
-            this.frm.controls['databases'].value.splice(index, 1);  
-            this.usingService.DeleteUsing(this.idExperience,idSkill).subscribe(); 
-        }
-      }
-
-      isInTheListFramework(name : string) : boolean{
-        for( const str in this.getFrameworks){
-            if(this.getFrameworks[str].skill?.name == name){
-                return true;
-            }
-        }
-        return false;
-    }
-
-      addFramework(event: MatChipInputEvent): void {
-        const value = (event.value || '').trim();
-        var exist = this.isInTheListFramework(value);
-        if ((value || '').trim()) {
-            if(!exist){
-                this.frameList.errorState = false;
-                this.skillService.getByName(value).subscribe(res =>{
-                    if(res != null){
-                        if(res.categoryId === 3){
-                            this.usingService.AddUsing(this.idExperience,res).subscribe(res2 => {
-                                this.frm.controls['frameworks'].value.push(res2);
-                                if (!res2) {
-                                    this.snackBar.open(`There was an error at the server. The member has not been created! Please try again.`, 'Dismiss', { duration: 10000 });
-                                }
-                            });
-                        }else{
-                            this.snackBar.open(`Skill is not a framework !`, 'Dismiss', { duration: 10000 });
+                            this.snackBar.open(`Skill is not in this category !`, 'Dismiss', { duration: 10000 });
                         }
                     }else{
                         this.snackBar.open(`Skill does not exist in database !`, 'Dismiss', { duration: 10000 });
                     }
                 });
             }else{
-                this.frameList.errorState = true;
+                this.setError(category, true);
             }
         }
         event.chipInput!.clear();
-      }
-               
-    
-      removeFramework(framework: Using): void {
-        const index = this.frm.controls['frameworks'].value.indexOf(framework);
-        const idSkill = framework.skill?.skillId;
+    }
+        
+    isInTheList(name : string, category : string) : boolean{
+        for( const str in this.getSkills(category)){
+            if(this.getSkills(category)[str].skill?.name == name){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    removeUsing(using : Using, category : string) : void{
+        const index = this.frm.controls[category].value.indexOf(using);
+        const idSkill = using.skill?.skillId;
         if (index > -1) {
-            this.frm.controls['frameworks'].value.splice(index, 1);  
+            this.frm.controls[category].value.splice(index, 1);  
             this.usingService.DeleteUsing(this.idExperience,idSkill).subscribe(); 
         }
+    }
+    
+      getSkills(category : string): any{
+        return this.frm.get(category)?.value;
       }
     
     get getLanguages() {
-        return this.frm.get('languages')?.value;
+        return this.frm.get('Languages')?.value;
     }
 
     get getDatabases(){
-        return this.frm.get('databases')?.value;
+        return this.frm.get('Databases')?.value;
     }
 
     get getFrameworks(){
-        return this.frm.get('frameworks')?.value;
+        return this.frm.get('Frameworks')?.value;
     }
 
     progressChange(checked : boolean){
@@ -315,7 +231,6 @@ export class EditTrainingComponent{
         }
         this.isProgress = checked;
     }
-
 
     onNoClick(): void {
         this.dialogRef.close();

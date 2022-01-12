@@ -1,0 +1,34 @@
+h1{
+    text-align:center;
+    text-decoration: underline;
+    margin-bottom: 10%;
+}
+
+.firstName{
+    width : 90%;
+}
+
+.lastName{
+    width : 90%;
+}
+
+.title{
+    width : 90%;
+}
+
+.add {
+    height: 40px;
+}
+
+.delete {
+    display: grid;
+    justify-items: center;
+}
+
+.footer {
+    display: grid;
+    justify-items: stretch;
+    align-items: center;
+    grid-template-columns: auto auto;
+    margin-top: 30px;
+}

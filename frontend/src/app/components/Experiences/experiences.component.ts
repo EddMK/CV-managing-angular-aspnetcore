@@ -9,7 +9,7 @@ import { Skill } from 'src/app/models/Skill';
 import { Enterprise } from 'src/app/models/Enterprise';
 import { UsingService } from 'src/app/services/using.service';
 import { MatDialog } from '@angular/material/dialog';
-import { EditTrainingComponent } from '../edit-training/edit-training.component';
+import { EditExperienceComponent } from '../edit-experience/edit-experience.component';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ConfirmService } from 'src/app/services/confirm.service';
 import * as _ from 'lodash-es';
@@ -106,7 +106,7 @@ export class ExperiencesComponent implements OnInit {
   addMission():void{
     const training = new Experience();
     if(this.isUserConnected){
-      const dlg = this.dialog.open(EditTrainingComponent, { data: { training, isNew: true, isMission : true}, height : '150%', width : '50%' });
+      const dlg = this.dialog.open(EditExperienceComponent, { data: { training, isNew: true, isMission : true}, height : '150%', width : '50%' });
       dlg.beforeClosed().subscribe(res => {
         if (res) {
           res.userId = this.currentUser?.userId!;
@@ -129,7 +129,7 @@ export class ExperiencesComponent implements OnInit {
   addTraining():void{
     const training = new Experience();
     if(this.isUserConnected){
-      const dlg = this.dialog.open(EditTrainingComponent, { data: { training, isNew: true, isMission : false}, height : '150%', width : '50%' });
+      const dlg = this.dialog.open(EditExperienceComponent, { data: { training, isNew: true, isMission : false}, height : '150%', width : '50%' });
       dlg.beforeClosed().subscribe(res => {
         if (res) {
           res.userId = this.currentUser?.userId!;
@@ -152,7 +152,7 @@ export class ExperiencesComponent implements OnInit {
       console.log(training);
       const enterprise = training.enterprise;
       //const idTraining = training.idExperience;
-      const dlg = this.dialog.open(EditTrainingComponent, { data: { training, isNew: false}, height : '150%', width : '50%' });
+      const dlg = this.dialog.open(EditExperienceComponent, { data: { training, isNew: false}, height : '150%', width : '50%' });
       dlg.beforeClosed().subscribe(res => {
           if (res) {
             res.enterprise = enterprise;

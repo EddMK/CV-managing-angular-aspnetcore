@@ -8,8 +8,6 @@ import { Mastering } from "./Mastering";
 import 'reflect-metadata';
 
 
-
-
 export enum Role {
     Manager = 0,
     Consultant = 1

@@ -6,12 +6,15 @@
 </div>
 </div>
 <form id="frm" class="form" [formGroup]="frm" novalidate>
-        <mat-form-field>
-            <input matInput placeholder="Skill"  [formControl]="ctlSkill" >
-            <!--  mat-selct here-->
+        <mat-form-field >
+            <mat-select [formControl]="ctlSkill" >
+                <mat-option *ngFor="let s of skillsToAdd" [value]="s">
+                  {{s?.name}}
+                </mat-option>
+              </mat-select>
         </mat-form-field>
         <mat-form-field>
-            <input matInput placeholder="Category"  [formControl]="ctlCategory" readonly > 
+            <input matInput placeholder="Category"  [value]="" readonly > 
         </mat-form-field>
         <mat-form-field>
             <mat-select placeholder="Level"  [formControl]="ctlLevel">
@@ -22,13 +25,12 @@
             </mat-select>
         </mat-form-field>
        
-        <button class="btn btn-outline-primary ml-2 mr-0" > <mat-icon >add</mat-icon></button>
+        <button class="btn btn-outline-primary ml-2 mr-0"  (click) = "create(frm)"> <mat-icon>add</mat-icon></button>
     
   
     <div class="footer">
        <!--- <button type="submit" mat-button form="frm"(click)="update()">update</button> -->
-        <button type="reset" mat-button (click)="update()">Update</button>
-        <button type="reset" mat-button (click)="cancel()">Close</button>
+        <button type="reset" mat-button (click)="update()">Close</button>
     </div>
    
   <!--  [disabled]="frm.pristine || frm.invalid || frm.pending" -->

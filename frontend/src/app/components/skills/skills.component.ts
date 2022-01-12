@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { User } from 'src/app/models/User';
 import { CVComponent } from '../CV/CV.component';
-import { Mastering } from 'src/app/models/Mastering';
+import { Level, Mastering } from 'src/app/models/Mastering';
 import { MasteringService } from 'src/app/services/mastering.service';
 import { isDefined } from '@angular/compiler/src/util';
 import { MatDialog } from '@angular/material/dialog';
@@ -81,6 +81,9 @@ export class SkillsComponent  implements OnInit {
        this.isEditable = false;
      }
    }
+
+   
+
 
    edit(masterings : Mastering[]){
      if(this.isUserConnected){

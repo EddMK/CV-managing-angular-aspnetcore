@@ -53,6 +53,7 @@ public class MasteringController : ControllerBase
             await _context.SaveChangesAsync();
             return NoContent();
         }
+
         [AllowAnonymous]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutMasterings(int id, [FromBody]int level) {

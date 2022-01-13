@@ -41,7 +41,7 @@ namespace backend
         public override void Write(Utf8JsonWriter writer, DateTime value, JsonSerializerOptions options)
         {
             int result = DateTime.Compare(value, new DateTime());
-            Console.WriteLine("RESULT : "+result);
+            //Console.WriteLine("RESULT : "+result);
             if(result == 0){
                 writer.WriteStringValue("");
             }else{

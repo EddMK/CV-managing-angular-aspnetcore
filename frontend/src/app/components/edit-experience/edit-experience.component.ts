@@ -75,7 +75,7 @@ export class EditExperienceComponent{
     ) {
         this.ctlStart = this.fb.control('', Validators.required);
         this.ctlFinish = this.fb.control('');
-        this.ctlEnterprise = this.fb.control('');
+        this.ctlEnterprise = this.fb.control('', Validators.required, [this.isInEnterprise()]);
         this.ctlTitle = this.fb.control('',Validators.required);
         this.ctlDescription = this.fb.control('');
         this.ctlGrade = this.fb.control('', [Validators.min(0),Validators.max(100)]);
@@ -116,9 +116,27 @@ export class EditExperienceComponent{
         });
     } 
 
-      displayFn(e: Enterprise): string {
+    displayFn(e: Enterprise): string {
         return e && e.name ? e.name : '';
-      }
+    }
+
+    isInEnterprise(): any {
+        let timeout: NodeJS.Timer;
+        return (ctl: FormControl) => {
+            clearTimeout(timeout);
+            const value = ctl.value;
+            return new Promise(resolve => {
+                timeout = setTimeout(() => {
+                    if (ctl.pristine) {
+                        resolve(null);
+                    } else {
+                        resolve(!this.listEnterprises.includes(value)?{isInEnterprise : true} : null);
+                    }
+                }, 300);
+            });
+        };
+    }
+
 
     distribution(experience : Experience) : void{
         var language  = new Array() ;
@@ -208,9 +226,9 @@ export class EditExperienceComponent{
         }
     }
     
-      getSkills(category : string): any{
+    getSkills(category : string): any{
         return this.frm.get(category)?.value;
-      }
+    }
     
     get getLanguages() {
         return this.frm.get('Languages')?.value;

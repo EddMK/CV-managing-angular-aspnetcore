@@ -17,6 +17,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SkillService } from 'src/app/services/skills.service';
 import { Skill } from 'src/app/models/Skill';
 import { Using } from 'src/app/models/Using';
+import { plainToClass } from 'class-transformer';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
     selector: 'app-edit-competenceslis-mat',
@@ -30,7 +32,11 @@ export class EditCompetencesListComponent {
     public ctlLevel!: FormControl;
     public isNew: boolean;
     public masterings: Mastering[];
+    
+    public skillsToAdd! : Skill[];
+    selectedValue!: Skill;
 
+    connectedUser : User | undefined;
 
   
 
@@ -38,25 +44,38 @@ export class EditCompetencesListComponent {
         @Inject(MAT_DIALOG_DATA) public data: { masterings: Mastering[];isNew: boolean; },
         private fb: FormBuilder,
         private masteringService: MasteringService,
+        private skillService: SkillService,
+        private authService: AuthenticationService
         
     ) {
-        
+        this.connectedUser = this.currentUser;
         this.ctlSkill = this.fb.control(null, [Validators.minLength(3)]);
         this.ctlCategory = this.fb.control(null, [Validators.minLength(3)]);
-        this.ctlLevel = this.fb.control(Level.Advanced, []);
+        this.ctlLevel = this.fb.control(null, []);
+        this.skillService.getAll().subscribe(res => {
+            this.skillsToAdd = res;
+        });
        
         this.frm = this.fb.group({
             skill: this.ctlSkill,
             level: this.ctlLevel,
             
+            
         });
         this.isNew = data.isNew;
         this.masterings = data.masterings;
+        
      
        
         this.frm.patchValue(data.masterings);
     }
+   
 
+    get currentUser()  {
+        return this.authService.currentUser;
+    }
+
+    
     // Validateur bidon qui vérifie que la valeur est différente
     forbiddenValue(val: string): any {
         return (ctl: FormControl) => {
@@ -69,7 +88,11 @@ export class EditCompetencesListComponent {
 
    
 
-    create(){
+    create(form : any){
+      const res = plainToClass(Mastering, form.value)
+      res.userId = this.currentUser?.userId
+      console.log(res.skill?.name)
+     
       
     }
 
@@ -93,6 +116,7 @@ export class EditCompetencesListComponent {
 
     update() {
         this.dialogRef.close(this.frm.value);
+        console.log(this.skillsToAdd);
     }
 
     cancel() {

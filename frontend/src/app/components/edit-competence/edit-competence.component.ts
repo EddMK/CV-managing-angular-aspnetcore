@@ -17,6 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EditCompetencesListComponent } from '../edit-competences-list/edit-competences-list.component';
 import { validateHorizontalPosition } from '@angular/cdk/overlay';
 import { SkillService } from 'src/app/services/skills.service';
+import { Skill } from 'src/app/models/Skill';
 
 
 @Component({
@@ -27,6 +28,7 @@ import { SkillService } from 'src/app/services/skills.service';
 export class EditCompetenceComponent implements OnChanges{
     public frm!: FormGroup;
     public selected: number;
+
   
     @Input() public mastering! : Mastering;
     @Output() public newRefreshEvent = new EventEmitter<number>();
@@ -35,6 +37,7 @@ export class EditCompetenceComponent implements OnChanges{
   
     constructor(private masteringService: MasteringService, private skillService : SkillService) {
         this.selected = this.mastering?.levelValue!
+        
     }
 
     // Validateur bidon qui vérifie que la valeur est différente

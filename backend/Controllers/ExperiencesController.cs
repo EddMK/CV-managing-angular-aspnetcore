@@ -65,11 +65,15 @@ namespace prid_2122_g04.Controllers
         public async Task<ActionResult<int>> PostTraining(ExperienceDTO training) {// X
             Console.WriteLine("ARRIVE POST !");
             Console.WriteLine("ROLE : "+training.Role);
+            int result = DateTime.Compare(training.Finish, new DateTime());
             var newTraining = new Training(){
                 UserId = training.UserId, Start = training.Start, Finish = training.Finish,
                 IdEnterprise = training.Enterprise.IdEnterprise, Title = training.Title, Description = training.Description,
                 Role = ExperienceRole.TRAINING, Grade = training.Grade
             };
+            if(result == 0){
+                newTraining.Finish = null;
+            }
             Console.WriteLine(newTraining.GetType());
             _context.Experience.Add(newTraining);
             var res = await _context.SaveChangesAsyncWithValidation();
@@ -84,11 +88,16 @@ namespace prid_2122_g04.Controllers
         [HttpPost("addMission/")]
         public async Task<ActionResult<int>> PostMission(ExperienceDTO training) {// X
             Console.WriteLine("ARRIVE POST  MISSION!");
-            Console.WriteLine("ROLE : "+training.Role);
+            Console.WriteLine("ROLE : "+training.Finish);
+            int result = DateTime.Compare(training.Finish, new DateTime());
+            //Console.WriteLine("int result = "+result);
             var newTraining = new Mission(){
                 UserId = training.UserId, Start = training.Start, Finish = training.Finish,
                 IdEnterprise = training.Enterprise.IdEnterprise, Title = training.Title, Description = training.Description,
                 Role = ExperienceRole.MISSION};
+            if(result == 0){
+                newTraining.Finish = null;
+            }
             Console.WriteLine(newTraining.GetType());
             _context.Experience.Add(newTraining);
             var res = await _context.SaveChangesAsyncWithValidation();

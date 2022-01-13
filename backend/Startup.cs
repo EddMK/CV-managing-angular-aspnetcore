@@ -28,18 +28,27 @@ namespace backend
 {
 
     public class DateTimeConverter : JsonConverter<DateTime>
-{
-    public override DateTime Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-        //Debug.Assert(typeToConvert == typeof(DateTime));
-        return DateTime.Parse(reader.GetString());
-    }
+        public override DateTime Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        {
+            if(reader.GetString() == null){
+                string s = "0001-1-1";
+                return DateTime.Parse(s);
+            }
+            return DateTime.Parse(reader.GetString());
+        }
 
-    public override void Write(Utf8JsonWriter writer, DateTime value, JsonSerializerOptions options)
-    {
-        writer.WriteStringValue(value.ToUniversalTime().ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ssZ"));
+        public override void Write(Utf8JsonWriter writer, DateTime value, JsonSerializerOptions options)
+        {
+            int result = DateTime.Compare(value, new DateTime());
+            Console.WriteLine("RESULT : "+result);
+            if(result == 0){
+                writer.WriteStringValue("");
+            }else{
+                writer.WriteStringValue(value.ToUniversalTime().ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ssZ"));
+            }
+        }
     }
-}
 
     public class Startup
     {

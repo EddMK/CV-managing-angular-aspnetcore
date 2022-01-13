@@ -26,7 +26,7 @@ namespace backend.Models {
 
         public DateTime Start { get;set;}
         //[Required (ErrorMessage = "Required")]
-        public DateTime Finish { get;set;}
+        public Nullable < DateTime > Finish { get;set;}
         [Required (ErrorMessage = "Required")]
         
         [ForeignKey(nameof(Enterprise))]

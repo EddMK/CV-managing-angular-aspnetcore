@@ -25,7 +25,7 @@ import { ThrowStmt } from '@angular/compiler';
 const startDateValidation: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
     const start = control.get('start') as FormControl;
     const finish = control.get('finish') as FormControl;
-    if(finish.value === null){
+    if(finish.value === null || finish.value == ''){
         return null;
     }else{
         return (start.value !== null && finish.value !== null) && start.value < finish.value ? null :{ dateValid:true };

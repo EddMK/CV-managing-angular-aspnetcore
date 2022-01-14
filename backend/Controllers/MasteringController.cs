@@ -55,9 +55,21 @@ public class MasteringController : ControllerBase
         }
 
        [AllowAnonymous]
-       [HttpPost]
-       public async Task<ActionResult<MasteringDto>> PostMastering(MasteringDto mastering){
+       [HttpPost("{userid}/{level}")]
+       public async Task<ActionResult<MasteringDto>> PostMastering(SkillDto s, int userid, int level){
             Console.WriteLine("arrived here in the mastering controller");
+            Console.WriteLine("skill : "+s.Name);
+            Console.WriteLine("userid : "+userid);
+            Console.WriteLine("level : "+level);
+            Mastering m =  new Mastering { userId=userid, SkillId= s.skillId,  Level = (Level)level};
+            _context.Masterings.Add(m);
+            var res = await _context.SaveChangesAsync();
+   
+           if (res == 0){
+            return BadRequest(res);
+            }
+            return CreatedAtAction(nameof(GetOne), new { mastering = m.masteringId }, _mapper.Map<MasteringDto>(m));
+            /*
             Mastering m =  new Mastering { masteringId= 0, userId=mastering.UserId, SkillId= mastering.SkillId,  Level = Level.Advanced};
             _context.Masterings.Add(m);
         
@@ -67,6 +79,7 @@ public class MasteringController : ControllerBase
             return BadRequest(res);
             }
             return CreatedAtAction(nameof(GetOne), new { mastering = mastering.masteringId }, _mapper.Map<MasteringDto>(m));
+            */
        }
 
 

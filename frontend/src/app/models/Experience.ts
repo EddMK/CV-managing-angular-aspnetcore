@@ -30,6 +30,7 @@ export class Experience {
     description?: string;
     role?: RoleExperience;
     enterprise?: Enterprise;
+    client?: Enterprise;
     grade?: number;
     usings: Using[] = [];
 

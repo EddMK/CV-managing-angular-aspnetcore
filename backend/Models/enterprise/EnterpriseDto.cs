@@ -8,5 +8,7 @@ namespace backend.Models
        public int IdEnterprise { get; set; }
        public string Name { get; set; }
 
+       public string EnterPriseRole { get; set; }
+
     }
 }

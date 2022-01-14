@@ -69,17 +69,7 @@ public class MasteringController : ControllerBase
             return BadRequest(res);
             }
             return CreatedAtAction(nameof(GetOne), new { mastering = m.masteringId }, _mapper.Map<MasteringDto>(m));
-            /*
-            Mastering m =  new Mastering { masteringId= 0, userId=mastering.UserId, SkillId= mastering.SkillId,  Level = Level.Advanced};
-            _context.Masterings.Add(m);
-        
-            var res = await _context.SaveChangesAsyncWithValidation();
-   
-           if (!res.IsEmpty){
-            return BadRequest(res);
-            }
-            return CreatedAtAction(nameof(GetOne), new { mastering = mastering.masteringId }, _mapper.Map<MasteringDto>(m));
-            */
+          
        }
 
 

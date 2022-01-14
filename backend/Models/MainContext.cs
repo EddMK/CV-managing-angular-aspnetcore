@@ -50,6 +50,7 @@ namespace backend.Models
             modelBuilder.Entity<Category>().HasIndex(c => c.categoryId).IsUnique();
             modelBuilder.Entity<Enterprise>().HasIndex(e => e.IdEnterprise).IsUnique();
             modelBuilder.Entity<Enterprise>().HasIndex(e => e.Name);
+            modelBuilder.Entity<Enterprise>().HasIndex(e => e.role);
 
     
             modelBuilder.Entity<Skill>().HasIndex(s => s.skillId).IsUnique();
@@ -60,7 +61,7 @@ namespace backend.Models
             modelBuilder.Entity<Manager>().HasData(
                 
                 new Manager {Password = "ed", Email="edouardkourieh@gmail.com", FirstName="Edouard", LastName="Kourieh" , Title="Product manager",  BirthDate=new DateTime(1995, 1, 2), Role = Role.MANAGER, About="",UserId = 2},
-                 new Manager {Password = "gil", Email="gilfoy@gmail.com", FirstName="Betram", LastName="Gilfoy" , Title=" Technical manager",  BirthDate=new DateTime(1985, 7, 8), Role = Role.MANAGER,About="", UserId = 7}
+                new Manager {Password = "gil", Email="gilfoy@gmail.com", FirstName="Betram", LastName="Gilfoy" , Title=" Technical manager",  BirthDate=new DateTime(1985, 7, 8), Role = Role.MANAGER,About="", UserId = 7}
             );
 
             modelBuilder.Entity<Consultant>().HasData( 
@@ -76,17 +77,19 @@ namespace backend.Models
                 new Training {IdExperience = 4, UserId = 1,Start = new DateTime(2016, 10, 15), Finish = new DateTime(2019, 06, 30) , IdEnterprise = 1, Title = "Bachelor in Physics",Description ="Learning how flight an airplane", Role = ExperienceRole.TRAINING, Grade = 80},
                 new Training {IdExperience = 5, UserId = 1,Start = new DateTime(2013, 10, 15), Finish = new DateTime(2016, 06, 30) , IdEnterprise = 1, Title = "Bachelore in right",Description ="Learning the rights", Role = ExperienceRole.TRAINING, Grade = 90},
                 new Training {IdExperience = 6, UserId = 2, Start = new DateTime(2021, 02, 1), Finish = new DateTime(2021, 06, 30), IdEnterprise = 1, Title = "Bachelore in computer science",Description ="", Role = ExperienceRole.TRAINING, Grade = 77},
-                 new Training {IdExperience = 7, UserId = 7, Start = new DateTime(2010, 02, 1), Finish = new DateTime(2013, 06, 30), IdEnterprise = 3, Title = "Bachelore in computer science",Description ="Learning fundamentals of I.T and software development", Role = ExperienceRole.TRAINING, Grade = 95}
+                new Training {IdExperience = 7, UserId = 7, Start = new DateTime(2010, 02, 1), Finish = new DateTime(2013, 06, 30), IdEnterprise = 3, Title = "Bachelore in computer science",Description ="Learning fundamentals of I.T and software development", Role = ExperienceRole.TRAINING, Grade = 95}
             );
 
             modelBuilder.Entity<Mission>().HasData(
-                new Mission { IdExperience = 3, UserId = 1,Start = new DateTime(2021, 10, 1), Finish = new DateTime(2024, 10, 1), IdEnterprise = 2, Title = "Java fullstack developer",Description ="Programming software for a specific justice departement ", Role = ExperienceRole.MISSION}
+                new Mission { IdExperience = 3, UserId = 1,Start = new DateTime(2021, 10, 1), Finish = new DateTime(2024, 10, 1), IdEnterprise = 4,  Title = "Java fullstack developer",Description ="Programming software for a specific justice departement ", Role = ExperienceRole.MISSION, clientIdEnterprise = 2}
             );
 
             modelBuilder.Entity<Enterprise>().HasData(
-               new Enterprise { IdEnterprise = 1, Name = "Epfc"},
-               new Enterprise { IdEnterprise = 2, Name = "SPF justice - FOD justicie"},
-               new Enterprise { IdEnterprise = 3, Name = "Stanford"}
+               new Enterprise { IdEnterprise = 1, Name = "Epfc", role = EnterPriseRole.EMPLOYER},
+               new Enterprise { IdEnterprise = 2, Name = "SPF justice - FOD justicie", role = EnterPriseRole.CLIENT},
+               new Enterprise { IdEnterprise = 3, Name = "Stanford",role= EnterPriseRole.EMPLOYER},
+               new Enterprise { IdEnterprise = 4, Name = "Egov select", role = EnterPriseRole.EMPLOYER},
+               new Enterprise { IdEnterprise = 5, Name = "Odoo", role = EnterPriseRole.CLIENT}
 
             );
 
@@ -167,7 +170,7 @@ namespace backend.Models
 
                // for gilfoy
 
-                new Mastering { masteringId=12, userId=7, SkillId=1,  Level = Level.Advanced},
+               new Mastering { masteringId=12, userId=7, SkillId=1,  Level = Level.Advanced},
                new Mastering { masteringId=13, userId=7, SkillId=2,  Level = Level.Intermediate},
                new Mastering { masteringId=14, userId=7, SkillId=3,  Level = Level.Intermediate},
                new Mastering { masteringId=15, userId=7, SkillId=4,  Level = Level.Beginner},

@@ -12,6 +12,9 @@ namespace backend.Models {
         public DateTime Finish { get;set;}
 
         public EnterpriseDto Enterprise {get; set; }
+
+        public EnterpriseDto Client {get; set; }
+
         public string Title { get;set;}
         public string Description { get;set;}
         public string Role { get; set;}

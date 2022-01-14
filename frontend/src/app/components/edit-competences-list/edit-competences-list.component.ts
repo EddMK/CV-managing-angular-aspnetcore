@@ -120,22 +120,10 @@ export class EditCompetencesListComponent {
 
 
     onChange() {
-        /*// this.ctlCategoryName.patchValue("test"); 
-        var correspondingCategoryName: string = this.getCategoryName();
-        this.ctlCategoryName.patchValue(correspondingCategoryName);*/
+       
     }
 
-    /*getCategoryName() {
-        var selectedSkillId: number = this.ctlSkillId.value;
-        var correspondingCategoryName: string = "";
-        this.skills.forEach(skill => {
-            if (skill.id == selectedSkillId) {
-                correspondingCategoryName = (skill.category != null && skill.category.name != null ? skill.category.name : "");
-                //    correspondingCategoryName = skill!.category!.name!; // never null in this case
-            }
-        });
-        return correspondingCategoryName;
-    }*/
+    
 
     handleChildEvent () {
         // do what you need here

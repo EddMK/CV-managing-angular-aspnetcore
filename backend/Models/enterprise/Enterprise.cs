@@ -6,6 +6,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
 
 namespace backend.Models {
+
+   public enum EnterPriseRole {
+        EMPLOYER = 0, CLIENT = 1
+    }
+
+
   public class Enterprise : IValidatableObject {
 
       [Key]
@@ -13,6 +19,8 @@ namespace backend.Models {
 
       [Required]
       public string Name;
+
+      public EnterPriseRole role;
 
       public Enterprise(){ }
 

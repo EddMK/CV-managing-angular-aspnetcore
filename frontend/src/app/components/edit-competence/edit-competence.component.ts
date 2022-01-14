@@ -36,7 +36,7 @@ export class EditCompetenceComponent implements OnChanges{
     $emit: any;
   
     constructor(private masteringService: MasteringService, private skillService : SkillService) {
-        this.selected = this.mastering?.levelValue!
+        this.selected = this.mastering?.level!
         
     }
 
@@ -60,7 +60,6 @@ export class EditCompetenceComponent implements OnChanges{
         console.log(this.selected)
         console.log(this.mastering.levelValue + " has level value")
         this.masteringService.save(mastering, this.selected).subscribe(res =>{
-           console.log(this.frm.value);
            this.refreshParent(mastering);
         });
     }

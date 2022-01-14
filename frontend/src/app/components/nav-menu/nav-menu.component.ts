@@ -25,12 +25,7 @@ export class NavMenuComponent {
     toggle() {
         this.isExpanded = !this.isExpanded;
     }
-
-    /*get isAdmin() {
-        return this.currentUser && this.currentUser.role === Role.Manager;
-    }*/
-
-
+    
     get currentUser() {
         return this.authenticationService.currentUser;
     }

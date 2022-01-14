@@ -54,6 +54,35 @@ public class MasteringController : ControllerBase
             return NoContent();
         }
 
+       [AllowAnonymous]
+       [HttpPost]
+       public async Task<ActionResult<MasteringDto>> PostMastering(MasteringDto mastering){
+            Console.WriteLine("arrived here in the mastering controller");
+            Mastering m =  new Mastering { masteringId= 0, userId=mastering.UserId, SkillId= mastering.SkillId,  Level = Level.Advanced};
+            _context.Masterings.Add(m);
+        
+            var res = await _context.SaveChangesAsyncWithValidation();
+   
+           if (!res.IsEmpty){
+            return BadRequest(res);
+            }
+            return CreatedAtAction(nameof(GetOne), new { mastering = mastering.masteringId }, _mapper.Map<MasteringDto>(m));
+       }
+
+
+        [HttpGet("~/getMasteringById")]
+        public async Task<ActionResult<MasteringDto>> GetOne(int id) {
+        var mastering = await _context.Masterings.FindAsync(id);
+        if (mastering == null)
+            return NotFound();
+        return _mapper.Map<MasteringDto>(mastering);
+        }
+
+
+
+
+
+
         [AllowAnonymous]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutMasterings(int id, [FromBody]int level) {

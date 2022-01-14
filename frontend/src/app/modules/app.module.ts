@@ -32,6 +32,7 @@ import { EditTitleComponent } from '../components/edit-title/edit-title.componen
 import { EditCompetencesListComponent } from '../components/edit-competences-list/edit-competences-list.component';
 import { EditCompetenceComponent } from '../components/edit-competence/edit-competence.component';
 import { ConfirmComponent } from '../components/confirm/confirm.component';
+import { AddMastering } from '../components/app/add-mastering/add-mastering.component';
 
 
 
@@ -66,6 +67,7 @@ export function getBaseUrl() {
         EditCompetenceComponent,
         EditTitleComponent,
         ConfirmComponent,
+        AddMastering
        
     
         

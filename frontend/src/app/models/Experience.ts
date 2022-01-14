@@ -30,12 +30,17 @@ export class Experience {
     description?: string;
     role?: RoleExperience;
     enterprise?: Enterprise;
+    client?: Enterprise;
     grade?: number;
     usings: Using[] = [];
 
 
     public get enterpriseToString(){
       return this.enterprise?.name;
+    }
+
+    public get clientToString(){
+      return this.client?.name;
     }
 
 }

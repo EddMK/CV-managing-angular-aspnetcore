@@ -3,6 +3,7 @@ import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Level, Mastering } from '../models/Mastering';
 import { User } from '../models/User';
+import { Skill } from '../models/Skill';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { plainToClass } from 'class-transformer';
@@ -37,8 +38,11 @@ export class MasteringService {
        
     }
 
-    public add(m: Mastering): Observable<boolean> {
-        return this.http.post<Mastering>(`${this.baseUrl}api/mastering/`, m).pipe(
+    public add(s: Skill, userid : any, level : number): Observable<boolean> {
+        console.log(s);
+        console.log(userid);
+        console.log(level);
+        return this.http.post<Skill>(`${this.baseUrl}api/mastering/${userid}/${level}`,s).pipe(
             map(res => true),
             catchError(err => {
                 console.error(err);

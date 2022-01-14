@@ -12,6 +12,7 @@ export class Enterprise {
 
     idEnterprise?: number;
     name?: string;
+    enterpriseRole? : string;
    
    
 }

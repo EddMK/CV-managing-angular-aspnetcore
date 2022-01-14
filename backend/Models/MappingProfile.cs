@@ -39,8 +39,10 @@ namespace backend.Models
             CreateMap<Mastering, MasteringDto>();
             CreateMap<MasteringDto, Mastering>();
             
-            CreateMap<Experience,ExperienceDTO>().Include<Training, ExperienceDTO>(); 
+            CreateMap<Experience,ExperienceDTO>().Include<Training, ExperienceDTO>().Include<Mission, ExperienceDTO>();
             CreateMap<Training, ExperienceDTO>().ForMember(o => o.Grade, m => m.MapFrom(x => x.Grade));
+            CreateMap<Mission, ExperienceDTO>().ForMember(o => o.Client , m => m.MapFrom(x => x.client));
+
             CreateMap<ExperienceDTO,Experience>();
           
 

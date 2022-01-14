@@ -28,13 +28,14 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 export class EditCompetencesListComponent {
     public frm!: FormGroup;
-    public ctlSkill!: FormControl;
-    public ctlCategory!: FormControl;
+    //public ctlId!: FormGroup;
+    public ctlSkillId!: FormControl;
+    public ctlCategoryName!: FormControl;
     public ctlLevel!: FormControl;
     public isNew: boolean;
     public masterings: Mastering[];
     
-    public skillsToAdd! : Skill[];
+    public skills! : Skill[];
     selectedValue!: Skill;
 
     connectedUser : User | undefined;
@@ -50,15 +51,16 @@ export class EditCompetencesListComponent {
         
     ) {
         this.connectedUser = this.currentUser;
-        this.ctlSkill = this.fb.control(null, [Validators.minLength(3)]);
-        this.ctlCategory = this.fb.control(null, [Validators.minLength(3)]);
+        this.ctlSkillId = this.fb.control(null, [Validators.minLength(3)]);
+        this.ctlCategoryName = this.fb.control(null, [Validators.minLength(3)]);
         this.ctlLevel = this.fb.control(null, []);
         this.skillService.getAll().subscribe(res => {
-            this.skillsToAdd = res;
+            this.skills = res;
         });
        
         this.frm = this.fb.group({
-            skill: this.ctlSkill,
+            //id: this.ctlId,
+            skill: this.ctlSkillId,
             level: this.ctlLevel,
             
             
@@ -95,6 +97,32 @@ export class EditCompetencesListComponent {
         });
         
     }
+
+
+
+    create(form : any){
+             //console.log(form);
+            form.level = "Beginner";
+
+
+              var skill = plainToClass(Skill, form.value.skill);
+              console.log(form);
+              //res.userId = this.currentUser?.userId
+              //res.skillId = res.skill?.skillId;
+               //res.level =
+              // res.masteringId = 12;
+               this.masteringService.add(skill, this.connectedUser?.userId, form.value.level).subscribe(m => {
+                   this.refresh(this.connectedUser?.userId!);
+              });
+    }
+
+
+
+    onChange() {
+       
+    }
+
+    
 
     handleChildEvent () {
         // do what you need here

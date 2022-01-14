@@ -8,6 +8,7 @@ import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import * as _ from 'lodash-es';
 import { User,  Role } from 'src/app/models/User';
+
 import { Moment } from 'moment';
 import * as moment from 'moment';
 import { Level, Mastering } from 'src/app/models/Mastering';
@@ -86,14 +87,14 @@ export class EditCompetencesListComponent {
         };
     }
 
-   
-
     create(form : any){
       const res = plainToClass(Mastering, form.value)
       res.userId = this.currentUser?.userId
-      console.log(res.skill?.name)
-     
-      
+      res.skillId = res.skill?.skillId;
+      res.level = res.level;
+      this.masteringService.add(res).subscribe(m => {
+           this.refresh(this.connectedUser?.userId!);
+      });
     }
 
      refresh(id: number) {
@@ -116,7 +117,6 @@ export class EditCompetencesListComponent {
 
     update() {
         this.dialogRef.close(this.frm.value);
-        console.log(this.skillsToAdd);
     }
 
     cancel() {

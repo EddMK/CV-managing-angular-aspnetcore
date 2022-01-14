@@ -40,6 +40,19 @@ export class MasteringService {
        
     }
 
+    public add(m: Mastering): Observable<boolean> {
+        console.log(m);
+        return this.http.post<Mastering>(`${this.baseUrl}api/mastering`, m).pipe(
+            map(res => true),
+            catchError(err => {
+                console.error(err);
+                return of(false);
+            })
+        );
+    }
+
+
+
 
     
 }

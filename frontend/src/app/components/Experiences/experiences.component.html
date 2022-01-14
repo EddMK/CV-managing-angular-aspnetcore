@@ -9,7 +9,7 @@
 </h1>
 <div *ngIf = "trainings.length > 0" >
    <div *ngFor="let training of trainings"  (click)="onEditTraining()">
-      <p> {{ training.start?.format('DD/MM/YYYY')}} <span *ngIf="training.finish?.isValid()">  :  {{ training.finish?.format('DD/MM/YYYY')}} </span>  : <span class="font-weight-bold ml-3">  {{ training.enterprise?.name }} - {{ training.title}} </span>
+      <p> {{ training.start?.format('DD/MM/YYYY')}} <span *ngIf="training.finish?.isValid()">  :  {{ training.finish?.format('DD/MM/YYYY')}} </span> <span *ngIf="training.finish?.isValid() == false">  :  Present </span>  <span class="font-weight-bold ml-3">  {{ training.enterprise?.name }} - {{ training.title}} </span>
         <span *ngIf="isEditableTraining"> 
           <button mat-icon-button class="ml-3">
               <mat-icon (click)="editExperience(training)">edit</mat-icon>
@@ -34,7 +34,7 @@
 </h1>
 <div *ngIf = "missions.length > 0" >
   <div *ngFor="let mission of missions"  (click)="onEditMission()">    
-      <p> {{ mission.start?.format('DD/MM/YYYY')}}  <span *ngIf="mission.finish?.isValid()">  :  {{ mission.finish?.format('DD/MM/YYYY')}} </span>    <span class="font-weight-bold ml-3">  {{ mission.enterpriseToString }} - {{ mission.title}} : <p *ngIf="mission.client != null">     client : {{  mission.clientToString}}</p>    </span>
+      <p> {{ mission.start?.format('DD/MM/YYYY')}}  <span *ngIf="mission.finish?.isValid()">  :  {{ mission.finish?.format('DD/MM/YYYY')}} </span>  <span *ngIf="mission.finish?.isValid() == false"> :  Present </span>    <span class="font-weight-bold ml-3">  {{ mission.enterpriseToString }} - {{ mission.title}} : <p *ngIf="mission.client != null">     client : {{  mission.clientToString}}</p>    </span>
 
         <span *ngIf="isEditableMission"> 
           <button mat-icon-button class="ml-3">

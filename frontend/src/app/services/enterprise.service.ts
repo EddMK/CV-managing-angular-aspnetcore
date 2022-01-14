@@ -33,7 +33,6 @@ export class EnterpriseService {
     }
 
     public delete(e : Enterprise): Observable<boolean> {
-        console.log("suprrime : "+e.idEnterprise);
         return this.http.delete<boolean>(`${this.baseUrl}api/Enterprises/${e.idEnterprise}`).pipe(
             map(res => true),
             catchError(err => {
@@ -44,7 +43,6 @@ export class EnterpriseService {
     }
 
     public add(e: Enterprise): Observable<boolean> {
-        console.log(e);
         return this.http.post<Enterprise>(`${this.baseUrl}api/Enterprises`, e).pipe(
             map(res => true),
             catchError(err => {

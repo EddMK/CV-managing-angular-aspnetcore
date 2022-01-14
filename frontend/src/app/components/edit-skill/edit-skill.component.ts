@@ -40,7 +40,6 @@ export class EditSkillComponent {
         this.id = data.skill.skillId;
     }
 
-    // Validateur asynchrone qui vérifie si le pseudo n'est pas déjà utilisé par un autre membre
     nameUsed(): any {
         let timeout: NodeJS.Timer;
         return (ctl: FormControl) => {

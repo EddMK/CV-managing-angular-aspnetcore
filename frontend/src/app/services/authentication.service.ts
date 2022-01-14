@@ -14,7 +14,6 @@ export class AuthenticationService {
     
 
     constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
-        // au départ on récupère un éventuel utilisateur stocké dans le sessionStorage
         let data = sessionStorage.getItem('currentUser');
         if (data)
             data = JSON.parse(data);
@@ -24,24 +23,18 @@ export class AuthenticationService {
     }
 
     login(email: string, password: string) {
-        console.log(email + " "+ password);
         return this.http.post<any>(`${this.baseUrl}api/users/authenticate`, { email, password })
             .pipe(map(user => {
                 user = plainToClass(User, user);
-                // login successful if there's a jwt token in the response
                 if (user && user.token) {
-                  
-                    // store user details and jwt token in local storage to keep user logged in between page refreshes
                     sessionStorage.setItem('currentUser', JSON.stringify(user));
                     this.currentUser = user;
                 }
-
                 return user;
             }));
     }
 
     logout() {
-        // remove user from local storage to log user out
         sessionStorage.removeItem('currentUser');
         this.currentUser = undefined;
     }

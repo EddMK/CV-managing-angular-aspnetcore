@@ -22,7 +22,6 @@ export class SkillService {
 
 
     getCategory(skill: Skill) {
-        console.log("arrive : "+skill.name);
         return this.http.get<Category>(`${this.baseUrl}api/skills/getCategory/${skill}`).pipe(
             map(m => plainToClass( Category, m)),
             catchError(err => of(null))
@@ -31,7 +30,6 @@ export class SkillService {
 
 
     getByName(name: String) {
-        console.log(name);
         return this.http.get<Skill>(`${this.baseUrl}api/skills/${name}`).pipe(
             map(m => plainToClass(Skill, m)),
             catchError(err => of(null))
@@ -49,7 +47,6 @@ export class SkillService {
     }
 
     public delete(s: Skill): Observable<boolean> {
-        console.log("suprrime : "+s.skillId);
         return this.http.delete<boolean>(`${this.baseUrl}api/skills/${s.skillId}`).pipe(
             map(res => true),
             catchError(err => {
@@ -60,7 +57,6 @@ export class SkillService {
     }
 
     public add(s: Skill): Observable<boolean> {
-        console.log(s);
         return this.http.post<Skill>(`${this.baseUrl}api/skills`, s).pipe(
             map(res => true),
             catchError(err => {

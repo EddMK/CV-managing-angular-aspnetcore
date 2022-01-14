@@ -30,7 +30,6 @@ export class UserService {
         );
     }
 
-
     getByEmail(email: string) {
         return this.http.get<User>(`${this.baseUrl}api/Users/getByEmail/${email}`).pipe(
             map(m => plainToClass(User, m)),
@@ -39,7 +38,6 @@ export class UserService {
     }
 
     public unLink(m: User): Observable<boolean> {
-        console.log(m);
         return this.http.put<User>(`${this.baseUrl}api/Users/unlink`, m).pipe(
             map(res => true),
             catchError(err => {
@@ -49,7 +47,6 @@ export class UserService {
         );
     }
     public Link(m: User, id: number): Observable<boolean> {
-        console.log(id);
         return this.http.put<User>(`${this.baseUrl}api/Users/link/${id}`, m).pipe(
             map(res => true),
             catchError(err => {
@@ -69,10 +66,6 @@ export class UserService {
         );
     }
 
-    /*public unLink(u: User) : Observable<Boolean> {
-        return this.http.put<Boolean>()
-    }*/
-
     public add(m: User): Observable<boolean> {
         return this.http.post<User>(`${this.baseUrl}api/members`, m).pipe(
             map(res => true),
@@ -86,7 +79,6 @@ export class UserService {
     public signup( u : User) {
         return this.http.post<User>(`${this.baseUrl}api/users/`, u)
             .pipe(map(user => {
-                console.log(user);
                 return user;
             }));
     }
@@ -94,7 +86,6 @@ export class UserService {
 
 
     public update(u: User): Observable<boolean> {
-        console.log(u.email + " helllllllllllooooooooooo");
         return this.http.put<User>(`${this.baseUrl}api/users`, u).pipe(
             map(res => true),
             catchError(err => {

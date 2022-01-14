@@ -106,8 +106,8 @@ export class EditExperienceComponent{
                 this.isTraining = true;
             }
         }
-        this.disableProgress = (data.training.finish == null)? true : false;
-        this.isProgress = (data.training.finish == null)? true : false;
+        this.disableProgress = (data.training.finish == undefined)? true : false;
+        this.isProgress = (data.training.finish == undefined)? true : false;
         this.isNew = data.isNew;
         this.idExperience = data.training.idExperience!;
         this.distribution(data.training);

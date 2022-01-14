@@ -103,55 +103,35 @@ export class ExperiencesComponent implements OnInit {
     }
   }
 
-  addMission():void{
+  addExperience(category : string):void{
+    console.log("NOM CATEGORY : "+category);
     const training = new Experience();
     if(this.isUserConnected){
-      const dlg = this.dialog.open(EditExperienceComponent, { data: { training, isNew: true, isMission : true}, height : '150%', width : '50%' });
+      const dlg = this.dialog.open(EditExperienceComponent, { data: { training, isNew: true, isMission : category=="MISSION"?true : false}, height : '150%', width : '50%' });
       dlg.beforeClosed().subscribe(res => {
         if (res) {
           res.userId = this.currentUser?.userId!;
-          //res.role = 1;
+          res.role = category;
           res = plainToClass(Experience, res);
           console.log(res);
-          this.experienceService.addMission(res).subscribe(idexperience => {
+          this.experienceService.addExperience(res).subscribe(idexperience => {
             res.idExperience = idexperience;
             if (!idexperience) {
               console.log("NOT added");
               //this.snackBar.open(`There was an error at the server. The update has not been done! Please try again.`, 'Dismiss', { duration: 10000 });
             }
-            this.refreshMission();
+            this.refreshAll();
           });
         }
       });
     }
-  }
 
-  addTraining():void{
-    const training = new Experience();
-    if(this.isUserConnected){
-      const dlg = this.dialog.open(EditExperienceComponent, { data: { training, isNew: true, isMission : false}, height : '150%', width : '50%' });
-      dlg.beforeClosed().subscribe(res => {
-        if (res) {
-          res.userId = this.currentUser?.userId!;
-          res = plainToClass(Experience, res);
-          this.experienceService.addTraining(res).subscribe(idexperience => {
-            res.idExperience = idexperience;
-            if (!idexperience) {
-              console.log("NOT added");
-              //this.snackBar.open(`There was an error at the server. The update has not been done! Please try again.`, 'Dismiss', { duration: 10000 });
-            }
-            this.refreshTraining();
-          });
-        }
-      });
-    }
-  }
+  }       
 
-  editTraining(training : Experience):void{
+  editExperience(training : Experience):void{
     if(this.isUserConnected){
       console.log(training);
       const enterprise = training.enterprise;
-      //const idTraining = training.idExperience;
       const dlg = this.dialog.open(EditExperienceComponent, { data: { training, isNew: false}, height : '150%', width : '50%' });
       dlg.beforeClosed().subscribe(res => {
           if (res) {
@@ -159,25 +139,13 @@ export class ExperiencesComponent implements OnInit {
             _.assign(training, res);
             res = plainToClass(Experience, training);
             console.log(res);
-            if(res.role?.toString() === "TRAINING"){
-              console.log("FONCTION UPDATE DANS TRAINING");
-              this.experienceService.updateTraining(res).subscribe(res => {
-                if (!res) {
-                  console.log("NOT updated");
-                  //this.snackBar.open(`There was an error at the server. The update has not been done! Please try again.`, 'Dismiss', { duration: 10000 });
-                }
-                this.refreshTraining();
-              });
-            }else{
-              console.log("FONCTION UPDATE DANS MISSION");
-              this.experienceService.updateMission(res).subscribe(res => {
-                if (!res) {
-                  console.log("NOT updated");
-                  //this.snackBar.open(`There was an error at the server. The update has not been done! Please try again.`, 'Dismiss', { duration: 10000 });
-                }
-                this.refreshMission();
-              });
-            }
+            this.experienceService.updateExperience(res).subscribe(res => {
+              if (!res) {
+                console.log("NOT updated");
+                //this.snackBar.open(`There was an error at the server. The update has not been done! Please try again.`, 'Dismiss', { duration: 10000 });
+              }
+              this.refreshAll();
+            });
           }
       });
     }
@@ -223,8 +191,5 @@ export class ExperiencesComponent implements OnInit {
   get currentUser()  {
     return this.authenticationService.currentUser;
   }
-  
-
-
 
 }

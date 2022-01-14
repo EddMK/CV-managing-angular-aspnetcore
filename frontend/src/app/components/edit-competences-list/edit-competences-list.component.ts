@@ -87,15 +87,7 @@ export class EditCompetencesListComponent {
         };
     }
 
-    create(form : any){
-      const res = plainToClass(Mastering, form.value)
-      res.userId = this.currentUser?.userId
-      res.skillId = res.skill?.skillId;
-      res.level = res.level;
-      this.masteringService.add(res).subscribe(m => {
-           this.refresh(this.connectedUser?.userId!);
-      });
-    }
+   
 
      refresh(id: number) {
         this.masteringService.getAllById(id).subscribe(m => {

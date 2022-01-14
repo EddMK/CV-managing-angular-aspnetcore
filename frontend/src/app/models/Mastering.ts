@@ -24,6 +24,10 @@ export class Mastering {
    skill?: Skill;
    level?: Level;
 
+
+   
+
+
    public get skilltoString(){
        return this.skill?.name;
    }

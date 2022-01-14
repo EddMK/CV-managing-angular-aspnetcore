@@ -6,28 +6,8 @@
 </div>
 </div>
 <form id="frm" class="form" [formGroup]="frm" novalidate>
-        <mat-form-field >
-            <mat-select [formControl]="ctlSkill" >
-                <mat-option *ngFor="let s of skillsToAdd" [value]="s">
-                  {{s?.name}}
-                </mat-option>
-              </mat-select>
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput placeholder="Category"  [value]="" readonly > 
-        </mat-form-field>
-        <mat-form-field>
-            <mat-select placeholder="Level"  [formControl]="ctlLevel">
-                <mat-option [value]="0">Beginner</mat-option>
-                <mat-option [value]="1">Intermediate</mat-option>
-                <mat-option [value]="2">Advanced</mat-option>
-                <mat-option [value]="3">Expert</mat-option>
-            </mat-select>
-        </mat-form-field>
        
-        <button class="btn btn-outline-primary ml-2 mr-0"  (click) = "create(frm)"> <mat-icon>add</mat-icon></button>
-    
-  
+    <app-add-mastering [connectedUser]="currentUser"></app-add-mastering>
     <div class="footer">
        <!--- <button type="submit" mat-button form="frm"(click)="update()">update</button> -->
         <button type="reset" mat-button (click)="update()">Close</button>

@@ -15,8 +15,7 @@ export class ExperienceService {
 
     GetAllTraingById(id : number): Observable<Experience[]> {
         return this.http.get<any[]>(`${this.baseUrl}api/experiences/getTrainingById/` + id)
-            .pipe(map(res => plainToClass(Experience, res))
-        );
+            .pipe(map(res =>  plainToClass(Experience, res)));
     }
     GetAllMissionById(id : number): Observable<Experience[]> {
         return this.http.get<any[]>(`${this.baseUrl}api/experiences/getMissionById/` + id)

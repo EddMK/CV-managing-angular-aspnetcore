@@ -36,7 +36,7 @@ export class Experience {
 
     public get enterpriseToString(){
       return this.enterprise?.name;
-  }
+    }
 
 }
 

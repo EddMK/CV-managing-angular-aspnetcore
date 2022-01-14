@@ -39,17 +39,7 @@ export class EditSkillComponent {
         this.frm.patchValue(data.skill);
         this.id = data.skill.skillId;
     }
-/*
-    // Validateur bidon qui vérifie que la valeur est différente
-    forbiddenValue(val: string): any {
-        return (ctl: FormControl) => {
-            if (ctl.value === val) {
-                return { forbiddenValue: { currentValue: ctl.value, forbiddenValue: val } };
-            }
-            return null;
-        };
-    }
-*/
+
     // Validateur asynchrone qui vérifie si le pseudo n'est pas déjà utilisé par un autre membre
     nameUsed(): any {
         let timeout: NodeJS.Timer;

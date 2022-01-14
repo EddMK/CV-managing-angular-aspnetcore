@@ -23,7 +23,7 @@ export class ExperienceService {
         );
     }
 
-    public updateTraining(e : Experience): Observable<boolean> {
+    public updateExperience(e : Experience): Observable<boolean> {
         console.log(e);
         return this.http.put<Experience>(`${this.baseUrl}api/experiences`, e).pipe(
             map(res => true),
@@ -33,30 +33,10 @@ export class ExperienceService {
             })
         );
     }
- 
-    public updateMission(e : Experience): Observable<boolean> {
-        console.log(e);
-        return this.http.put<Experience>(`${this.baseUrl}api/experiences/updateMission`, e).pipe(
-            map(res => true),
-            catchError(err => {
-                console.error(err);
-                return of(false);
-            })
-        );
-    }
 
-    public addTraining(e : Experience){
+    public addExperience(e : Experience){
         console.log(e);
         return this.http.post<number>(`${this.baseUrl}api/experiences`, e)
-        .pipe(map(res => 
-            {console.log(res);
-                return res;
-            }));
-    }
-
-    public addMission(e : Experience){
-        console.log(e);
-        return this.http.post<number>(`${this.baseUrl}api/experiences/addMission`, e)
         .pipe(map(res => 
             {console.log(res);
                 return res;

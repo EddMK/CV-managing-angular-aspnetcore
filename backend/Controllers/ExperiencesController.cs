@@ -62,82 +62,48 @@ namespace prid_2122_g04.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<ActionResult<int>> PostTraining(ExperienceDTO training) {// X
-            Console.WriteLine("ARRIVE POST !");
-            Console.WriteLine("ROLE : "+training.Role);
-            int result = DateTime.Compare(training.Finish, new DateTime());
-            var newTraining = new Training(){
-                UserId = training.UserId, Start = training.Start, Finish = training.Finish,
-                IdEnterprise = training.Enterprise.IdEnterprise, Title = training.Title, Description = training.Description,
-                Role = ExperienceRole.TRAINING, Grade = training.Grade
-            };
-            if(result == 0){
-                newTraining.Finish = null;
-            }
-            Console.WriteLine(newTraining.GetType());
-            _context.Experience.Add(newTraining);
-            var res = await _context.SaveChangesAsyncWithValidation();
-            if (!res.IsEmpty) return BadRequest(res);
-            //Console.WriteLine("Experience Id : "+newTraining.IdExperience);
-            return newTraining.IdExperience;
-            //return CreatedAtAction(nameof(GetOne), new { training = training.IdExperience }, _mapper.Map<ExperienceDTO>(newTraining));
-            //return CreatedAtAction(nameof(GetOne), new { training = training.Title }, training);
-        }
-
-        [AllowAnonymous]
-        [HttpPost("addMission/")]
-        public async Task<ActionResult<int>> PostMission(ExperienceDTO training) {// X
-            Console.WriteLine("ARRIVE POST  MISSION!");
-            Console.WriteLine("ROLE : "+training.Finish);
-            int result = DateTime.Compare(training.Finish, new DateTime());
-            //Console.WriteLine("int result = "+result);
-            var newTraining = new Mission(){
-                UserId = training.UserId, Start = training.Start, Finish = training.Finish,
-                IdEnterprise = training.Enterprise.IdEnterprise, Title = training.Title, Description = training.Description,
+        public async Task<ActionResult<int>> Post(ExperienceDTO experience) {
+            int result = DateTime.Compare(experience.Finish, new DateTime());
+            Experience newExperience = new Mission(){
+                UserId = experience.UserId, Start = experience.Start, Finish = experience.Finish,
+                IdEnterprise = experience.Enterprise.IdEnterprise, Title = experience.Title, Description = experience.Description,
                 Role = ExperienceRole.MISSION};
-            if(result == 0){
-                newTraining.Finish = null;
+            if(experience.Role == "TRAINING"){
+                newExperience = new Training(){
+                    UserId = experience.UserId, Start = experience.Start, Finish = experience.Finish,
+                    IdEnterprise = experience.Enterprise.IdEnterprise, Title = experience.Title, Description = experience.Description,
+                    Role = ExperienceRole.TRAINING, Grade = experience.Grade
+                };
             }
-            Console.WriteLine(newTraining.GetType());
-            _context.Experience.Add(newTraining);
+            if(result == 0){
+                newExperience.Finish = null;
+            }
+            _context.Experience.Add(newExperience);
             var res = await _context.SaveChangesAsyncWithValidation();
             if (!res.IsEmpty) return BadRequest(res);
-            //Console.WriteLine("Experience Id : "+newTraining.IdExperience);
-            return newTraining.IdExperience;
-            //return CreatedAtAction(nameof(GetOne), new { training = training.IdExperience }, _mapper.Map<ExperienceDTO>(newTraining));
-            //return CreatedAtAction(nameof(GetOne), new { training = training.Title }, training);
+            return newExperience.IdExperience;
         }
 
         [AllowAnonymous]
         [HttpPut]
         public async Task<IActionResult> Put(ExperienceDTO dto) {
-            //Console.WriteLine("date start training : " + dto.Start);
-            var exists = await _context.Trainings.FindAsync(dto.IdExperience);
-            exists.Description = dto.Description;
-            exists.Start = dto.Start;
-            exists.Finish = dto.Finish;
-            exists.Title = dto.Title;
-            exists.Grade = dto.Grade;
-            if (exists == null)
-                return NotFound();
-            //_mapper.Map<ExperienceDTO, Experience>(trainingDTO, exists);
-            var res = await _context.SaveChangesAsyncWithValidation();
-            if (!res.IsEmpty) return BadRequest(res);
-            return NoContent();
-        }
-
-        [AllowAnonymous]
-        [HttpPut("updateMission/")]
-        public async Task<IActionResult> PutMission(ExperienceDTO dto) {
-            //Console.WriteLine("role : " + dto.Role);
-            var exists = await _context.Experience.FindAsync(dto.IdExperience);
-            exists.Description = dto.Description;
-            exists.Start = dto.Start;
-            exists.Finish = dto.Finish;
-            exists.Title = dto.Title;
-            if (exists == null)
-                return NotFound();
-            //_mapper.Map<ExperienceDTO, Experience>(trainingDTO, exists);
+            Console.WriteLine("UPDATE role : "+dto.Role);
+            if(dto.Role == "MISSION"){
+                Experience exists = await _context.Experience.FindAsync(dto.IdExperience);
+                exists.Description = dto.Description;
+                exists.Start = dto.Start;
+                exists.Finish = dto.Finish;
+                exists.Title = dto.Title;
+                if (exists == null)return NotFound();
+            }else{
+                Training exists = await _context.Trainings.FindAsync(dto.IdExperience);
+                exists.Description = dto.Description;
+                exists.Start = dto.Start;
+                exists.Finish = dto.Finish;
+                exists.Title = dto.Title;
+                exists.Grade = dto.Grade;
+                if (exists == null)return NotFound();
+            }
             var res = await _context.SaveChangesAsyncWithValidation();
             if (!res.IsEmpty) return BadRequest(res);
             return NoContent();

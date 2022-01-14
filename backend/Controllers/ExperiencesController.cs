@@ -25,13 +25,12 @@ namespace prid_2122_g04.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ExperienceDTO>>> GetAll() {//OK
-            // Récupère une liste de tous les membres
+        public async Task<ActionResult<IEnumerable<ExperienceDTO>>> GetAll() {
             return _mapper.Map<List<ExperienceDTO>>(await _context.Experience.Include(e => e.Enterprise).Include(e => e.usings).ThenInclude(s => s.skill).ToListAsync());
         }
 
-        [HttpGet("getTrainingById/{id}")]
-        public async Task<ActionResult<IEnumerable<ExperienceDTO>>> GetAllTraingById(int id) {//OK
+        [HttpGet("Trainings/{id}")]
+        public async Task<ActionResult<IEnumerable<ExperienceDTO>>> GetAllTraingById(int id) {
            List<Experience> dateFinishNull = await  _context.Experience.Where( t => t.Role == ExperienceRole.TRAINING && t.UserId == id && t.Finish == null)
                         .OrderByDescending( t=> t.Start).Include(t => t.Enterprise).Include(e => e.usings).ThenInclude(s => s.skill).ThenInclude(c => c.category).ToListAsync();
            List<Experience> dateFinishNonNull = await _context.Experience.Where(t => t.Role == ExperienceRole.TRAINING && t.UserId == id && t.Finish != null)
@@ -40,8 +39,8 @@ namespace prid_2122_g04.Controllers
            return _mapper.Map<List<ExperienceDTO>>( dateFinishNull);
         }
 
-         [HttpGet("getMissionById/{id}")]
-        public async Task<ActionResult<IEnumerable<ExperienceDTO>>> GetAllMissionById(int id) {//OK
+         [HttpGet("Missions/{id}")]
+        public async Task<ActionResult<IEnumerable<ExperienceDTO>>> GetAllMissionById(int id) {
             List<Experience> dateFinishNull = await  _context.Experience.Where( t => t.Role == ExperienceRole.MISSION && t.UserId == id && t.Finish == null)
                         .OrderByDescending( t=> t.Start).Include(t => t.Enterprise).Include(e => e.usings).ThenInclude(s => s.skill).ThenInclude(c => c.category).ToListAsync();
            List<Experience> dateFinishNonNull = await _context.Experience.Where(t => t.Role == ExperienceRole.MISSION && t.UserId == id && t.Finish != null)
@@ -87,7 +86,6 @@ namespace prid_2122_g04.Controllers
         [AllowAnonymous]
         [HttpPut]
         public async Task<IActionResult> Put(ExperienceDTO dto) {
-            Console.WriteLine("UPDATE role : "+dto.Role);
             if(dto.Role == "MISSION"){
                 Experience exists = await _context.Experience.FindAsync(dto.IdExperience);
                 exists.Description = dto.Description;
@@ -109,9 +107,8 @@ namespace prid_2122_g04.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]//ok
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMission(int  id) {
-            Console.WriteLine("Id recu au backend : "+ id);
             var experience = await _context.Experience.FindAsync(id);
             Console.WriteLine("BACKEND envoye : "+experience.IdExperience);
             if (experience == null)

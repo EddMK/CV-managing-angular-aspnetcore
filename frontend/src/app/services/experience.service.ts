@@ -14,17 +14,16 @@ export class ExperienceService {
     constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
     GetAllTraingById(id : number): Observable<Experience[]> {
-        return this.http.get<any[]>(`${this.baseUrl}api/experiences/getTrainingById/` + id)
+        return this.http.get<any[]>(`${this.baseUrl}api/experiences/Trainings/` + id)
             .pipe(map(res =>  plainToClass(Experience, res)));
     }
     GetAllMissionById(id : number): Observable<Experience[]> {
-        return this.http.get<any[]>(`${this.baseUrl}api/experiences/getMissionById/` + id)
+        return this.http.get<any[]>(`${this.baseUrl}api/experiences/Missions/` + id)
             .pipe(map(res => plainToClass(Experience, res))
         );
     }
 
     public updateExperience(e : Experience): Observable<boolean> {
-        console.log(e);
         return this.http.put<Experience>(`${this.baseUrl}api/experiences`, e).pipe(
             map(res => true),
             catchError(err => {
@@ -35,7 +34,6 @@ export class ExperienceService {
     }
 
     public addExperience(e : Experience){
-        console.log(e);
         return this.http.post<number>(`${this.baseUrl}api/experiences`, e)
         .pipe(map(res => 
             {console.log(res);
@@ -44,7 +42,6 @@ export class ExperienceService {
     }
 
     public deleteExperience(e : Experience): Observable<boolean> {
-        console.log("Id delete  : "+e.idExperience);
         return this.http.delete<boolean>(`${this.baseUrl}api/experiences/${e.idExperience}`).pipe(
             map(res => true),
             catchError(err => {

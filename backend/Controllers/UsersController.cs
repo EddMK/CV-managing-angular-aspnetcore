@@ -29,25 +29,10 @@ public class UsersController : ControllerBase
     private readonly MainContext _context;
     private readonly IMapper _mapper;
 
-    /*
-    Le contrôleur est instancié automatiquement par ASP.NET Core quand une requête HTTP est reçue.
-    Les deux paramètres du constructeur recoivent automatiquement, par injection de dépendance, 
-    une instance du context EF (MsnContext) et une instance de l'auto-mapper (IMapper).
-    */
     public UsersController(MainContext context, IMapper mapper) {
         _context = context;
         _mapper = mapper;
     }
-    
-    /*[AllowAnonymous]
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<UserDTO>>> GetAll() {
-      return _mapper.Map<List<UserDTO>>(await _context.Users.Include(u => u.masterings)
-       .ThenInclude(s => s.Skill)
-       .ThenInclude(c => c.category)
-       .Include(u => u.experiences)
-       .ToListAsync());
-    }*/
    
     [AllowAnonymous]
     [HttpGet("team/{id}")]
@@ -62,60 +47,38 @@ public class UsersController : ControllerBase
     [AllowAnonymous]
     [HttpGet("{id}")]
     public async Task<ActionResult<UserDTO>> GetOne(int id) {
-      // Récupère en BD le membre dont le pseudo est passé en paramètre dans l'url
-        var user = await _context.Users.Include(u => u.masterings)
-        //.ThenInclude(s => s.Skill)
-        .SingleAsync(u => u.UserId == id);
-
-    
-      // Si aucun membre n'a été trouvé, renvoyer une erreur 404 Not Found
-       if (user == null)
+        var user = await _context.Users.Include(u => u.masterings).SingleAsync(u => u.UserId == id);
+        if (user == null)
            return NotFound();
-      // Transforme le membre en son DTO et retourne ce dernier
-    return _mapper.Map<UserDTO>(user);
+        return _mapper.Map<UserDTO>(user);
     }
-
 
     [AllowAnonymous]
     [HttpGet("getByEmail/{mail}")]
     public async Task<ActionResult<UserDTO>> GetOneByEmail(string mail) {
-        Console.WriteLine("email backend : "+mail);
         var user = await _context.Users.Where(u => u.Email == mail).FirstOrDefaultAsync();
         if (user == null)
             return NotFound();
         return _mapper.Map<UserDTO>(user);
     }
     
-    
-    //[Authorized(Role.MANAGER)]
-    //[HttpPost]
     [AllowAnonymous]
     [HttpPost]
     public async Task<ActionResult<UserDTO>> PostUser(UserWithPasswordDTO user) {
-       
         var newuser = new Consultant()
                 {Password = user.Password, Email= user.Email, 
                 FirstName= user.Firstname, LastName= user.Lastname, Title= user.title
                 ,BirthDate= user.BirthDate, Role = Role.CONSULTANT};
-        // Ajoute ce nouveau membre au contexte EF
         _context.Users.Add(newuser);
-        // Sauve les changements
         var res = await _context.SaveChangesAsyncWithValidation();
         if (!res.IsEmpty)
             return BadRequest(res);
-
-        //return null;
-        // Renvoie une réponse ayant dans son body les données du nouveau membre (3ème paramètre)
-        // et ayant dans ses headers une entrée 'Location' qui contient l'url associé à GetOne avec la bonne valeur 
-        // pour le paramètre 'pseudo' de cet url.
         return CreatedAtAction(nameof(GetOne), new { id = newuser.UserId }, _mapper.Map<UserDTO>(newuser));
     }
 
     [AllowAnonymous]
     [HttpPut]
     public async Task<IActionResult> PutUser(UserDTO dto) {
-       // Récupère en BD le membre à mettre à jour
-       Console.WriteLine(dto.Email);
         var user = await _context.Users.Where(u => u.Email == dto.Email).FirstOrDefaultAsync();
        if (user == null){
            return NotFound();
@@ -129,10 +92,10 @@ public class UsersController : ControllerBase
           _context.SaveChanges();
        }
      
-       // Retourne un statut 204 avec une réponse vide
       return NoContent();
     }
-    [AllowAnonymous]
+
+    [Authorized(Role.MANAGER)]
     [HttpPut("unlink")]
     public async Task<IActionResult> UnLink(UserDTO dto) {
       var consultant = await _context.Consultants.FindAsync(dto.UserId);
@@ -140,15 +103,13 @@ public class UsersController : ControllerBase
                 return NotFound();
             }
             else {
-                Console.WriteLine("my actual managerId is " + consultant.managerID + " before link");
               consultant.managerID = null;
-              //_mapper.Map<UserDTO, Consultant>(dto, consultant);
                _context.SaveChanges();
-               Console.WriteLine("my lmangerid after link is " + consultant.managerID + " ???");
             }
             return NoContent();
     }
-    [AllowAnonymous]
+
+    [Authorized(Role.MANAGER)]
     [HttpPut("link/{id}")]
     public async Task<IActionResult> Link([FromBody]UserDTO dto, int id) {
       var consultant = await _context.Consultants.FindAsync(dto.UserId);
@@ -157,84 +118,59 @@ public class UsersController : ControllerBase
                 return NotFound();
             }
             else {
-                Console.WriteLine("my actual managerId is " + consultant.managerID + " before link");
               consultant.managerID = id;
-              //_mapper.Map<UserDTO, Consultant>(dto, consultant);
                _context.SaveChanges();
-              Console.WriteLine("my lmangerid after link is " + consultant.managerID + " ???");
             }
             return NoContent();
     }
 
-
-
-    [AllowAnonymous]
+    [Authorized(Role.MANAGER)]
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteUser(int id) {
-       // Récupère en BD le membre à supprimer
-       var user = await _context.Users.FindAsync(id);
-       // Si aucun membre n'a été trouvé, renvoyer une erreur 404 Not Found
-       if (user == null)
-          return NotFound();
-       // Indique au contexte EF qu'il faut supprimer ce membre
+        var user = await _context.Users.FindAsync(id);
+        if (user == null)
+            return NotFound();
         _context.Users.Remove(user);
-        // Sauve les changements
-       await _context.SaveChangesAsync();
-       // Retourne un statut 204 avec une réponse vide
-    return NoContent();
-}
-
-[AllowAnonymous]
-[HttpPost("authenticate")]
-public async Task<ActionResult<UserDTO>> Authenticate(UserWithPasswordDTO dto) {
-    var user = await Authenticate(dto.Email, dto.Password);
-
-    if (user == null)
-        return BadRequest(new ValidationErrors().Add("User not found", "wrong id"));
-    if (user.Token == null)
-        return BadRequest(new ValidationErrors().Add("Incorrect password", "Password"));
-
-    var mapped = _mapper.Map<UserDTO>(user);
-    //Console.WriteLine("mapped : " + mapped.UserId);
-    return Ok(mapped);
-}
-
-private async Task<User> Authenticate(string email, string password) {
-    var user = await _context.Users.Where(u => u.Email == email).FirstOrDefaultAsync();
-
-    // return null if user not found
-    if (user == null){
-        Console.WriteLine("user nuuulll");
-        return null;
+        await _context.SaveChangesAsync();
+        return NoContent();
     }
 
-    if (user.Password == password) {
-        // authentication successful so generate jwt token
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes("my-super-secret-key");
-        var tokenDescriptor = new SecurityTokenDescriptor {
-            Subject = new ClaimsIdentity(new Claim[] {
-                    new Claim(ClaimTypes.Name, user.UserId.ToString()),
-                    new Claim(ClaimTypes.Role, user.Role.ToString())
-                }),
-            IssuedAt = DateTime.UtcNow,
-            Expires = DateTime.UtcNow.AddMinutes(10),
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-        };
-        var token = tokenHandler.CreateToken(tokenDescriptor);
-        user.Token = tokenHandler.WriteToken(token);
+    [AllowAnonymous]
+    [HttpPost("authenticate")]
+    public async Task<ActionResult<UserDTO>> Authenticate(UserWithPasswordDTO dto) {
+        var user = await Authenticate(dto.Email, dto.Password);
+
+        if (user == null)
+            return BadRequest(new ValidationErrors().Add("User not found", "wrong id"));
+        if (user.Token == null)
+            return BadRequest(new ValidationErrors().Add("Incorrect password", "Password"));
+
+        var mapped = _mapper.Map<UserDTO>(user);
+        return Ok(mapped);
     }
 
-    return user;
-}
+    private async Task<User> Authenticate(string email, string password) {
+        var user = await _context.Users.Where(u => u.Email == email).FirstOrDefaultAsync();
 
+        if (user == null){
+            return null;
+        }
 
-
-
-
-
-
-
-
-
+        if (user.Password == password) {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes("my-super-secret-key");
+            var tokenDescriptor = new SecurityTokenDescriptor {
+                Subject = new ClaimsIdentity(new Claim[] {
+                        new Claim(ClaimTypes.Name, user.UserId.ToString()),
+                        new Claim(ClaimTypes.Role, user.Role.ToString())
+                    }),
+                IssuedAt = DateTime.UtcNow,
+                Expires = DateTime.UtcNow.AddMinutes(10),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            user.Token = tokenHandler.WriteToken(token);
+        }
+        return user;
+    }
 }

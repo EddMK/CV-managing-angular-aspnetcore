@@ -18,7 +18,6 @@ export class MasteringService {
     }
 
     public delete(m: Mastering): Observable<boolean> {
-        console.log("delete " + m.masteringId);
         return this.http.delete<boolean>(`${this.baseUrl}api/mastering/${m.masteringId}`).pipe(
             map(res => true),
             catchError(err => {
@@ -28,8 +27,6 @@ export class MasteringService {
         );
     }
     public save(m: Mastering, selectedLevel : number): Observable<boolean> {
-        console.log(m.level)
-    
         return this.http.put<Mastering>(`${this.baseUrl}api/mastering/${m.masteringId}`, selectedLevel).pipe( /// a problem happened here
             map(res => true), 
             catchError(err => {
@@ -41,8 +38,6 @@ export class MasteringService {
     }
 
     public add(m: Mastering): Observable<boolean> {
-        
-        console.log(m);
         return this.http.post<Mastering>(`${this.baseUrl}api/mastering/`, m).pipe(
             map(res => true),
             catchError(err => {

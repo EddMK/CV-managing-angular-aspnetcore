@@ -56,7 +56,6 @@ namespace prid_2122_g04.Controllers
         [AllowAnonymous]
         [HttpGet("{name}")]
         public async Task<ActionResult<SkillDto>> GetOneByName(String name) {
-            //Console.WriteLine("NAME : "+name);
             var skill = await _context.Skills.Include(s => s.category).SingleOrDefaultAsync(skill => skill.Name == name);
             if (skill == null)
                 return NotFound();
@@ -72,7 +71,7 @@ namespace prid_2122_g04.Controllers
             return _mapper.Map<CategoryDto>(category);
         }
 
-
+        [Authorized(Role.MANAGER)]
         [HttpPut]
         public async Task<IActionResult> PutSkill(SkillDto dto) {
             var skill = await _context.Skills.FindAsync(dto.skillId);
@@ -85,6 +84,7 @@ namespace prid_2122_g04.Controllers
             return NoContent();
         }
 
+        [Authorized(Role.MANAGER)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteSkill(int id) {
             var skill = await _context.Skills.FindAsync(id);
@@ -95,10 +95,9 @@ namespace prid_2122_g04.Controllers
             return NoContent();
         }
 
-        [AllowAnonymous]
+        [Authorized(Role.MANAGER)]
         [HttpPost]
         public async Task<ActionResult<SkillDto>> PostSkill(SkillDto skill) {
-            Console.WriteLine("arrive backend : "+skill.Name);
             var newSkill = _mapper.Map<Skill>(skill);
             _context.Skills.Add(newSkill);
             var res = await _context.SaveChangesAsyncWithValidation();

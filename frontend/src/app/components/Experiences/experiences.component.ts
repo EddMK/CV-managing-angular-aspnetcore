@@ -4,6 +4,7 @@ import { Experience } from 'src/app/models/Experience';
 import { CVComponent } from '../CV/CV.component';
 import { TitleComponent } from '../title/title.component';
 import { ExperienceService } from 'src/app/services/experience.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Using } from 'src/app/models/Using';
 import { Skill } from 'src/app/models/Skill';
 import { Enterprise } from 'src/app/models/Enterprise';
@@ -28,9 +29,7 @@ export class ExperiencesComponent implements OnInit {
   @Input() public set connectedUser(user: User | undefined) {
     
     if (user != undefined) {
-      console.log("user : " + user?.firstname + ", " + user?.userId);
       this.experienceService.GetAllTraingById(user?.userId!).subscribe(t => {
-        console.log(t);
         this.trainings = t;
       });
       this.experienceService.GetAllMissionById(user?.userId!).subscribe(t => {
@@ -63,7 +62,6 @@ export class ExperiencesComponent implements OnInit {
    
 
   onEditTraining() {
-    //console.log("TOUCHE TRAINING !");
     if(!this.isEditableTraining){
        this.isEditableTraining = true;
     }
@@ -74,7 +72,6 @@ export class ExperiencesComponent implements OnInit {
 
 
   onAddMission() {
-    //console.log("TOUCHE TRAINING !");
     if(!this.isAddableMission){
        this.isAddableMission = true;
     }
@@ -84,7 +81,6 @@ export class ExperiencesComponent implements OnInit {
   }
 
   onAddTraining() {
-    //console.log("TOUCHE TRAINING !");
     if(!this.isAddableTraining){
        this.isAddableTraining = true;
     }
@@ -94,7 +90,6 @@ export class ExperiencesComponent implements OnInit {
   }
 
   onEditMission() {
-    //console.log("TOUCHE MISSION!");
     if(!this.isEditableMission){
        this.isEditableMission = true;
     }
@@ -104,7 +99,6 @@ export class ExperiencesComponent implements OnInit {
   }
 
   addExperience(category : string):void{
-    console.log("NOM CATEGORY : "+category);
     const training = new Experience();
     if(this.isUserConnected){
       const dlg = this.dialog.open(EditExperienceComponent, { data: { training, isNew: true, isMission : category=="MISSION"?true : false}, height : '150%', width : '50%' });
@@ -113,12 +107,10 @@ export class ExperiencesComponent implements OnInit {
           res.userId = this.currentUser?.userId!;
           res.role = category;
           res = plainToClass(Experience, res);
-          console.log(res);
           this.experienceService.addExperience(res).subscribe(idexperience => {
             res.idExperience = idexperience;
             if (!idexperience) {
-              console.log("NOT added");
-              //this.snackBar.open(`There was an error at the server. The update has not been done! Please try again.`, 'Dismiss', { duration: 10000 });
+              this.snackBar.open(`There was an error at the server. The update has not been done! Please try again.`, 'Dismiss', { duration: 10000 });
             }
             this.refreshAll();
           });
@@ -130,7 +122,6 @@ export class ExperiencesComponent implements OnInit {
 
   editExperience(training : Experience):void{
     if(this.isUserConnected){
-      console.log(training);
       const enterprise = training.enterprise;
       const dlg = this.dialog.open(EditExperienceComponent, { data: { training, isNew: false}, height : '150%', width : '50%' });
       dlg.beforeClosed().subscribe(res => {
@@ -138,11 +129,9 @@ export class ExperiencesComponent implements OnInit {
             res.enterprise = enterprise;
             _.assign(training, res);
             res = plainToClass(Experience, training);
-            console.log(res);
             this.experienceService.updateExperience(res).subscribe(res => {
               if (!res) {
-                console.log("NOT updated");
-                //this.snackBar.open(`There was an error at the server. The update has not been done! Please try again.`, 'Dismiss', { duration: 10000 });
+                this.snackBar.open(`There was an error at the server. The update has not been done! Please try again.`, 'Dismiss', { duration: 10000 });
               }
               this.refreshAll();
             });
@@ -152,7 +141,6 @@ export class ExperiencesComponent implements OnInit {
   }
 
   deleteExperience(experience: Experience) {
-    console.log(experience);
     var dialog = this.confirmService.confirmDialog({title: 'Confirm delete' ,
      message: 'Are you sure you want to delete ' + experience.title + '? If you do so all the missions related will be also deleted', 
      confirmText: 'Confirm', 
@@ -184,7 +172,7 @@ export class ExperiencesComponent implements OnInit {
   }
 
   constructor(public experienceService :  ExperienceService, public usingService : UsingService,
-    public dialog: MatDialog, private authenticationService: AuthenticationService, private confirmService: ConfirmService){
+    public dialog: MatDialog, public snackBar: MatSnackBar, private authenticationService: AuthenticationService, private confirmService: ConfirmService){
 
   }
 

@@ -130,7 +130,7 @@ namespace backend.Models
             modelBuilder.Entity<Skill>().HasData(
                 // linked to languages
                 new Skill { skillId = 1, Name = "Java", categoryId = 1},
-                new Skill { skillId = 2, Name = "C#", categoryId = 1},
+                new Skill { skillId = 2, Name = "C sharp", categoryId = 1},
                 new Skill { skillId = 3, Name = "C++", categoryId = 1},
                 new Skill { skillId = 4, Name = "Python", categoryId = 1},
                 new Skill { skillId = 5, Name = "Typescript", categoryId = 1},
@@ -140,15 +140,12 @@ namespace backend.Models
                 new Skill { skillId = 8, Name = "MongoDB", categoryId = 2},
                 new Skill { skillId = 9, Name = "MariaDB", categoryId = 2},
                 new Skill { skillId = 10, Name = "SqlLite", categoryId = 2},
-
-                // linked to frameworks 
-                
+                // linked to frameworks s
                 new Skill { skillId = 11, Name = "Spring Boot", categoryId = 3},
                 new Skill { skillId = 12, Name = "Asp.net core", categoryId = 3},
                 new Skill { skillId = 13, Name = "Xaml", categoryId = 3},
                 new Skill { skillId = 14, Name = "Java FX", categoryId = 3},
-                new Skill { skillId = 15, Name = "Java EE", categoryId = 3}
-                
+                new Skill { skillId = 15, Name = "Java EE", categoryId = 3}  
             );
 
            modelBuilder.Entity<Mastering>().HasData(

@@ -35,7 +35,6 @@ export class UsingService {
     }
 
     GetUsingById(id : number): Observable<Using[]>{
-        
         return this.http.get<any[]>(`${this.baseUrl}api/using/` + id)
         .pipe(map(res => plainToClass(Using, res))
        );
@@ -43,24 +42,12 @@ export class UsingService {
 
 
     public AddUsing(idExperience : number, s: Skill){
-        console.log(s.name);
-        console.log(idExperience);
         return this.http.post<Using>(`${this.baseUrl}api/using/addUsing/${idExperience}`,s)
-        .pipe(map(res => 
-                {console.log(res);
-                    return res;
-                }));
-            /*
-            catchError(err => {
-                console.error(err);
-                return of(false);
-            })
-            */
+        .pipe(map(res => { return res }));
     }
 
 
     public DeleteUsing(idExperience : number, idSkill: any): Observable<boolean> {
-        console.log("skill : "+idSkill);
         return this.http.delete<boolean>(`${this.baseUrl}api/using/${idExperience}/${idSkill}`).pipe(
             map(res => true),
             catchError(err => {

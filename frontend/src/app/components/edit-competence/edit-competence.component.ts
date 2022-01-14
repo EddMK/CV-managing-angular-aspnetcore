@@ -57,8 +57,6 @@ export class EditCompetenceComponent implements OnChanges{
     }
 
     save(mastering: Mastering){
-        console.log(this.selected)
-        console.log(this.mastering.levelValue + " has level value")
         this.masteringService.save(mastering, this.selected).subscribe(res =>{
            this.refreshParent(mastering);
         });

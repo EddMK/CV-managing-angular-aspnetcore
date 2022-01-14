@@ -8,7 +8,12 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using PRID_Framework;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authorization;
+using backend.Helpers;
 
 
 namespace prid_2122_g04.Controllers
@@ -49,7 +54,7 @@ namespace prid_2122_g04.Controllers
             return _mapper.Map<EnterpriseDto>(enterprise);
         }
 
-
+        [Authorized(Role.MANAGER)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEnterprise(int id) {
             var enterprise = await _context.Enterprises.FindAsync(id);
@@ -60,6 +65,7 @@ namespace prid_2122_g04.Controllers
             return NoContent();
         }
 
+        [Authorized(Role.MANAGER)]
         [HttpPut]
         public async Task<IActionResult> PutEnterprise(EnterpriseDto dto) {
             var enterprise = await _context.Enterprises.FindAsync(dto.IdEnterprise);
@@ -72,10 +78,9 @@ namespace prid_2122_g04.Controllers
             return NoContent();
         }
 
-        [AllowAnonymous]
+        [Authorized(Role.MANAGER)]
         [HttpPost]
         public async Task<ActionResult<EnterpriseDto>> PostEnterprise(EnterpriseDto enterprise) {
-            Console.WriteLine("arrive backend : "+enterprise.Name);
             var newEnterprise = _mapper.Map<Enterprise>(enterprise);
             _context.Enterprises.Add(newEnterprise);
             var res = await _context.SaveChangesAsyncWithValidation();

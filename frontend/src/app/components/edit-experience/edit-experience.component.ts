@@ -25,7 +25,7 @@ import { ThrowStmt } from '@angular/compiler';
 const startDateValidation: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
     const start = control.get('start') as FormControl;
     const finish = control.get('finish') as FormControl;
-    if(finish.value === null || finish.value === undefined || finish.value == ''){
+    if(finish.value === null || finish.value === undefined || isNaN(finish.value)){
         return null;
     }else{
         return (start.value !== null && finish.value !== null) && start.value < finish.value ? null :{ dateValid:true };
@@ -106,8 +106,8 @@ export class EditExperienceComponent{
                 this.isTraining = true;
             }
         }
-        this.disableProgress = (data.training.finish == undefined)? true : false;
-        this.isProgress = (data.training.finish == undefined)? true : false;
+        this.disableProgress = (data.training.finish == undefined || !data.training.finish.isValid())? true : false;
+        this.isProgress = (data.training.finish == undefined || !data.training.finish.isValid())? true : false;
         this.isNew = data.isNew;
         this.idExperience = data.training.idExperience!;
         this.distribution(data.training);
@@ -184,7 +184,6 @@ export class EditExperienceComponent{
         if ((value || '').trim()) {
             if(!exist){
                 var numerId = this.setError(category, false);
-                console.log("numer Id : "+numerId+"  "+category);
                 this.skillService.getByName(value).subscribe(res =>{
                     if(res != null){
                         if(res.categoryId ===  numerId){
@@ -243,7 +242,6 @@ export class EditExperienceComponent{
     }
 
     progressChange(checked : boolean){
-        console.log("boolean : "+checked);
         if(checked){
             this.ctlFinish.setValue(null);
         }

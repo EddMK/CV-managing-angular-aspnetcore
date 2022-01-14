@@ -29,13 +29,11 @@ namespace prid_2122_g04.Controllers
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UsingDto>>> GetAll() {//OK
-            // Récupère une liste de tous les membres
             return _mapper.Map<List<UsingDto>>(await _context.Usings.Include(s => s.skill).ThenInclude(c => c.category).ToListAsync());
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<UsingDto>>> GetAllById(int id) {//OK
-            // Récupère une liste de tous les membres
             return _mapper.Map<List<UsingDto>>(await _context.Usings.Where(u => u.experience.UserId == id).Include(s => s.skill).ThenInclude(c => c.category).ToListAsync());
         }
 
@@ -43,19 +41,16 @@ namespace prid_2122_g04.Controllers
         
         [HttpGet("languages/{id}")]
         public async Task<ActionResult<IEnumerable<UsingDto>>> GetLanguagesById(int id) {//OK
-            // Récupère une liste de tous les membres
             return _mapper.Map<List<UsingDto>>(await _context.Usings.Where(u => u.ExperienceId == id && u.skill.category.Name == "Language").Include(s => s.skill).ThenInclude(c => c.category).ToListAsync());
         }
 
         [HttpGet("databases/{id}")]
         public async Task<ActionResult<IEnumerable<UsingDto>>> GetDatabasesById(int id) {//OK
-            // Récupère une liste de tous les membres
             return _mapper.Map<List<UsingDto>>(await _context.Usings.Where(u => u.ExperienceId == id && u.skill.category.Name == "Database").Include(s => s.skill).ThenInclude(c => c.category).ToListAsync());
         }
 
         [HttpGet("frameworks/{id}")]
         public async Task<ActionResult<IEnumerable<UsingDto>>> GetFrameworksById(int id) {//OK
-            // Récupère une liste de tous les membres
             return _mapper.Map<List<UsingDto>>(await _context.Usings.Where(u => u.ExperienceId == id && u.skill.category.Name == "Framework").Include(s => s.skill).ThenInclude(c => c.category).ToListAsync());
         }
 
@@ -76,7 +71,6 @@ namespace prid_2122_g04.Controllers
 
         [HttpGet("~/getOneUsing")]
         public async Task<Using> GetOneUsing(int experienceId, int skillId){
-            Console.WriteLine("ARRIVE GETONE");
             var thisUsing = await _context.Usings.Include(u => u.skill).Where(u => u.ExperienceId == experienceId && u.SkillId == skillId).FirstOrDefaultAsync();  
             if (thisUsing == null){
                 return null;
@@ -88,12 +82,8 @@ namespace prid_2122_g04.Controllers
         [HttpGet("{experienceId}/{skillId}")]
         public async Task<ActionResult<UsingDto>> GetOne(int experienceId, int skillId) {
             var thisUsing = await _context.Usings.Include(u => u.skill).Where(u => u.ExperienceId == experienceId && u.SkillId == skillId).FirstOrDefaultAsync();  
-            Console.WriteLine("ARRIVE GETONE : ");
-            //var thisSkill = await _context.Skills.FindAsync(skillId);
-            //.skill = thisSkill;
             if (thisUsing == null)
                 return NotFound();
-            // Transforme le membre en son DTO et retourne ce dernier
             return _mapper.Map<UsingDto>(thisUsing);
         }
 
@@ -109,7 +99,5 @@ namespace prid_2122_g04.Controllers
             await _context.SaveChangesAsync();
             return NoContent();
         }
-
-
     }
 }

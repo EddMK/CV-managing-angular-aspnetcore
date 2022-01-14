@@ -91,7 +91,6 @@ export class EditCompetencesListComponent {
 
      refresh(id: number) {
         this.masteringService.getAllById(id).subscribe(m => {
-            console.log(m);
             this.masterings = m;
         });
         

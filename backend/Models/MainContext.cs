@@ -19,6 +19,8 @@ namespace backend.Models
 
         public DbSet<Experience> Experience { get; set; }
 
+        public DbSet<Mission> Missions { get; set; }
+
         public DbSet<Training> Trainings { get; set; }
 
         public DbSet<Category> Categories { get; set; }

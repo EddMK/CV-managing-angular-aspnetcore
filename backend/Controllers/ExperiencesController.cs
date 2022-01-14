@@ -42,10 +42,10 @@ namespace prid_2122_g04.Controllers
 
          [HttpGet("getMissionById/{id}")]
         public async Task<ActionResult<IEnumerable<ExperienceDTO>>> GetAllMissionById(int id) {//OK
-            List<Experience> dateFinishNull = await  _context.Experience.Where( t => t.Role == ExperienceRole.MISSION && t.UserId == id && t.Finish == null)
-                        .OrderByDescending( t=> t.Start).Include(t => t.Enterprise).Include(e => e.usings).ThenInclude(s => s.skill).ThenInclude(c => c.category).ToListAsync();
-           List<Experience> dateFinishNonNull = await _context.Experience.Where(t => t.Role == ExperienceRole.MISSION && t.UserId == id && t.Finish != null)
-                        .OrderByDescending( t=> t.Finish).Include(t => t.Enterprise).Include(e => e.usings).ThenInclude(s => s.skill).ThenInclude(c => c.category).ToListAsync();
+            List<Mission> dateFinishNull = await  _context.Missions.Where( t => t.Role == ExperienceRole.MISSION && t.UserId == id && t.Finish == null)
+                        .OrderByDescending( t=> t.Start).Include(t => t.Enterprise).Include(c => c.client).Include(e => e.usings).ThenInclude(s => s.skill).ThenInclude(c => c.category).ToListAsync();
+           List<Mission> dateFinishNonNull = await _context.Missions.Where(t => t.Role == ExperienceRole.MISSION && t.UserId == id && t.Finish != null)
+                        .OrderByDescending( t=> t.Finish).Include(t => t.Enterprise).Include(c => c.client).Include(e => e.usings).ThenInclude(s => s.skill).ThenInclude(c => c.category).ToListAsync();
             dateFinishNull.AddRange(dateFinishNonNull);
             return _mapper.Map<List<ExperienceDTO>>( dateFinishNull);
         }

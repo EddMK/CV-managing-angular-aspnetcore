@@ -39,5 +39,9 @@ export class Experience {
       return this.enterprise?.name;
     }
 
+    public get clientToString(){
+      return this.client?.name;
+    }
+
 }
 

@@ -34,6 +34,7 @@ export class ExperiencesComponent implements OnInit {
         this.trainings = t;
       });
       this.experienceService.GetAllMissionById(user?.userId!).subscribe(t => {
+        console.log(t)
         this.missions = t;
       });
       if(user == this.currentUser){

@@ -34,7 +34,8 @@
 </h1>
 <div *ngIf = "missions.length > 0" >
   <div *ngFor="let mission of missions"  (click)="onEditMission()">    
-      <p> {{ mission.start?.format('DD/MM/YYYY')}}  <span *ngIf="mission.finish?.isValid()">  :  {{ mission.finish?.format('DD/MM/YYYY')}} </span>    <span class="font-weight-bold ml-3">  {{ mission.enterpriseToString }} - {{ mission.title}} </span>
+      <p> {{ mission.start?.format('DD/MM/YYYY')}}  <span *ngIf="mission.finish?.isValid()">  :  {{ mission.finish?.format('DD/MM/YYYY')}} </span>    <span class="font-weight-bold ml-3">  {{ mission.enterpriseToString }} - {{ mission.title}} : <p *ngIf="mission.client != null">     client : {{  mission.clientToString}}</p>    </span>
+
         <span *ngIf="isEditableMission"> 
           <button mat-icon-button class="ml-3">
               <mat-icon (click)="editExperience(mission)">edit</mat-icon>

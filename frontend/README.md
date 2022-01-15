@@ -15,7 +15,7 @@
      Diagramme de classes complet du modèle "as-built"
 
 
-     <img src="./diagram-model/model.png"/>
+   ![ScreenShot](/screenshots/model.png)
 
 
 

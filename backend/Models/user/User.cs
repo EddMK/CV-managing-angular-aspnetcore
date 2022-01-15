@@ -25,6 +25,7 @@ namespace backend.Models
         public string Password { get; set; }
         
         [Required]
+        [EmailAddress]
         public string Email { get; set; }
 
         [MinLength(3, ErrorMessage = "Minimum 3 characters"),  StringLength(50, ErrorMessage = "Maximum 50 characters")]
@@ -77,12 +78,6 @@ namespace backend.Models
             }
         }
 
-        
-       
-        /*
-         public bool isPseudoValid(){
-            return !Pseudo.Contains('_') && Char.IsLetter(Pseudo[0]);
-        }*/
     
         private bool CheckLastNameUnicity(MainContext context) {
             if (string.IsNullOrEmpty(LastName)) 

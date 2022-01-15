@@ -76,14 +76,19 @@ namespace backend.Models
             modelBuilder.Entity<Training>().HasData(
                 new Training {IdExperience = 1, UserId = 1,Start = new DateTime(2021, 10, 15), Finish = null , IdEnterprise = 1, Title = "Training Tram Driver",Description ="", Role = ExperienceRole.TRAINING, Grade = 80},
                 new Training {IdExperience = 2, UserId = 1,Start = new DateTime(2019, 10, 15), Finish = null , IdEnterprise = 1, Title = "Bachelore in computer science",Description ="Learning fundamentals of I.T and software development", Role = ExperienceRole.TRAINING, Grade = 90},
-                new Training {IdExperience = 4, UserId = 1,Start = new DateTime(2016, 10, 15), Finish = new DateTime(2019, 06, 30) , IdEnterprise = 1, Title = "Bachelor in Physics",Description ="Learning how flight an airplane", Role = ExperienceRole.TRAINING, Grade = 80},
-                new Training {IdExperience = 5, UserId = 1,Start = new DateTime(2013, 10, 15), Finish = new DateTime(2016, 06, 30) , IdEnterprise = 1, Title = "Bachelore in right",Description ="Learning the rights", Role = ExperienceRole.TRAINING, Grade = 90},
-                new Training {IdExperience = 6, UserId = 2, Start = new DateTime(2021, 02, 1), Finish = new DateTime(2021, 06, 30), IdEnterprise = 1, Title = "Bachelore in computer science",Description ="", Role = ExperienceRole.TRAINING, Grade = 77},
-                new Training {IdExperience = 7, UserId = 7, Start = new DateTime(2010, 02, 1), Finish = new DateTime(2013, 06, 30), IdEnterprise = 3, Title = "Bachelore in computer science",Description ="Learning fundamentals of I.T and software development", Role = ExperienceRole.TRAINING, Grade = 95}
+                new Training {IdExperience = 4, UserId = 3,Start = new DateTime(2016, 10, 15), Finish = new DateTime(2019, 06, 30) , IdEnterprise = 3, Title = "Bachelor in Physics",Description ="Learning how flight an airplane", Role = ExperienceRole.TRAINING, Grade = 80},
+                new Training {IdExperience = 5, UserId = 3,Start = new DateTime(2013, 10, 15), Finish = new DateTime(2016, 06, 30) , IdEnterprise = 3, Title = "Bachelore in law",Description ="Learning the rights", Role = ExperienceRole.TRAINING, Grade = 90},
+                new Training {IdExperience = 6, UserId = 2, Start = new DateTime(2021, 02, 1), Finish = null, IdEnterprise = 1, Title = "Web Training",Description ="", Role = ExperienceRole.TRAINING, Grade = 77},
+                new Training {IdExperience = 7, UserId = 7, Start = new DateTime(2010, 02, 1), Finish = new DateTime(2013, 06, 30), IdEnterprise = 3, Title = "Bachelore in computer science",Description ="Learning fundamentals of I.T and software development", Role = ExperienceRole.TRAINING, Grade = 95},
+                new Training {IdExperience = 8, UserId = 2, Start = new DateTime(2015, 9, 1), Finish = new DateTime(2020, 06, 30), IdEnterprise = 3, Title = "Master in engineer",Description ="Learning the lights", Role = ExperienceRole.TRAINING, Grade = 70},
+                new Training {IdExperience = 12, UserId = 4, Start = new DateTime(2019, 9, 1), Finish = new DateTime(2021, 06, 30), IdEnterprise = 1, Title = "Bachelor in accounting",Description ="Learning economics", Role = ExperienceRole.TRAINING, Grade = 99}
             );
 
             modelBuilder.Entity<Mission>().HasData(
-                new Mission { IdExperience = 3, UserId = 1,Start = new DateTime(2021, 10, 1), Finish = new DateTime(2024, 10, 1), IdEnterprise = 4,  Title = "Java fullstack developer",Description ="Programming software for a specific justice departement ", Role = ExperienceRole.MISSION, clientIdEnterprise = 2}
+                new Mission { IdExperience = 3, UserId = 1,Start = new DateTime(2021, 10, 1), Finish = new DateTime(2024, 10, 1), IdEnterprise = 4,  Title = "Java fullstack developer",Description ="Programming software for a specific justice departement ", Role = ExperienceRole.MISSION, clientIdEnterprise = 2},
+                new Mission {IdExperience = 9, UserId = 2, Start = new DateTime(2022, 9, 1), Finish = null, IdEnterprise = 5, Title = "ERP for school",Description ="Create software for schools", Role = ExperienceRole.MISSION, clientIdEnterprise = 1},
+                new Mission { IdExperience = 10, UserId = 3,Start = new DateTime(2021, 10, 1), Finish = new DateTime(2024, 10, 1), IdEnterprise = 4,  Title = "Java fullstack developer",Description ="Programming software for a specific justice departement ", Role = ExperienceRole.MISSION, clientIdEnterprise = 2},
+                new Mission { IdExperience = 11, UserId = 4,Start = new DateTime(2021, 10, 1), Finish = new DateTime(2024, 10, 1), IdEnterprise = 4,  Title = "Java fullstack developer",Description ="Programming software for a specific justice departement ", Role = ExperienceRole.MISSION, clientIdEnterprise = 2}
             );
 
             modelBuilder.Entity<Enterprise>().HasData(
@@ -92,7 +97,6 @@ namespace backend.Models
                new Enterprise { IdEnterprise = 3, Name = "Stanford",role= EnterPriseRole.EMPLOYER},
                new Enterprise { IdEnterprise = 4, Name = "Egov select", role = EnterPriseRole.EMPLOYER},
                new Enterprise { IdEnterprise = 5, Name = "Odoo", role = EnterPriseRole.CLIENT}
-
             );
 
             modelBuilder.Entity<Using>().HasData(
@@ -122,7 +126,15 @@ namespace backend.Models
                new Using {Id =18,ExperienceId = 4, SkillId = 11},
                new Using {Id =19,ExperienceId = 4, SkillId = 12},
                new Using {Id =20,ExperienceId = 4, SkillId = 13},
-               new Using {Id =21, ExperienceId = 4, SkillId = 14}
+               new Using {Id =21, ExperienceId = 4, SkillId = 14},
+
+               
+                //for Edouard
+               new Using {Id =22, ExperienceId =8, SkillId = 4},
+               new Using {Id =23,ExperienceId = 8, SkillId = 7},
+               new Using {Id =24,ExperienceId = 8, SkillId = 9},
+               new Using {Id =25,ExperienceId = 9, SkillId = 5},
+               new Using {Id =26, ExperienceId = 9, SkillId = 12}
             );
  
             modelBuilder.Entity<Category>().HasData(
@@ -179,10 +191,13 @@ namespace backend.Models
                new Mastering { masteringId=19, userId=7, SkillId=11,  Level = Level.Advanced},
                new Mastering { masteringId=20, userId=7, SkillId=12,  Level = Level.Beginner},
                new Mastering { masteringId=21, userId=7, SkillId=13,  Level = Level.Advanced},
-               new Mastering { masteringId=22, userId=7, SkillId=14,  Level = Level.Intermediate}
+               new Mastering { masteringId=22, userId=7, SkillId=14,  Level = Level.Intermediate},
 
-
-
+                //for edouard
+                new Mastering { masteringId=23, userId=2, SkillId=5,  Level = Level.Intermediate},
+               new Mastering { masteringId=24, userId=2, SkillId=7,  Level = Level.Beginner},
+               new Mastering { masteringId=25, userId=2, SkillId=9,  Level = Level.Advanced},
+               new Mastering { masteringId=26, userId=2, SkillId=12,  Level = Level.Intermediate}
 
             );
 

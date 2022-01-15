@@ -141,7 +141,7 @@ public class UsersController : ControllerBase
         var user = await Authenticate(dto.Email, dto.Password);
 
         if (user == null)
-            return BadRequest(new ValidationErrors().Add("User not found", "wrong id"));
+            return BadRequest(new ValidationErrors().Add("User not found", "Email"));
         if (user.Token == null)
             return BadRequest(new ValidationErrors().Add("Incorrect password", "Password"));
 

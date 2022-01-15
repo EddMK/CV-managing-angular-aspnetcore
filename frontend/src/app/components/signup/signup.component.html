@@ -13,7 +13,7 @@
     <mat-form-field>
         <input matInput placeholder="Email" [formControl]="ctlEmail" required appSetFocus>
         <mat-error class="field-error" *ngIf="ctlEmail.hasError('required')">Required</mat-error>
-        <mat-error class="field-error" *ngIf="ctlEmail.hasError('email')">Not an email format</mat-error>
+        <mat-error class="field-error" *ngIf="ctlEmail.hasError('email')">Not an email format</mat-error> 
         <mat-error class="field-error" *ngIf="ctlEmail.hasError('emailUsed')">Email already in use</mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill">

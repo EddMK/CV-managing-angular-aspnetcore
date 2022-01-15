@@ -2,23 +2,29 @@
     <h1 class="header">Edit your personal information</h1>
     <div class="form">
         <mat-form-field class = "firstName">
-            <input matInput placeholder="First Name" [formControl]="ctlFirstname">
-            <!--<mat-error class="field-error" *ngIf="ctlFirstname.hasError('minlength')">Minimum length is {{ctlFirstname.errors?.minlength?.requiredLength}}</mat-error> -->
+            <input matInput placeholder="First Name" [formControl]="ctlFirstname" required>
+            <mat-error class="field-error" *ngIf="ctlFirstname.hasError('minlength')">Minimum length is {{ctlFirstname.errors?.minlength?.requiredLength}}</mat-error>
+            <mat-error class="field-error" *ngIf="ctlFirstname.hasError('required')">Required</mat-error>
+            <mat-error class="field-error" *ngIf="ctlFirstname.hasError('pattern')">Not Whitespace</mat-error>
         </mat-form-field>
         <br>
         <mat-form-field class = "lastName">
-            <input matInput placeholder="Last Name" [formControl]="ctlLastname">
-           <!-- <mat-error class="field-error" *ngIf="ctlLastname.hasError('minlength')">Minimum length is {{ctlLastname.errors?.minlength?.requiredLength}}</mat-error> -->
+            <input matInput placeholder="Last Name" [formControl]="ctlLastname" required>
+            <mat-error class="field-error" *ngIf="ctlLastname.hasError('minlength')">Minimum length is {{ctlLastname.errors?.minlength?.requiredLength}}</mat-error> 
+            <mat-error class="field-error" *ngIf="ctlLastname.hasError('required')">Required</mat-error>
+            <mat-error class="field-error" *ngIf="ctlLastname.hasError('pattern')">Not Whitespace</mat-error>
         </mat-form-field>
         <br>
         <mat-form-field  class = "title">
-            <input matInput placeholder="Title" [formControl]="ctlTitle">
-           <!-- <mat-error class="field-error" *ngIf="ctlLastname.hasError('minlength')">Minimum length is {{ctlLastname.errors?.minlength?.requiredLength}}</mat-error> -->
+            <input matInput placeholder="Title" [formControl]="ctlTitle" required>
+            <mat-error class="field-error" *ngIf="ctlTitle.hasError('minlength')">Minimum length is {{ctlLastname.errors?.minlength?.requiredLength}}</mat-error> 
+            <mat-error class="field-error" *ngIf="ctlTitle.hasError('required')">Required</mat-error>
+            <mat-error class="field-error" *ngIf="ctlTitle.hasError('pattern')">Not Whitespace</mat-error>
         </mat-form-field>
         <br>
         <mat-form-field style="width: 300px; height: auto;">
             <textarea matInput rows="8"  placeholder="About" [formControl]="ctlAbout"></textarea>
-           <!-- <mat-error class="field-error" *ngIf="ctlLastname.hasError('minlength')">Minimum length is {{ctlLastname.errors?.minlength?.requiredLength}}</mat-error> -->
+            <mat-error class="field-error" *ngIf="ctlLastname.hasError('minlength')">Minimum length is {{ctlLastname.errors?.minlength?.requiredLength}}</mat-error> 
         </mat-form-field> 
     </div>
   

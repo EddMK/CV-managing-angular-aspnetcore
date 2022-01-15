@@ -6,7 +6,6 @@
             <mat-error class="field-error" *ngIf="ctlName.hasError('required')">Required</mat-error>
             <mat-error class="field-error" *ngIf="ctlName.hasError('minlength')">Minimum length is {{ctlName.errors?.minlength?.requiredLength}}</mat-error>
             <mat-error class="field-error" *ngIf="ctlName.hasError('nameUsed')">Name already in use</mat-error>
-            <!---<mat-error class="field-error" *ngIf="ctlName.hasError('forbiddenValue')">Forbiddent value 'abc'</mat-error>--->
         </mat-form-field>
     </div>
     <div class="footer">

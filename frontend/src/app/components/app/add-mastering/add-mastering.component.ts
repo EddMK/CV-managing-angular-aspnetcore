@@ -17,10 +17,7 @@ export class AddMastering {
 
 
     public frm!: FormGroup;
-    //public selected: number;
-
     public masterings: Mastering[] | undefined;
-    
     public skillsToAdd! : Skill[];
     selectedSkill!: Skill;
     selectedLevel!: Level;
@@ -37,11 +34,5 @@ export class AddMastering {
         });
         
     }
-
-
-
-
-
-
 }
     

@@ -6,7 +6,7 @@ import { User } from 'src/app/models/User';
 import { Experience } from 'src/app/models/Experience';
 import { UsingService } from 'src/app/services/using.service';
 import { Using } from 'src/app/models/Using';
-import { Observable, Subscription } from 'rxjs';
+import { iif, Observable, Subscription } from 'rxjs';
 
 
 
@@ -47,4 +47,20 @@ export class UsinglistComponent implements OnInit{
   public ngOnInit(): void {
       
   }
+
+  isNotEmpty(category : string) : boolean{
+    switch (category) {
+      case "Languages":
+        return this.languages.length == 0 ? true : false;
+          
+      case "Databases":
+        return this.databases.length == 0 ? true : false;
+          
+      case "Frameworks":
+        return this.frameworks.length == 0 ? true : false;   
+    }
+    return false;
+  }
+
+ 
 }

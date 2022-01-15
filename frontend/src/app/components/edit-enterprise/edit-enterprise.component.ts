@@ -22,7 +22,6 @@ export class EditEnterpriseComponent {
     public isNew: boolean;
     public id : any;
 
-
     constructor(public dialogRef: MatDialogRef<EditEnterpriseComponent>,
         @Inject(MAT_DIALOG_DATA) public data: { enterprise: Enterprise; isNew: boolean; },
         private fb: FormBuilder,

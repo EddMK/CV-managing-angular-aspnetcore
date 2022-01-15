@@ -11,7 +11,9 @@
                     <mat-option *ngFor="let s of skills" [value]="s">
                       {{s?.name}}
                     </mat-option>
-                  </mat-select>
+                </mat-select>
+                <mat-error class="field-error" *ngIf="ctlSkillId.hasError('MasteringUsed')">This skill is already used as a mastering</mat-error>
+                <mat-error class="field-error" *ngIf="ctlSkillId.hasError('required')">Required</mat-error>
             </mat-form-field>
             <mat-form-field>
                 <input matInput placeholder="Category"  [value]="" readonly > 
@@ -24,16 +26,9 @@
                     <mat-option [value]="3">Expert</mat-option>
                 </mat-select>
             </mat-form-field>
-            
-            <button class="btn btn-outline-primary ml-2 mr-0"  (click) = "create(frm)"> <mat-icon>add</mat-icon></button>
-
+            <button class="btn btn-outline-primary ml-2 mr-0" form="frm" [disabled]="frm.invalid" (click) = "create(frm)"> <mat-icon>add</mat-icon></button>
      <div class="footer">
-       <!--- <button type="submit" mat-button form="frm"(click)="update()">update</button> -->
         <button type="reset" mat-button (click)="update()">Close</button>
      </div>
- 
-   
-  <!--  [disabled]="frm.pristine || frm.invalid || frm.pending" -->
-
 </form> 
 

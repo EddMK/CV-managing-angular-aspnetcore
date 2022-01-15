@@ -18,28 +18,34 @@ namespace backend.Models
         [Key]
         public int UserId { get; set;}
         
-        
-
         [Required(ErrorMessage = "Required")]
         [MinLength(3, ErrorMessage = "Minimum 3 characters"), StringLength(10, ErrorMessage = "Maximum 10 characters") ]
         public string Password { get; set; }
         
-        [Required]
+        [Required(ErrorMessage ="Required")]
         [EmailAddress]
         public string Email { get; set; }
 
-        [MinLength(3, ErrorMessage = "Minimum 3 characters"),  StringLength(50, ErrorMessage = "Maximum 50 characters")]
+        [Required(ErrorMessage = "Required")]
+        [MinLength(3, ErrorMessage = "Minimum 2 characters"),  StringLength(30, ErrorMessage = "Maximum 30 characters")]
         public string FirstName { get; set; }
-        
-        [MinLength(3, ErrorMessage = "Minimum 3 characters"),  StringLength(50, ErrorMessage = "Maximum 50 characters")]
+
+
+        [Required(ErrorMessage = "Required")]
+        [MinLength(3, ErrorMessage = "Minimum 2 characters"),  StringLength(30, ErrorMessage = "Maximum 30 characters")]
         public string LastName { get; set; }
-
+        
+         [Required(ErrorMessage = "Required")]
+         [MinLength(3, ErrorMessage = "Minimum 2 characters"),  StringLength(30, ErrorMessage = "Maximum 30 characters")]
         public String Title { get; set; }
-
+         
+        [Required(ErrorMessage = "Required")]
+    
         public DateTime? BirthDate { get; set; }
 
         public Role Role { get; set;}
-
+        
+        [StringLength(200, ErrorMessage = "Maximum 200 characters")]
         public string About { get; set; }
 
 
@@ -78,29 +84,19 @@ namespace backend.Models
             }
         }
 
-    
-        private bool CheckLastNameUnicity(MainContext context) {
-            if (string.IsNullOrEmpty(LastName)) 
-                return true;
-            return context.Users.Count(u => u.LastName == LastName) == 0;
-        }
-        private bool CheckFirstNameUnicity(MainContext context){
-             if (string.IsNullOrEmpty(LastName)) 
-                return true;
-            return context.Users.Count(u => u.LastName == LastName) == 0;
-        }
-
-        public bool CheckFullNameUnicity(MainContext context){
-            return CheckFirstNameUnicity(context) && CheckLastNameUnicity(context);
+        private bool checkEmailUnicity(MainContext context) {
+            if(string.IsNullOrEmpty(Email))
+                 return true;
+             return context.Users.Count(u => u.Email == Email) == 0;    
         }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext) {
             var currContext = validationContext.GetService(typeof(MainContext)) as MainContext;
             Debug.Assert(currContext != null);
-            if (!CheckFullNameUnicity(currContext))
-                 yield return new ValidationResult("The combinaison of a firstname and fullname should be unique", new[] { nameof(LastName) });
-            if (Password == "abc")
-                 yield return new ValidationResult("The password may not be equal to 'abc'", new[] { nameof(Password) });
+            if (!checkEmailUnicity(currContext))
+                 yield return new ValidationResult("The email should be unique", new[] { nameof(Email) });
+            if (Password == "abc" || Password == "123")
+                 yield return new ValidationResult("The password may not be equal to 'abc' or 123", new[] { nameof(Password) });
              if (BirthDate.HasValue && BirthDate.Value.Date > DateTime.Today)
                yield return new ValidationResult("Can't be born in the future in this reality", new[] { nameof(BirthDate) });
               else if (Age.HasValue && Age < 18)

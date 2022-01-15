@@ -28,7 +28,6 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 export class EditCompetencesListComponent {
     public frm!: FormGroup;
-    //public ctlId!: FormGroup;
     public ctlSkillId!: FormControl;
     public ctlCategoryName!: FormControl;
     public ctlLevel!: FormControl;
@@ -40,8 +39,6 @@ export class EditCompetencesListComponent {
 
     connectedUser : User | undefined;
 
-  
-
     constructor(public dialogRef: MatDialogRef<EditCompetencesListComponent>,
         @Inject(MAT_DIALOG_DATA) public data: { masterings: Mastering[];isNew: boolean; },
         private fb: FormBuilder,
@@ -51,35 +48,47 @@ export class EditCompetencesListComponent {
         
     ) {
         this.connectedUser = this.currentUser;
-        this.ctlSkillId = this.fb.control(null, [Validators.minLength(3)]);
-        this.ctlCategoryName = this.fb.control(null, [Validators.minLength(3)]);
+        this.ctlSkillId = this.fb.control(null, Validators.required,[this.MasteringUsed()]);
+        this.ctlCategoryName = this.fb.control(null, []);
         this.ctlLevel = this.fb.control(null, []);
         this.skillService.getAll().subscribe(res => {
             this.skills = res;
         });
-       
         this.frm = this.fb.group({
-            //id: this.ctlId,
             skill: this.ctlSkillId,
             level: this.ctlLevel,
-            
-            
         });
         this.isNew = data.isNew;
-        this.masterings = data.masterings;
-        
-     
-       
+        this.masterings = data.masterings;  
         this.frm.patchValue(data.masterings);
     }
    
-
     get currentUser()  {
         return this.authService.currentUser;
     }
 
-    
-    // Validateur bidon qui vérifie que la valeur est différente
+    isSkillInMastering(skill : Skill){
+        for(let m of this.masterings){
+            if(m?.skillId! == skill?.skillId!)
+               return true;
+        }
+        return false;
+    }
+
+    MasteringUsed(): any {
+        let timeout: NodeJS.Timer;
+        return (ctl: FormControl) => {
+            clearTimeout(timeout);
+            const skill = ctl.value;
+            return new Promise(resolve => {
+                timeout = setTimeout(() => {
+                        this.isSkillInMastering(skill);
+                        resolve(this.isSkillInMastering(skill) ? {MasteringUsed: true } : null);
+                }, 300);
+            });
+        };
+    }
+
     forbiddenValue(val: string): any {
         return (ctl: FormControl) => {
             if (ctl.value === val) {
@@ -89,46 +98,18 @@ export class EditCompetencesListComponent {
         };
     }
 
-   
-
      refresh(id: number) {
         this.masteringService.getAllById(id).subscribe(m => {
             this.masterings = m;
         });
-        
     }
 
-
-
     create(form : any){
-             //console.log(form);
-            form.level = "Beginner";
-
-
               var skill = plainToClass(Skill, form.value.skill);
-              console.log(form);
-              //res.userId = this.currentUser?.userId
-              //res.skillId = res.skill?.skillId;
-               //res.level =
-              // res.masteringId = 12;
                this.masteringService.add(skill, this.connectedUser?.userId, form.value.level).subscribe(m => {
                    this.refresh(this.connectedUser?.userId!);
               });
     }
-
-
-
-    onChange() {
-       
-    }
-
-    
-
-    handleChildEvent () {
-        // do what you need here
-        console.log("parent refreshed");
-    }
-
 
     onNoClick(): void {
         this.dialogRef.close();
@@ -140,9 +121,5 @@ export class EditCompetencesListComponent {
 
     cancel() {
         this.dialogRef.close();
-    
-       
-       
-        
     }
 }

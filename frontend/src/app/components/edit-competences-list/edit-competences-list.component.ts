@@ -51,8 +51,8 @@ export class EditCompetencesListComponent {
         
     ) {
         this.connectedUser = this.currentUser;
-        this.ctlSkillId = this.fb.control(null, [Validators.minLength(3)]);
-        this.ctlCategoryName = this.fb.control(null, [Validators.minLength(3)]);
+        this.ctlSkillId = this.fb.control(null, Validators.required,[this.MasteringUsed()]);
+        this.ctlCategoryName = this.fb.control(null, []);
         this.ctlLevel = this.fb.control(null, []);
         this.skillService.getAll().subscribe(res => {
             this.skills = res;
@@ -78,6 +78,32 @@ export class EditCompetencesListComponent {
         return this.authService.currentUser;
     }
 
+    isSkillInMastering(skill : Skill){
+        for(let m of this.masterings){
+            if(m?.skillId! == skill?.skillId!)
+               return true;
+        }
+        return false;
+    }
+
+
+    MasteringUsed(): any {
+        let timeout: NodeJS.Timer;
+        return (ctl: FormControl) => {
+            clearTimeout(timeout);
+            const skill = ctl.value;
+            console.log(skill)
+            return new Promise(resolve => {
+                timeout = setTimeout(() => {
+                        this.isSkillInMastering(skill);
+                        console.log(this.isSkillInMastering(skill))
+                        resolve(this.isSkillInMastering(skill) ? {MasteringUsed: true } : null);
+                   
+                }, 300);
+            });
+        };
+    }
+
     
     // Validateur bidon qui vérifie que la valeur est différente
     forbiddenValue(val: string): any {
@@ -101,16 +127,7 @@ export class EditCompetencesListComponent {
 
 
     create(form : any){
-             //console.log(form);
-            form.level = "Beginner";
-
-
               var skill = plainToClass(Skill, form.value.skill);
-              console.log(form);
-              //res.userId = this.currentUser?.userId
-              //res.skillId = res.skill?.skillId;
-               //res.level =
-              // res.masteringId = 12;
                this.masteringService.add(skill, this.connectedUser?.userId, form.value.level).subscribe(m => {
                    this.refresh(this.connectedUser?.userId!);
               });

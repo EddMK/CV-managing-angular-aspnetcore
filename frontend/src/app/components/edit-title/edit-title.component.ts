@@ -38,10 +38,10 @@ export class EditTitleComponent implements OnDestroy{
             Validators.required,
             Validators.minLength(7),
         ], [this.EmailUsed()]);
-        this.ctlFirstname = this.fb.control(null, [Validators.minLength(3)]);
-        this.ctlLastname = this.fb.control(null, [Validators.minLength(3)]);
-        this.ctlTitle = this.fb.control(null, [Validators.minLength(3)]);
-        this.ctlAbout = this.fb.control(null, [Validators.minLength(3)]);
+        this.ctlFirstname = this.fb.control(null, [Validators.minLength(2), Validators.maxLength(30), Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ]")]);
+        this.ctlLastname = this.fb.control(null, [Validators.minLength(2), Validators.maxLength(30), Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ]")]);
+        this.ctlTitle = this.fb.control(null, [Validators.minLength(2), Validators.maxLength(30), Validators.required, Validators.pattern(".*\\S.*[a-zA-z0-9 ]")]);
+        this.ctlAbout = this.fb.control(null, [Validators.minLength(2), Validators.maxLength(200), Validators.pattern(".*\\S.*[a-zA-z0-9 ]")]);
 
     
         this.frm = this.fb.group({

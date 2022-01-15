@@ -35,12 +35,11 @@ export class EditCompetenceComponent implements OnChanges{
 
     $emit: any;
   
-    constructor(private masteringService: MasteringService, private skillService : SkillService) {
+    constructor(private masteringService: MasteringService) {
         this.selected = this.mastering?.level!
         
     }
 
-    // Validateur bidon qui vérifie que la valeur est différente
     forbiddenValue(val: string): any {
         return (ctl: FormControl) => {
             if (ctl.value === val) {
@@ -62,15 +61,12 @@ export class EditCompetenceComponent implements OnChanges{
         });
     }
 
-    create(){
-      
-    }
+    create(){}
 
     refreshParent(mastering : Mastering){
         this.newRefreshEvent.emit(mastering.userId);
     }
    
-
     ngOnChanges() {}
 
 

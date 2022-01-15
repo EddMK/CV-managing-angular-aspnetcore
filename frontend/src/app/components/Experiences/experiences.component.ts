@@ -39,9 +39,8 @@ export class ExperiencesComponent implements OnInit {
       if(user == this.currentUser){
         this.isUserConnected = true;
       }
-
     }
-}
+  }
 
   eventsSubject: Subject<void> = new Subject<void>();
 
@@ -174,7 +173,6 @@ export class ExperiencesComponent implements OnInit {
 
   constructor(public experienceService :  ExperienceService, public usingService : UsingService,
     public dialog: MatDialog, public snackBar: MatSnackBar, private authenticationService: AuthenticationService, private confirmService: ConfirmService){
-
   }
 
   get currentUser()  {

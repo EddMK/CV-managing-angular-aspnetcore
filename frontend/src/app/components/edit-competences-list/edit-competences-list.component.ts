@@ -28,7 +28,6 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 export class EditCompetencesListComponent {
     public frm!: FormGroup;
-    //public ctlId!: FormGroup;
     public ctlSkillId!: FormControl;
     public ctlCategoryName!: FormControl;
     public ctlLevel!: FormControl;
@@ -39,8 +38,6 @@ export class EditCompetencesListComponent {
     selectedValue!: Skill;
 
     connectedUser : User | undefined;
-
-  
 
     constructor(public dialogRef: MatDialogRef<EditCompetencesListComponent>,
         @Inject(MAT_DIALOG_DATA) public data: { masterings: Mastering[];isNew: boolean; },
@@ -57,23 +54,15 @@ export class EditCompetencesListComponent {
         this.skillService.getAll().subscribe(res => {
             this.skills = res;
         });
-       
         this.frm = this.fb.group({
-            //id: this.ctlId,
             skill: this.ctlSkillId,
             level: this.ctlLevel,
-            
-            
         });
         this.isNew = data.isNew;
-        this.masterings = data.masterings;
-        
-     
-       
+        this.masterings = data.masterings;  
         this.frm.patchValue(data.masterings);
     }
    
-
     get currentUser()  {
         return this.authService.currentUser;
     }
@@ -86,26 +75,20 @@ export class EditCompetencesListComponent {
         return false;
     }
 
-
     MasteringUsed(): any {
         let timeout: NodeJS.Timer;
         return (ctl: FormControl) => {
             clearTimeout(timeout);
             const skill = ctl.value;
-            console.log(skill)
             return new Promise(resolve => {
                 timeout = setTimeout(() => {
                         this.isSkillInMastering(skill);
-                        console.log(this.isSkillInMastering(skill))
                         resolve(this.isSkillInMastering(skill) ? {MasteringUsed: true } : null);
-                   
                 }, 300);
             });
         };
     }
 
-    
-    // Validateur bidon qui vérifie que la valeur est différente
     forbiddenValue(val: string): any {
         return (ctl: FormControl) => {
             if (ctl.value === val) {
@@ -115,16 +98,11 @@ export class EditCompetencesListComponent {
         };
     }
 
-   
-
      refresh(id: number) {
         this.masteringService.getAllById(id).subscribe(m => {
             this.masterings = m;
         });
-        
     }
-
-
 
     create(form : any){
               var skill = plainToClass(Skill, form.value.skill);
@@ -132,20 +110,6 @@ export class EditCompetencesListComponent {
                    this.refresh(this.connectedUser?.userId!);
               });
     }
-
-
-
-    onChange() {
-       
-    }
-
-    
-
-    handleChildEvent () {
-        // do what you need here
-        console.log("parent refreshed");
-    }
-
 
     onNoClick(): void {
         this.dialogRef.close();
@@ -157,9 +121,5 @@ export class EditCompetencesListComponent {
 
     cancel() {
         this.dialogRef.close();
-    
-       
-       
-        
     }
 }

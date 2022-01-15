@@ -8,7 +8,6 @@ namespace backend.Models
     {
 
         public int UserId { get; set; }
-       
 
         public string Firstname { get; set; }
         
@@ -39,18 +38,8 @@ namespace backend.Models
        public ICollection<ExperienceDTO> Experiences { get; set; }
 
        public ICollection<UserDTO> consultants { get; set; }
- 
-        
+
     }
-
-    /*public class ManagerDTO : UserDTO {
-        public ICollection<UserDTO> consultants { get; set; }
- 
-    }*/
-  
-
-
-
 
     public class UserWithPasswordDTO : UserDTO
     {

@@ -20,10 +20,6 @@ using PRID_Framework;
     [Required]
     public string Name { get; set;}
 
-  
-
-   
-
     public Category(){}
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext) {

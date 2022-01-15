@@ -12,11 +12,8 @@ import { ConfirmData } from "src/app/models/Confirm-data";
 export class ConfirmComponent implements OnInit {
 
    constructor(@Inject(MAT_DIALOG_DATA) public data : ConfirmData){
-
    }
-    ngOnInit(): void {
-        
-    }
+    ngOnInit(): void {} 
 
    
 }

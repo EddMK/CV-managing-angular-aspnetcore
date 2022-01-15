@@ -38,49 +38,34 @@ export class EnterpriseListComponent implements AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit(): void {
-        // lie le datasource au sorter et au paginator
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        // définit le predicat qui doit être utilisé pour filtrer les membres
         this.dataSource.filterPredicate = (data: Enterprise, filter: string) => {
             const str = data.name + ' ';
             return str.toLowerCase().includes(filter);
         };
-        // établit les liens entre le data source et l'état de telle sorte que chaque fois que 
-        // le tri ou la pagination est modifié l'état soit automatiquement mis à jour
         this.state.bind(this.dataSource);
-        // récupère les données 
         this.refresh();
     }
 
     refresh() {
         console.log("arrive !");
         this.EnterpriseService.getAll().subscribe( enterprises => {
-            console.log(enterprises);
-            // assigne les données récupérées au datasource
             this.dataSource.data = enterprises;
-            // restaure l'état du datasource (tri et pagination) à partir du state
             this.state.restoreState(this.dataSource);
-            // restaure l'état du filtre à partir du state
             this.filter = this.state.filter;
         });
         
     }
 
-    // appelée chaque fois que le filtre est modifié par l'utilisateur
     filterChanged(e: KeyboardEvent) {
         const filterValue = (e.target as HTMLInputElement).value;
-        // applique le filtre au datasource (et provoque l'utilisation du filterPredicate)
         this.dataSource.filter = filterValue.trim().toLowerCase();
-        // sauve le nouveau filtre dans le state
         this.state.filter = this.dataSource.filter;
-        // comme le filtre est modifié, les données aussi et on réinitialise la pagination
-        // en se mettant sur la première page
         if (this.dataSource.paginator)
             this.dataSource.paginator.firstPage();
     }
 
-    // appelée quand on clique sur le bouton "edit" d'un membre
     edit(enterprise: Enterprise) {
         const dlg = this.dialog.open(EditEnterpriseComponent, { data: { enterprise, isNew: false } });
         dlg.beforeClosed().subscribe(res => {
@@ -113,9 +98,6 @@ export class EnterpriseListComponent implements AfterViewInit, OnDestroy {
         })
     }
 
-
-
-    // appelée quand on clique sur le bouton "new member"
     create() {
         const enterprise = new Enterprise();
         const dlg = this.dialog.open(EditEnterpriseComponent, { data: { enterprise, isNew: true } });

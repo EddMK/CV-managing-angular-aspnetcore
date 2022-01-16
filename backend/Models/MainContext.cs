@@ -67,14 +67,14 @@ namespace backend.Models
             );
 
             modelBuilder.Entity<Consultant>().HasData( 
-                new Consultant {Password = "dan", Email="danielsoria@gmail.com", FirstName="Daniel", LastName="Calatayud Soria", Title= "Java developer", BirthDate=new DateTime(1989, 11, 26), Role = Role.CONSULTANT, About = about1 ,     UserId =1, managerID = 7},
-                new Consultant {Password = "li", Email="linh@gmail.com", FirstName="Linh", LastName="Nguyen", Title="java developer" ,BirthDate=new DateTime(1996, 2, 26), Role = Role.CONSULTANT,About="", UserId = 3, managerID = 7},
+                new Consultant {Password = "dani", Email="daniel@gmail.com", FirstName="Daniel", LastName="Calatayud", Title= "Java developer", BirthDate=new DateTime(1989, 11, 26), Role = Role.CONSULTANT, About = about1 , UserId =1, managerID = 7},
+                new Consultant {Password = "linh", Email="linh@gmail.com", FirstName="Linh", LastName="Nguyen", Title="java developer" ,BirthDate=new DateTime(1996, 2, 26), Role = Role.CONSULTANT,About="", UserId = 3, managerID = 7},
                 new Consultant {Password = "alex", Email="alexei@gmail.com", FirstName="Alexei", LastName="Revenko", Title="java developer", BirthDate=new DateTime(1999, 1, 2), Role = Role.CONSULTANT,About="",UserId = 4, managerID = 7},
                 new Consultant {Password = "jen", Email="jen@gmail.com", FirstName="jen", LastName="Kins", Title="python developer", BirthDate=new DateTime(1995, 1, 2), Role = Role.CONSULTANT,About="",UserId = 5}
             );
 
             modelBuilder.Entity<Training>().HasData(
-                  new Training {IdExperience = 1, UserId = 1,Start = new DateTime(2019, 10, 15), Finish = null , IdEnterprise = 1, Title = "Bachelore in computer science",Description ="Learning fundamentals of I.T and software development", Role = ExperienceRole.TRAINING, Grade = 90},
+                new Training {IdExperience = 1, UserId = 1,Start = new DateTime(2019, 10, 15), Finish = null , IdEnterprise = 1, Title = "Bachelore in computer science",Description ="Learning fundamentals of I.T and software development", Role = ExperienceRole.TRAINING, Grade = 90},
                 new Training {IdExperience = 2, UserId = 3,Start = new DateTime(2019, 10, 15), Finish = null , IdEnterprise = 1, Title = "Bachelore in computer science",Description ="Learning fundamentals of I.T and software development", Role = ExperienceRole.TRAINING, Grade = 90},
                 new Training {IdExperience = 4, UserId = 5,Start = new DateTime(2016, 10, 15), Finish = new DateTime(2019, 06, 30) , IdEnterprise = 3, Title = "Bachelor in Physics",Description ="", Role = ExperienceRole.TRAINING, Grade = 80},
                 new Training {IdExperience = 5, UserId = 5,Start = new DateTime(2013, 10, 15), Finish = new DateTime(2016, 06, 30) , IdEnterprise = 3, Title = "Bachelore in law",Description ="", Role = ExperienceRole.TRAINING, Grade = 90},

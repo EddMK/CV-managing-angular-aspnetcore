@@ -98,7 +98,8 @@ public class UsersController : ControllerBase
     [Authorized(Role.MANAGER)]
     [HttpPut("unlink")]
     public async Task<IActionResult> UnLink(UserDTO dto) {
-      var consultant = await _context.Consultants.FindAsync(dto.UserId);
+        Console.WriteLine("arrived in the controller");
+        var consultant = await _context.Consultants.FindAsync(dto.UserId);
             if (consultant == null){
                 return NotFound();
             }
@@ -113,7 +114,6 @@ public class UsersController : ControllerBase
     [HttpPut("link/{id}")]
     public async Task<IActionResult> Link([FromBody]UserDTO dto, int id) {
       var consultant = await _context.Consultants.FindAsync(dto.UserId);
-      Console.WriteLine(dto.Email);
             if (consultant == null){
                 return NotFound();
             }

@@ -34,6 +34,7 @@ export class ExperienceService {
     }
 
     public addExperience(e : Experience){
+        console.log(e + " arrived in service")
         return this.http.post<number>(`${this.baseUrl}api/experiences`, e)
         .pipe(map(res => 
             {console.log(res);

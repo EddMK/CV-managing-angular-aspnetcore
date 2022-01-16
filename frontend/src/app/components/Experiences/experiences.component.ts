@@ -108,6 +108,9 @@ export class ExperiencesComponent implements OnInit {
           res.client = enterprise;
           res.userId = this.currentUser?.userId!;
           res.role = category;
+          if(category === "Mission"){
+            res.client = null;
+          }
           res = plainToClass(Experience, res);
           console.log(res);
           this.experienceService.addExperience(res).subscribe(idexperience => {

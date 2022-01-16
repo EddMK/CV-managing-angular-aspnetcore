@@ -38,6 +38,7 @@ export class UserService {
     }
 
     public unLink(m: User): Observable<boolean> {
+        console.log("unlink")
         return this.http.put<User>(`${this.baseUrl}api/Users/unlink`, m).pipe(
             map(res => true),
             catchError(err => {

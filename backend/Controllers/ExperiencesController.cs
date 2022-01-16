@@ -63,10 +63,12 @@ namespace prid_2122_g04.Controllers
         [HttpPost]
         public async Task<ActionResult<int>> Post(ExperienceDTO experience) {
             int result = DateTime.Compare(experience.Finish, new DateTime());
+            
             Experience newExperience = new Mission(){
                 UserId = experience.UserId, Start = experience.Start, Finish = experience.Finish,
                 IdEnterprise = experience.Enterprise.IdEnterprise, Title = experience.Title, Description = experience.Description,
-                Role = ExperienceRole.MISSION};
+                Role = ExperienceRole.MISSION,
+                clientIdEnterprise = null};
             if(experience.Role == "TRAINING"){
                 newExperience = new Training(){
                     UserId = experience.UserId, Start = experience.Start, Finish = experience.Finish,

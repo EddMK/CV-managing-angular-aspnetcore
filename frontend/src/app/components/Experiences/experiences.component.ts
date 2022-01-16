@@ -104,9 +104,12 @@ export class ExperiencesComponent implements OnInit {
       const dlg = this.dialog.open(EditExperienceComponent, { data: { training, isNew: true, isMission : category=="MISSION"?true : false}, height : '150%', width : '50%' });
       dlg.beforeClosed().subscribe(res => {
         if (res) {
+          var enterprise : Enterprise = { idEnterprise : 5, name : "Odoo", enterpriseRole : "client"};
+          res.client = enterprise;
           res.userId = this.currentUser?.userId!;
           res.role = category;
           res = plainToClass(Experience, res);
+          console.log(res);
           this.experienceService.addExperience(res).subscribe(idexperience => {
             res.idExperience = idexperience;
             if (!idexperience) {

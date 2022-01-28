@@ -10,6 +10,7 @@ import { EnterpriseListComponent} from '../components/enterprise-list/enterprise
 import { UnknownComponent } from '../components/unknown/unknown.component';
 import { AuthGuard } from '../services/auth.guard';
 import { CVComponent } from '../components/CV/CV.component';
+import { Session2Component } from '../components/session2/session2.component';
 import { Role } from '../models/User';
 
 
@@ -38,6 +39,10 @@ const appRoutes: Routes = [
 {
   path: 'skillList',
   component: SkillListComponent
+},
+{
+  path: 'session2',
+  component: Session2Component
 },
 {
   path: 'enterpriseList',

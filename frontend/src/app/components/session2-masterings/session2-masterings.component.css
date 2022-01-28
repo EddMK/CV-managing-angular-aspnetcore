@@ -1,0 +1,30 @@
+table {
+    width: 50%;
+}
+
+td.fullName {
+    width: 70%
+}
+
+td.level {
+    width: 30%
+}
+
+td.level mat-form-field {
+    width: 50px;
+}
+
+fieldset {
+    margin: 10px;
+    border: 1px solid red !important;
+    padding: 0 10px 10px 10px;
+    border-bottom: none;
+}
+
+legend {
+    text-align: right;
+    width: auto !important;
+    border: none;
+    font-size: 12pt;
+    color: red;
+}

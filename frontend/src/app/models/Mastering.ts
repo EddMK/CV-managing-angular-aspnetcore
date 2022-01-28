@@ -9,6 +9,7 @@ import { Moment } from "moment";
 import 'reflect-metadata';
 import { Category } from "./Category";
 import { Skill } from "./Skill";
+import { User } from "./User";
 
 
 export enum Level {

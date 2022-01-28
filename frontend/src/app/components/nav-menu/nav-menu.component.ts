@@ -3,7 +3,7 @@ import { User, Role } from '../../models/User';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Router } from '@angular/router';
 import { Console } from 'console';
-
+ 
 @Component({
     selector: 'app-nav-menu',
     templateUrl: './nav-menu.component.html',

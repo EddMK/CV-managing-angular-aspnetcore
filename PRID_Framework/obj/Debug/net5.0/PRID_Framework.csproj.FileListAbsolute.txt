@@ -22,3 +22,15 @@ C:\prid2122-g04\PRID_Framework\obj\Debug\net5.0\PRID_Framework.csproj.CoreCompil
 C:\prid2122-g04\PRID_Framework\obj\Debug\net5.0\PRID_Framework.dll
 C:\prid2122-g04\PRID_Framework\obj\Debug\net5.0\ref\PRID_Framework.dll
 C:\prid2122-g04\PRID_Framework\obj\Debug\net5.0\PRID_Framework.pdb
+V:\PRID2122\projects\prid2122-g04_s2_edouard\PRID_Framework\bin\Debug\net5.0\PRID_Framework.deps.json
+V:\PRID2122\projects\prid2122-g04_s2_edouard\PRID_Framework\bin\Debug\net5.0\PRID_Framework.dll
+V:\PRID2122\projects\prid2122-g04_s2_edouard\PRID_Framework\bin\Debug\net5.0\ref\PRID_Framework.dll
+V:\PRID2122\projects\prid2122-g04_s2_edouard\PRID_Framework\bin\Debug\net5.0\PRID_Framework.pdb
+V:\PRID2122\projects\prid2122-g04_s2_edouard\PRID_Framework\obj\Debug\net5.0\PRID_Framework.csproj.AssemblyReference.cache
+V:\PRID2122\projects\prid2122-g04_s2_edouard\PRID_Framework\obj\Debug\net5.0\PRID_Framework.GeneratedMSBuildEditorConfig.editorconfig
+V:\PRID2122\projects\prid2122-g04_s2_edouard\PRID_Framework\obj\Debug\net5.0\PRID_Framework.AssemblyInfoInputs.cache
+V:\PRID2122\projects\prid2122-g04_s2_edouard\PRID_Framework\obj\Debug\net5.0\PRID_Framework.AssemblyInfo.cs
+V:\PRID2122\projects\prid2122-g04_s2_edouard\PRID_Framework\obj\Debug\net5.0\PRID_Framework.csproj.CoreCompileInputs.cache
+V:\PRID2122\projects\prid2122-g04_s2_edouard\PRID_Framework\obj\Debug\net5.0\PRID_Framework.dll
+V:\PRID2122\projects\prid2122-g04_s2_edouard\PRID_Framework\obj\Debug\net5.0\ref\PRID_Framework.dll
+V:\PRID2122\projects\prid2122-g04_s2_edouard\PRID_Framework\obj\Debug\net5.0\PRID_Framework.pdb

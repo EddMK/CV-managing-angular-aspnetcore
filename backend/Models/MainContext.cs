@@ -195,7 +195,7 @@ namespace backend.Models
 
                 //for edouard
                 new Mastering { masteringId=23, userId=2, SkillId=5,  Level = Level.Intermediate},
-               new Mastering { masteringId=24, userId=2, SkillId=7,  Level = Level.Beginner},
+               //new Mastering { masteringId=24, userId=2, SkillId=7,  Level = Level.Beginner},
                new Mastering { masteringId=25, userId=2, SkillId=9,  Level = Level.Advanced},
                new Mastering { masteringId=26, userId=2, SkillId=12,  Level = Level.Intermediate}
 

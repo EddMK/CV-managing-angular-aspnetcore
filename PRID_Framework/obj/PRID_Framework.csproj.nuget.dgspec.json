@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "C:\\PRID\\prid2122-g04\\PRID_Framework\\PRID_Framework.csproj": {}
+    "V:\\PRID2122\\projects\\prid2122-g04_s2_edouard\\PRID_Framework\\PRID_Framework.csproj": {}
   },
   "projects": {
-    "C:\\PRID\\prid2122-g04\\PRID_Framework\\PRID_Framework.csproj": {
+    "V:\\PRID2122\\projects\\prid2122-g04_s2_edouard\\PRID_Framework\\PRID_Framework.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\PRID\\prid2122-g04\\PRID_Framework\\PRID_Framework.csproj",
+        "projectUniqueName": "V:\\PRID2122\\projects\\prid2122-g04_s2_edouard\\PRID_Framework\\PRID_Framework.csproj",
         "projectName": "PRID_Framework",
-        "projectPath": "C:\\PRID\\prid2122-g04\\PRID_Framework\\PRID_Framework.csproj",
-        "packagesPath": "C:\\Users\\Daniel\\.nuget\\packages\\",
-        "outputPath": "C:\\PRID\\prid2122-g04\\PRID_Framework\\obj\\",
+        "projectPath": "V:\\PRID2122\\projects\\prid2122-g04_s2_edouard\\PRID_Framework\\PRID_Framework.csproj",
+        "packagesPath": "C:\\Users\\localastro\\.nuget\\packages\\",
+        "outputPath": "V:\\PRID2122\\projects\\prid2122-g04_s2_edouard\\PRID_Framework\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Daniel\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\localastro\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -58,7 +60,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "V:\\PRID2122\\tools\\dotnet-sdk\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     }

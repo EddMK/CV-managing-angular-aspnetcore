@@ -1,0 +1,28 @@
+<fieldset>
+    <legend>Session2MasteringsComponent</legend>
+    <div *ngIf="listMasterings.length > 0">
+        <h3>Users mastering this skill:</h3>
+        <div *ngFor="let mastering of listMasterings">
+            <table>
+                <tr>
+                    <td class="fullName">
+                        <p> UserId : {{ mastering.userId}} </p>
+                    </td>
+                    <td class="level">
+                        <mat-form-field>
+                            <mat-label>Level</mat-label>
+                            <mat-select (selectionChange)="changeLevel($event.value,mastering.masteringId! )" [value]="mastering.level">
+                                <mat-option *ngFor="let level of listLevel" [value]="level">
+                                    {{level}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div *ngIf="listMasterings.length == 0">
+        <p> No user found mastering this skill! </p>
+    </div>
+</fieldset>

@@ -33,6 +33,8 @@ import { EditCompetencesListComponent } from '../components/edit-competences-lis
 import { EditCompetenceComponent } from '../components/edit-competence/edit-competence.component';
 import { ConfirmComponent } from '../components/confirm/confirm.component';
 import { AddMastering } from '../components/app/add-mastering/add-mastering.component';
+import { Session2Component } from '../components/session2/session2.component';
+import { Session2MasteringsComponent} from '../components/session2-masterings/session2-masterings.component';
 
 
 
@@ -53,7 +55,8 @@ export function getBaseUrl() {
         UnknownComponent,
         //RestrictedComponent,
         CVComponent,
-    
+        Session2Component,
+        Session2MasteringsComponent,
         TitleComponent,
         SkillsComponent,
         ExperiencesComponent,
@@ -89,6 +92,7 @@ export function getBaseUrl() {
             { path: 'login', component: LoginComponent},
             { path: 'signup', component: SignupComponent},
             { path: 'skill-list', component: SkillListComponent},
+            { path: 'session2', component: Session2Component},
             { path: 'enterprise-list', component : EnterpriseListComponent}
         ]),
         BrowserAnimationsModule

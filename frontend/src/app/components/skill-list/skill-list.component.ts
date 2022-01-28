@@ -35,7 +35,7 @@ export class SkillListComponent implements AfterViewInit, OnDestroy{
         private SkillService: SkillService,
         private stateService: StateService,
         public dialog: MatDialog,
-        public snackBar: MatSnackBar,
+        public snackBar: MatSnackBar, 
         private confirmService: ConfirmService
     ) {
         this.state = new MatTableState('skill', 'asc', 5);

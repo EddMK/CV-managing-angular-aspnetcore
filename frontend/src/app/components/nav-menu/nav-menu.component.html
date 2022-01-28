@@ -7,7 +7,12 @@
             </button>
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end" [ngClass]="{ show: isExpanded }">
                 <ul class="navbar-nav flex-grow">
-                    <li class="nav-item" [routerLinkActive]='["link-active"]' >
+                    <li class="nav-item" [routerLinkActive]='["link-active"]' *ngIf="isManager">
+                        <a class="nav-link text-white " [routerLink]="['/session2']">
+                            Session 2
+                        </a>
+                    </li>
+                    <li class="nav-item" [routerLinkActive]='["link-active"]'>
                         <a class="nav-link text-white " [routerLink]="['/']">
                             <span class="material-icons">home</span> Home
                         </a>
@@ -23,13 +28,13 @@
                             <span class="material-icons">business</span> Enterprises
                         </a>
                     </li>
-                    
-                    <li class="nav-item" [routerLinkActive]='["link-active"]'  *ngIf="isManager">
+
+                    <li class="nav-item" [routerLinkActive]='["link-active"]' *ngIf="isManager">
                         <a class="nav-link text-white" [routerLink]="['/team']">
                             <span class="material-icons">groups</span> Team
                         </a>
                     </li>
-                    <li class="nav-item" [routerLinkActive]='["link-active"]'  *ngIf="currentUser">
+                    <li class="nav-item" [routerLinkActive]='["link-active"]' *ngIf="currentUser">
                         <a class="nav-link text-white" [routerLink]="['/CV']">
                             <span class="material-icons">description</span> CV
                         </a>
@@ -37,7 +42,7 @@
                     <li class="nav-item" [routerLinkActive]='["link-active"]' *ngIf="!currentUser">
                         <a class="nav-link text-white" [routerLink]='["/login"]'>
                             <span class="material-icons">exit_to_app</span> Login
-                        
+
                         </a>
                     </li>
                     <li class="nav-item" [routerLinkActive]='["link-active"]' *ngIf="!currentUser">
@@ -45,15 +50,15 @@
                             <span class="material-icons">person_add_alt</span> Signup
                         </a>
                     </li>
-                
+
                     <li class="nav-item" [routerLinkActive]='["link-active"]' *ngIf="currentUser">
-                    
+
                         <a class="nav-link text-white" [routerLink]='' (click)='logout()'>
-                            <span class="material-icons">power_settings_new</span>  Logout
+                            <span class="material-icons">power_settings_new</span> Logout
                         </a>
-                        
+
                     </li>
-                    
+
                 </ul>
             </div>
         </div>

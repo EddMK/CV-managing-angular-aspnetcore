@@ -31,7 +31,7 @@ namespace prid_2122_g04.Controllers
         [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SkillDto>>> GetAll() {
-            return _mapper.Map<List<SkillDto>>(await _context.Skills.Include(e => e.category).ToListAsync());
+            return _mapper.Map<List<SkillDto>>(await _context.Skills.Include(e => e.category).OrderBy(s => s.Name).ToListAsync());
         }
         
 

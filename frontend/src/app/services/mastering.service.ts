@@ -18,6 +18,12 @@ export class MasteringService {
         );
     }
 
+    getAllBySkillid(id : number): Observable<Mastering[]> {
+        return this.http.get<any[]>(`${this.baseUrl}api/mastering/byskillid/${id}`)
+            .pipe(map(res => plainToClass(Mastering, res))
+        );
+    }
+
     public delete(m: Mastering): Observable<boolean> {
         return this.http.delete<boolean>(`${this.baseUrl}api/mastering/${m.masteringId}`).pipe(
             map(res => true),
@@ -51,7 +57,15 @@ export class MasteringService {
         );
     }
 
-
+    public changeLevel(masteringId : number, level : number): Observable<boolean> {
+        return this.http.delete<boolean>(`${this.baseUrl}api/mastering/changeLevel/${masteringId}/${level}`).pipe(
+            map(res => true),
+            catchError(err => {
+                console.error(err);
+                return of(false);
+            })
+        );
+    }
 
 
     

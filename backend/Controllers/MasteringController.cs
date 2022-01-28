@@ -43,6 +43,13 @@ public class MasteringController : ControllerBase
             .ToListAsync());
     }
 
+    [AllowAnonymous]
+    [HttpGet("byskillid/{skillid}")]
+    public async Task<ActionResult<IEnumerable<MasteringDto>>> GetAllBySkill(int skillid) {
+        return _mapper.Map<List<MasteringDto>>(await _context.Masterings.Where(m => m.SkillId == skillid).Include(m => m.User)
+            .ToListAsync());
+    }
+
 
     [AllowAnonymous]
     [HttpDelete("{id}")]
@@ -112,7 +119,26 @@ public class MasteringController : ControllerBase
 
 
 
-
+    [AllowAnonymous]
+    [HttpDelete("changeLevel/{masteringid}/{levelnumber}")]
+    public async Task<ActionResult> ChangeLevel(int masteringid, int levelnumber) {
+        Console.WriteLine("Arrivé dans changement level ! ");
+        var m = await _context.Masterings.FindAsync(masteringid);
+        if(levelnumber == 0){
+                    m.Level = Level.Beginner;
+                }
+                else if(levelnumber == 1){
+                    m.Level = Level.Intermediate;
+                }
+                else if(levelnumber == 2){
+                    m.Level = Level.Advanced;
+                }
+                else {
+                    m.Level = Level.Expert;
+                }
+        _context.SaveChanges();
+         return NoContent();
+    }
 
 
 

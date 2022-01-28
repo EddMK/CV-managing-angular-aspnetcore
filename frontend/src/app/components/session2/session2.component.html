@@ -1,0 +1,20 @@
+<fieldset>
+    <legend>Session2Component</legend>
+    <h1>Session 2</h1>
+    <hr>
+    <div>
+        <mat-form-field appearance="fill">
+            <mat-label>Select a Skill</mat-label>
+            <mat-select (selectionChange)="changeClient($event.value)">
+                <mat-option *ngFor="let skill of skillsList" [value]="skill">
+                    {{skill.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div>
+        <label>Average mastering level: <b>{{ average}}</b></label>
+        <hr>
+        <app-session2-masterings [skill]="skillSelected" (newItemEvent)="updateAverage($event)"></app-session2-masterings>
+    </div>
+</fieldset>
